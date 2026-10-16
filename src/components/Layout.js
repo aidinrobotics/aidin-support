@@ -61,9 +61,10 @@ export function SubVisual({ variant = 'section' }) {
   const searchPath = useBaseUrl('/search');
   const tabs = section && nav.sections[section] ? nav.sections[section].tabs : [];
   return (
-    <section className="aidin-visual">
+    <section className={`aidin-visual${variant === 'search' ? '' : ' aidin-visual--sub'}`}>
       <div className="aidin-container aidin-visual__inner">
-        <div className="aidin-visual__title">{t.center}</div>
+        {variant !== 'search' && <div className="aidin-visual__eyebrow">{t.eyebrow}</div>}
+        <div className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : nav.sections[section].title}</div>
         {variant === 'search' ? (
           <form
             className="aidin-bar aidin-bar--search"
@@ -110,7 +111,6 @@ export function TitleSection({ title, description, children }) {
   return (
     <section className="aidin-title">
       <div className="aidin-container">
-        <div className="aidin-eyebrow">{t.eyebrow}</div>
         <h1 className="aidin-title__h">{title}</h1>
         {description && <p className="aidin-title__desc">{description}</p>}
         {children}
@@ -119,23 +119,20 @@ export function TitleSection({ title, description, children }) {
   );
 }
 
+// 모든 페이지 하단 공통 (A/S 신청 페이지 제외) — 푸터 바로 위
 export function SupportBand() {
   const t = useT();
   return (
-    <section className="aidin-container aidin-band-wrap">
-      <div className="aidin-band">
-        <div className="aidin-band__text">
-          <div className="aidin-band__eyebrow">{t.bandEyebrow}</div>
-          <h2 className="aidin-band__title">{t.bandTitle}</h2>
-          <p>{t.bandText}</p>
+    <section className="aidin-container aidin-cta">
+      <div className="aidin-cta__box">
+        <span className="aidin-cta__ic"><Icon name="headset" size={26} stroke={1.7} /></span>
+        <div className="aidin-cta__text">
+          <strong>{t.ctaTitle}</strong>
+          <span>{t.ctaText}</span>
         </div>
-        <div className="aidin-band__btns">
-          <Link to="/as" className="aidin-btn aidin-btn--red aidin-btn--lg">
-            {t.bandAs}
-          </Link>
-          <Link to="/faq" className="aidin-btn aidin-btn--ghost aidin-btn--lg">
-            {t.bandFaq}
-          </Link>
+        <div className="aidin-cta__btns">
+          <Link to="/faq" className="aidin-btn aidin-btn--line">{t.ctaFaq}</Link>
+          <Link to="/as" className="aidin-btn aidin-btn--red">{t.ctaAs} <Icon name="arrowRight" size={18} /></Link>
         </div>
       </div>
     </section>
