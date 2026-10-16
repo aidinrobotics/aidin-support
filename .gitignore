@@ -1,0 +1,27 @@
+# Dependencies
+/node_modules
+
+# Production
+/build
+
+# Generated files
+.docusaurus
+.cache-loader
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 빌드 때 aidin-docs·aidin-docs-en에서 자동으로 만들어지는 파일 (직접 수정하지 마세요)
+/.src
+/docs
+/i18n/en/docusaurus-plugin-content-docs
+/src/data/nav.json
+/src/data/sidebar.json
