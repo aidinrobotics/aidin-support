@@ -285,7 +285,8 @@ function buildLocale(locale) {
       const topRaw = fs.existsSync(path.join(src, top.file)) ? splitFrontmatter(fs.readFileSync(path.join(src, top.file), 'utf8')) : { fm: {}, body: '' };
       const parts = kids.map((k) => {
         const { body } = splitFrontmatter(fs.readFileSync(path.join(src, k.file), 'utf8'));
-        return demoteHeadings(transform(body, k.file).replace(/^#\s+.+$/m, `# ${k.title}`));
+        // 원고에 H1이 없어도 항목 이름을 제목으로 넣음
+        return demoteHeadings(`# ${k.title}\n\n` + transform(body, k.file).replace(/^#\s+.+$/m, ''));
       });
       const allFile = `${section}-all.md`;
       const front = {
