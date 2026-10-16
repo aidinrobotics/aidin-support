@@ -116,15 +116,6 @@ export function SubVisual({ variant = 'section' }) {
             {(section === 'manual' || tabs.length > 1) && <span className="aidin-bar__sep" aria-hidden="true" />}
             <SubDropdown section={section} slug={slug} page={page} nav={nav} />
             <span className="aidin-bar__spacer" />
-            {tabs.length > 1 && (
-              <nav className="aidin-tabs" aria-label="tabs">
-                {tabs.map((tb) => (
-                  <Link key={tb.path} to={tb.path} className={tb.path === slug ? 'is-active' : undefined}>
-                    {tb.label}
-                  </Link>
-                ))}
-              </nav>
-            )}
           </div>
         )}
       </div>
