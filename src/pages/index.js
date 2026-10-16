@@ -23,7 +23,8 @@ function useSubLinks(section) {
       .filter(([path, p]) => p.section === 'manual' && !p.family && path !== '/manual' && path.split('/').length === 3)
       .map(([path, p]) => ({ path, label: p.label || p.title }));
   }
-  return (nav.sections[section]?.tabs || []).map((tb) => ({ path: tb.path, label: tb.label }));
+  const sec = nav.sections[section];
+  return (sec?.tabs || []).filter((tb) => tb.path !== sec.path).map((tb) => ({ path: tb.path, label: tb.label }));
 }
 
 function Card({ section, index }) {
