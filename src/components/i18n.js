@@ -21,7 +21,7 @@ const S = {
     ctaText: 'A/S를 신청하시면 담당 엔지니어가 확인 후 직접 회신드립니다.',
     ctaFaq: '자주 묻는 질문',
     ctaAs: 'A/S 신청',
-    asButton: '바로가기',
+    asButton: '접수하기',
     viewAll: { manual: '매뉴얼 전체 보기', install: '가이드 전체 보기', downloads: '자료실 전체 보기', faq: '질문 전체 보기' },
     qSupport: '고객지원',
     qContact: '문의하기',
