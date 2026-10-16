@@ -180,10 +180,8 @@ function buildLocale(locale) {
   LINK_MAP = { 'README.md': prefix + '/' };
   for (const top of tree) {
     const sec = SECTIONS[path.basename(top.file)];
-    if (['install', 'downloads', 'faq'].includes(sec)) {
-      const firstKid = top.children.find((k) => !EXCLUDE.some((x) => k.file.includes(x)) && fs.existsSync(path.join(src, k.file)));
-      if (firstKid) LINK_MAP[top.file] = firstKid.file;
-    }
+    // 섹션 첫 화면 링크(index-downloads.md 등)는 '전체' 페이지로
+    if (['install', 'downloads', 'faq'].includes(sec)) LINK_MAP[top.file] = `${sec}-all.md`;
   }
   const nav = { sections: {}, pages: {} };
   const sidebar = [];
@@ -263,7 +261,7 @@ function buildLocale(locale) {
         items.push({
           type: 'category',
           label: fam.title,
-          collapsible: true,
+          collapsible: false,
           collapsed: false,
           link: { type: 'doc', id: docId(fam.file) },
           items: famItems,
@@ -272,18 +270,49 @@ function buildLocale(locale) {
       sidebar.push(...items);
       continue;
     }
-    // install / downloads / faq: 하위 항목이 탭이 되고, 첫 탭이 섹션 첫 화면
-    let first = true;
+    // 하위 메뉴는 각자 주소를 갖고, 섹션 첫 주소(/downloads 등)는 모든 하위 메뉴를 한 페이지에 모은 '전체' 페이지
+    const kids = [];
     for (const k of top.children) {
       if (EXCLUDE.some((x) => k.file.includes(x))) continue;
-      const slug = first ? base : `${base}/${slugPart(k.file)}`;
+      const slug = `${base}/${slugPart(k.file)}`;
       if (writeDoc(k, section, { slug, label: k.title })) {
         sec.tabs.push({ label: section === 'install' ? tabLabel(k.title) : k.title, path: prefix + slug });
-        first = false;
+        kids.push(k);
       }
+    }
+    if (kids.length) {
+      const allLabel = locale === 'en' ? 'All' : '전체';
+      const topRaw = fs.existsSync(path.join(src, top.file)) ? splitFrontmatter(fs.readFileSync(path.join(src, top.file), 'utf8')) : { fm: {}, body: '' };
+      const parts = kids.map((k) => {
+        const { body } = splitFrontmatter(fs.readFileSync(path.join(src, k.file), 'utf8'));
+        return demoteHeadings(transform(body, k.file).replace(/^#\s+.+$/m, `# ${k.title}`));
+      });
+      const allFile = `${section}-all.md`;
+      const front = {
+        slug: base,
+        title: sec.title,
+        sidebar_label: allLabel,
+        description: topRaw.fm.description,
+        custom_edit_url: `https://github.com/${ORG}/${DOCS_REPO[locale]}/edit/main/${top.file}`,
+        pagination_next: 'null',
+        pagination_prev: 'null',
+      };
+      fs.writeFileSync(path.join(out, allFile), yaml(front).replace(/: "null"/g, ': null') + `# ${sec.title}\n\n` + parts.join('\n\n'));
+      nav.pages[prefix + base] = { section, title: sec.title, label: allLabel, description: topRaw.fm.description || '', family: null, isManual: false, pdf: null, isAll: true };
+      sec.tabs.unshift({ label: allLabel, path: prefix + base });
     }
   }
   return { nav, sidebar };
+}
+
+// 전체 페이지에 넣을 때 제목 단계를 한 단계씩 내림 (코드 블록 안은 건드리지 않음)
+function demoteHeadings(md) {
+  let fence = false;
+  return md.split('\n').map((line) => {
+    if (/^\s*(```|~~~)/.test(line)) fence = !fence;
+    if (!fence && /^#{1,5}\s/.test(line)) return '#' + line;
+    return line;
+  }).join('\n');
 }
 
 function docId(file) {
