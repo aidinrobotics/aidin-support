@@ -79,6 +79,10 @@ body { background: #fff; }
 /* ── 검은 영역 ─────────────────────────── */
 .aidin-visual { background: #000 url('/img/sub-visual-bg.jpg') center bottom / cover no-repeat; color: #fff; }
 .aidin-visual__inner { height: 444px; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 15px; }
+.aidin-visual--sub { background-color: #000; background-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.7) 45%, rgba(0,0,0,.2) 100%), url('/img/sub-visual-bg.jpg'); background-size: 100% 100%, 1920px auto; background-position: center, right bottom; background-repeat: no-repeat; }
+.aidin-visual--sub .aidin-visual__inner { height: auto; padding-top: 60px; padding-bottom: 24px; justify-content: flex-start; }
+.aidin-visual__eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .14em; color: #f14959; }
+.aidin-visual--sub .aidin-visual__title { margin: 10px 0 36px; font-size: 52px; line-height: 1.2; }
 .aidin-visual__title { margin: 0 0 16px; font-size: 69px; line-height: 90px; font-weight: 700; letter-spacing: -0.02em; }
 .aidin-bar {
   display: flex; align-items: center; height: 56px; border: 1px solid rgba(255,255,255,.26); border-radius: 7.5px;
@@ -118,9 +122,9 @@ body { background: #fff; }
 .aidin-btn--line:hover { border-color: #9e9e9e; }
 
 /* ── 페이지 제목 ────────────────────────── */
-.aidin-title { padding: 96px 0 0; text-align: center; }
+.aidin-title { padding: 64px 0 0; text-align: center; }
 .aidin-eyebrow { font-size: 17px; font-weight: 600; color: var(--aidin-red); }
-.aidin-title__h { margin: 12px 0 0; font-size: 45px; font-weight: 700; letter-spacing: -0.02em; color: var(--aidin-ink); line-height: 1.25; }
+.aidin-title__h { margin: 0; font-size: 40px; font-weight: 700; letter-spacing: -0.02em; color: var(--aidin-ink); line-height: 1.25; }
 .aidin-title__desc { margin: 18px 0 0; font-size: 19px; line-height: 1.7; color: var(--aidin-muted); }
 .aidin-title__actions { margin-top: 24px; display: flex; justify-content: center; gap: 10px; }
 .aidin-chips { margin-top: 22px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center; font-size: 15px; }
@@ -197,6 +201,64 @@ body { background: #fff; }
 .aidin-mnav { display: none; width: 100%; max-width: var(--aidin-max); margin: 32px auto 0; padding: 0 var(--aidin-gutter); box-sizing: border-box; }
 .aidin-mnav select { width: 100%; height: 50px; padding: 0 16px; font: inherit; font-size: 16px; border: 1px solid var(--aidin-line-2); border-radius: 4px; background: #fff; color: var(--aidin-ink); }
 
+/* ── 메인: 무엇을 도와드릴까요? ───────────── */
+.aidin-hero { background-color: #000; color: #fff; background-image: linear-gradient(180deg, #000 0%, #000 46%, rgba(0,0,0,0) 80%), url('/img/sub-visual-bg.jpg'); background-size: 100% 100%, 1920px auto; background-position: center top, center bottom; background-repeat: no-repeat; }
+.aidin-hero__inner { height: 372px; padding-top: 44px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.aidin-hero__title { margin: 0; font-size: 50px; line-height: 1.2; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
+.aidin-hero__sub { margin: 12px 0 0; font-size: 18px; color: rgba(255,255,255,.72); }
+.aidin-hero__search { margin-top: 30px; width: 100%; max-width: 820px; display: flex; align-items: center; gap: 12px; height: 66px; padding: 0 8px 0 26px; box-sizing: border-box; border-radius: 999px; background: #fff; color: #161616; box-shadow: 0 18px 40px -18px rgba(0,0,0,.7); }
+.aidin-hero__search input { flex: 1 1 auto; min-width: 0; border: 0; outline: none; background: transparent; font: inherit; font-size: 18px; color: #161616; }
+.aidin-hero__search button { height: 50px; padding: 0 30px; border: 0; border-radius: 999px; background: var(--aidin-red); color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
+.aidin-hero__search button:hover { background: var(--aidin-red-hover); }
+.aidin-hero__chips { margin-top: 18px; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; }
+.aidin-hero__chips span { color: rgba(255,255,255,.62); padding-right: 6px; }
+.aidin-hero__chips a { padding: 7px 15px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(0,0,0,.35); color: #fff; }
+.aidin-hero__chips a:hover { border-color: #fff; text-decoration: none; color: #fff; }
+
+/* 메인 카드 5개 — 홈페이지 카드처럼 마우스를 올리면 ↗ */
+.aidin-mcards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; padding-top: 44px; padding-bottom: 96px; }
+.aidin-mcard { display: flex; flex-direction: column; padding: 28px 26px 24px; box-sizing: border-box; background: #fff; border: 1px solid #e0e0e0; border-radius: 20px; transition: border-color .3s, box-shadow .3s; }
+.aidin-mcard:hover { border-color: #161616; box-shadow: 0 22px 40px -24px rgba(0,0,0,.35); }
+.aidin-mcard a { text-decoration: none !important; }
+.aidin-mcard__head { display: block; color: #161616 !important; }
+.aidin-mcard__top { display: flex; align-items: flex-start; justify-content: space-between; height: 34px; }
+.aidin-mcard__label { font-size: 14px; font-weight: 500; letter-spacing: .02em; color: #767676; }
+.aidin-mcard__label b { font-weight: 700; color: #161616; margin-right: 10px; transition: color .3s; }
+.aidin-mcard:hover .aidin-mcard__label b { color: var(--aidin-red); }
+.aidin-mcard__arrow { display: flex; opacity: 0; transform: rotate(-45deg); transition: opacity .4s, transform .6s cubic-bezier(.16,1,.3,1); }
+.aidin-mcard:hover .aidin-mcard__arrow { opacity: 1; transform: rotate(-45deg) translateX(6px); }
+.aidin-mcard__title { display: block; margin-top: 30px; font-size: 27px; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; transition: transform .4s cubic-bezier(.16,1,.3,1); }
+.aidin-mcard:hover .aidin-mcard__title { transform: translateY(-4px); }
+.aidin-mcard__list { list-style: none; margin: 26px 0 0; padding: 0; font-size: 15px; font-weight: 500; }
+.aidin-mcard__list a { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 0; border-top: 1px solid #ededed; color: #333 !important; }
+.aidin-mcard__list a svg { flex: 0 0 auto; color: #b5b5b5; transition: transform .25s, color .25s; }
+.aidin-mcard__list a:hover { color: var(--aidin-red) !important; }
+.aidin-mcard__list a:hover svg { color: var(--aidin-red); transform: translateX(3px); }
+.aidin-mcard__btn { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 46px; border: 1px solid #dcdcdc; border-radius: 8px; font-size: 15px; font-weight: 600; color: #161616 !important; transition: background-color .25s, border-color .25s, color .25s; }
+.aidin-mcard__list + .aidin-mcard__btn { margin-top: auto; }
+.aidin-mcard__list { margin-bottom: 22px; }
+.aidin-mcard:hover .aidin-mcard__btn { background: #161616; border-color: #161616; color: #fff !important; }
+.aidin-mcard__btn.is-red { background: var(--aidin-red); border-color: var(--aidin-red); color: #fff !important; }
+.aidin-mcard:hover .aidin-mcard__btn.is-red { background: var(--aidin-red-hover); border-color: var(--aidin-red-hover); }
+.aidin-mcard--dark { background: #000 url('/img/sub-visual-bg.jpg') center bottom / 1100px auto no-repeat; border-color: #000; }
+.aidin-mcard--dark:hover { border-color: #000; }
+.aidin-mcard--dark .aidin-mcard__head { color: #fff !important; }
+.aidin-mcard--dark .aidin-mcard__label { color: rgba(255,255,255,.6); }
+.aidin-mcard--dark .aidin-mcard__label b { color: #fff; }
+.aidin-mcard--dark .aidin-mcard__head + .aidin-mcard__btn { margin-top: auto; }
+
+/* 하단 공통 CTA (푸터 바로 위) */
+.aidin-cta { padding-bottom: 72px; }
+.aidin-cta__box { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 30px 36px; border-radius: 14px; background: #f5f5f6; }
+.aidin-cta__ic { flex: 0 0 auto; width: 56px; height: 56px; border-radius: 50%; background: #fff; color: var(--aidin-red); display: flex; align-items: center; justify-content: center; }
+.aidin-cta__text { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.aidin-cta__text strong { font-size: 21px; font-weight: 700; color: #161616; }
+.aidin-cta__text span { font-size: 16px; color: #595959; }
+.aidin-cta__btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.aidin-cta__btns .aidin-btn { height: 50px; padding: 0 24px; border-radius: 6px; }
+.aidin-cta__btns .aidin-btn--line { border-color: #cfcfcf; }
+.aidin-cta__btns .aidin-btn--line:hover { border-color: #161616; }
+
 /* ── 지원 띠 ─────────────────────────── */
 .aidin-band-wrap { padding-top: 40px; padding-bottom: 120px; }
 .aidin-band { border-radius: 16px; padding: 64px; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; color: #fff; background: #000 url('/img/sub-visual-bg.jpg') center bottom / cover no-repeat; }
@@ -209,7 +271,7 @@ body { background: #fff; }
 /* ── 푸터 (홈페이지와 동일) ─────────────── */
 .aidin-footer { background: #fff; border-top: 1px solid #d9d9d9; color: #000; }
 .aidin-footer a { color: inherit; }
-.aidin-footer__body { padding-top: 66px; padding-bottom: 24px; }
+.aidin-footer__body { padding-top: 40px; padding-bottom: 28px; }
 .aidin-footer__map { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
 .aidin-footer__map h3 { margin: 0; font-size: 19px; font-weight: 700; color: #000; }
 .aidin-footer__map h3.sub { margin-top: 26px; }
@@ -217,7 +279,7 @@ body { background: #fff; }
 .aidin-footer__map h3.sub + ul { margin-top: 10px; }
 .aidin-footer__map ul a { color: rgba(0,0,0,.6); }
 .aidin-footer__map ul.dim a { color: rgba(0,0,0,.48); }
-.aidin-footer__addr { margin-top: 43px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,.15); font-size: 15px; }
+.aidin-footer__addr { font-size: 15px; }
 .aidin-footer__addr dl { margin: 0; display: flex; align-items: center; min-height: 32px; flex-wrap: wrap; }
 .aidin-footer__addr dt.en { width: 115px; font-size: 13px; font-weight: 600; color: var(--aidin-red); }
 .aidin-footer__addr dt.ko { width: 115px; font-weight: 600; }
@@ -247,7 +309,7 @@ body { background: #fff; }
 .aidin-quick__list .lb { padding: 8px 15px; border-radius: 94px; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 8px rgba(0,0,0,.09); font-size: 14px; font-weight: 700; color: #111; white-space: nowrap; }
 .aidin-quick__list .ic { width: 51px; height: 51px; border-radius: 50%; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 8px rgba(0,0,0,.08), 0 10px 24px -10px rgba(0,0,0,.26); display: flex; align-items: center; justify-content: center; color: #111; }
 .aidin-quick__list .key .lb, .aidin-quick__list .key .ic { background: var(--aidin-red); border-color: var(--aidin-red); color: #fff; }
-.aidin-quick__btn { position: relative; width: 62px; height: 62px; border-radius: 50%; border: 0; cursor: pointer; background: var(--aidin-red); color: #fff; box-shadow: 6px 6px 20px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; transition: background-color .3s, box-shadow .4s; }
+.aidin-quick__btn { position: relative; width: 62px; height: 62px; border-radius: 50%; border: 0; cursor: pointer; background: var(--aidin-red); color: #fff; box-shadow: 6px 6px 20px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; transition: background-color .3s, box-shadow .4s, transform .4s; }
 .aidin-quick__btn > span { position: absolute; display: flex; transition: opacity .3s, transform .45s cubic-bezier(.16,1,.3,1); }
 .aidin-quick__btn .ic-close { opacity: 0; transform: rotate(-90deg) scale(.6); }
 .aidin-quick__box.is-open .aidin-quick__btn { background: #111; box-shadow: 6px 6px 20px rgba(0,0,0,.2); }
@@ -255,6 +317,10 @@ body { background: #fff; }
 .aidin-quick__box.is-open .ic-close { opacity: 1; transform: none; }
 .aidin-quick__top { position: fixed; right: 28px; bottom: -100px; z-index: 50; width: 62px; height: 62px; border-radius: 50%; border: 0; cursor: pointer; background: #000; color: #fff; box-shadow: 6px 6px 20px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; opacity: 0; filter: blur(10px); transform: translateY(14px); transition: all .4s ease-in-out; }
 .aidin-quick__top.is-on { bottom: 15px; opacity: 1; filter: none; transform: none; }
+.aidin-quick__btn:hover { transform: translateY(-4px) scale(1.06); box-shadow: 8px 12px 24px rgba(227,6,19,.35); }
+.aidin-quick__box.is-open .aidin-quick__btn:hover { transform: none; box-shadow: 6px 6px 20px rgba(0,0,0,.2); }
+.aidin-quick__top svg { transition: transform .4s ease-in-out; }
+.aidin-quick__top:hover svg { transform: translateY(-5px); }
 
 /* ── 모바일 ─────────────────────────────── */
 @media (max-width: 996px) {
@@ -281,6 +347,18 @@ body { background: #fff; }
   .aidin-docs { padding-top: 40px; }
   .aidin-docs [class*='docRoot'] { padding: 0 var(--aidin-gutter); }
   .aidin-band { padding: 36px 28px; }
+  .aidin-hero__inner { height: auto; padding-top: 40px; padding-bottom: 120px; }
+  .aidin-hero__title { font-size: 32px; }
+  .aidin-hero__sub { font-size: 15px; }
+  .aidin-hero__search { height: 56px; padding: 0 6px 0 18px; }
+  .aidin-hero__search input { font-size: 15px; }
+  .aidin-hero__search button { height: 44px; padding: 0 18px; }
+  .aidin-mcards { grid-template-columns: 1fr; gap: 12px; padding-top: 28px; padding-bottom: 56px; }
+  .aidin-mcard__arrow { opacity: 1; }
+  .aidin-mcard__title { margin-top: 16px; font-size: 22px; }
+  .aidin-visual--sub .aidin-visual__inner { padding-top: 36px; }
+  .aidin-visual--sub .aidin-visual__title { font-size: 34px; margin-bottom: 24px; }
+  .aidin-cta__box { padding: 24px; }
   .aidin-band__title { font-size: 26px; }
   .aidin-footer__map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .aidin-footer__info dl { flex-wrap: wrap; align-items: flex-start; }
@@ -291,6 +369,7 @@ body { background: #fff; }
   .aidin-quick__box.is-show { bottom: 70px; }
   .aidin-quick__top.is-on { bottom: 12px; }
   .aidin-quick__btn, .aidin-quick__top { width: 48px; height: 48px; }
+  .aidin-quick__btn:hover { transform: none; box-shadow: 6px 6px 20px rgba(0,0,0,.12); }
   .aidin-quick__list .ic { width: 42px; height: 42px; }
   .aidin-mnav { display: block; }
   .aidin-form iframe { height: 1300px; }
