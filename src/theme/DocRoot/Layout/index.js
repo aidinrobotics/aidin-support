@@ -1,0 +1,60 @@
+import React from 'react';
+import Layout from '@theme-original/DocRoot/Layout';
+import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import { SubVisual, TitleSection, useCurrentPage } from '@site/src/components/Layout';
+import { useT } from '@site/src/components/i18n';
+import { useHistory } from '@docusaurus/router';
+import { Icon } from '@site/src/components/Icons';
+
+// 모바일에서는 왼쪽 메뉴 대신 제품 선택 상자를 보여줌
+function MobileManualNav({ nav, slug }) {
+  const history = useHistory();
+  const base = useBaseUrl('/');
+  const groups = [];
+  for (const [path, p] of Object.entries(nav.pages)) {
+    if (p.section !== 'manual' || path === '/manual') continue;
+    if (!p.family) groups.push({ title: p.label, items: [] });
+    else (groups.find((g) => g.title === p.family) || groups[groups.push({ title: p.family, items: [] }) - 1]).items.push([path, p.label]);
+  }
+  return (
+    <div className="aidin-mnav">
+      <select value={nav.pages[slug] ? slug : ''} onChange={(e) => e.target.value && history.push(base.replace(/\/$/, '') + e.target.value)} aria-label="model">
+        <option value="">{nav.sections.manual?.title}</option>
+        {groups.filter((g) => g.items.length).map((g) => (
+          <optgroup key={g.title} label={g.title}>
+            {g.items.map(([path, label]) => <option key={path} value={path}>{label}</option>)}
+          </optgroup>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+export default function LayoutWrapper(props) {
+  const t = useT();
+  const { page, section, nav, slug } = useCurrentPage();
+  const isManual = section === 'manual';
+  const title = isManual ? nav.sections.manual?.title : page?.title;
+  const description = isManual ? null : page?.description;
+  const pdfUrl = useBaseUrl(page?.pdf || '/');
+  return (
+    <>
+      <SubVisual />
+      <TitleSection title={title} description={description}>
+        {page?.isManual && (
+          <div className="aidin-title__actions">
+            <a className="aidin-btn aidin-btn--line" href={pdfUrl} download>
+              <Icon name="download" size={16} /> {t.pdf}
+            </a>
+          </div>
+        )}
+      </TitleSection>
+      {isManual && <MobileManualNav nav={nav} slug={slug} />}
+      <div className={`aidin-docs aidin-docs--${section || 'none'}${isManual ? '' : ' aidin-docs--hide-h1'}`}>
+        <Layout {...props} />
+      </div>
+    </>
+  );
+}
+void Link;
