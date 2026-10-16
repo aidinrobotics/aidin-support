@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from '@docusaurus/Link';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -146,9 +146,17 @@ export function QuickMenu() {
   const t = useT();
   const { siteConfig } = useDocusaurusContext();
   const [open, setOpen] = useState(false);
+  // 홈페이지와 동일: 300px 넘게 내려가면 위로가기 버튼이 나타나고 바로가기 버튼이 그 위로 올라감
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const check = () => setScrolled(window.scrollY > 300);
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    return () => window.removeEventListener('scroll', check);
+  }, []);
   return (
     <div className="aidin-quick">
-      <div className={`aidin-quick__box${open ? ' is-open' : ''}`}>
+      <div className={`aidin-quick__box${open ? ' is-open' : ''}${scrolled ? ' is-show' : ''}`}>
         <ul className="aidin-quick__list" aria-hidden={!open}>
           <li>
             <Link to="/" tabIndex={open ? 0 : -1}>
@@ -174,7 +182,7 @@ export function QuickMenu() {
           <span className="ic-close"><Icon name="close" size={24} /></span>
         </button>
       </div>
-      <button type="button" className="aidin-quick__top" aria-label={t.toTop} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+      <button type="button" className={`aidin-quick__top${scrolled ? ' is-on' : ''}`} tabIndex={scrolled ? 0 : -1} aria-label={t.toTop} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         <Icon name="arrowUp" size={22} />
       </button>
     </div>
