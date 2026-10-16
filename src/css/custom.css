@@ -95,11 +95,11 @@ body { background: #fff; }
 .aidin-bar__spacer { flex: 1 1 auto; }
 .aidin-cell { position: relative; height: 100%; }
 .aidin-cell__btn {
-  width: 207px; height: 100%; padding: 0 20px; display: flex; align-items: center; justify-content: space-between;
+  min-width: 207px; height: 100%; padding: 0 20px; gap: 24px; white-space: nowrap; display: flex; align-items: center; justify-content: space-between;
   background: none; border: 0; color: #fff; font: inherit; font-size: 18px; cursor: pointer;
 }
 .aidin-cell__menu {
-  position: absolute; top: 100%; left: 0; width: 260px; margin: 6px 0 0; padding: 8px; list-style: none; z-index: 20;
+  position: absolute; top: 100%; left: 0; min-width: 100%; width: max-content; max-width: 320px; margin: 6px 0 0; padding: 8px; list-style: none; z-index: 20;
   background: #161616; border: 1px solid rgba(255,255,255,.18); border-radius: 6px;
 }
 .aidin-cell__menu a { display: block; padding: 10px 16px; border-radius: 4px; font-size: 16px; color: rgba(255,255,255,.75) !important; }
@@ -141,7 +141,7 @@ body { background: #fff; }
 .aidin-card__d { font-size: 17px; line-height: 1.6; color: var(--aidin-muted); }
 
 /* ── 문서 영역 ─────────────────────────── */
-.aidin-docs { padding-top: 64px; }
+.aidin-docs { padding-top: 64px; padding-bottom: 72px; }
 .aidin-docs .main-wrapper, .aidin-docs > div { max-width: var(--aidin-max); margin: 0 auto; }
 .aidin-docs [class*='docRoot'] { max-width: var(--aidin-max); margin: 0 auto; padding: 0 var(--aidin-gutter); box-sizing: border-box; }
 .aidin-docs--hide-h1 .theme-doc-markdown > header:first-child { display: none; }
@@ -203,14 +203,14 @@ body { background: #fff; }
 
 /* ── 메인: 무엇을 도와드릴까요? ───────────── */
 .aidin-hero { background-color: #000; color: #fff; background-image: linear-gradient(180deg, #000 0%, #000 46%, rgba(0,0,0,0) 80%), url('/img/sub-visual-bg.jpg'); background-size: 100% 100%, 1920px auto; background-position: center top, center bottom; background-repeat: no-repeat; }
-.aidin-hero__inner { height: 372px; padding-top: 44px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.aidin-hero__inner { height: 384px; padding-top: 44px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .aidin-hero__title { margin: 0; font-size: 50px; line-height: 1.2; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
 .aidin-hero__sub { margin: 12px 0 0; font-size: 18px; color: rgba(255,255,255,.72); }
 .aidin-hero__search { margin-top: 30px; width: 100%; max-width: 820px; display: flex; align-items: center; gap: 12px; height: 66px; padding: 0 8px 0 26px; box-sizing: border-box; border-radius: 999px; background: #fff; color: #161616; box-shadow: 0 18px 40px -18px rgba(0,0,0,.7); }
 .aidin-hero__search input { flex: 1 1 auto; min-width: 0; border: 0; outline: none; background: transparent; font: inherit; font-size: 18px; color: #161616; }
 .aidin-hero__search button { height: 50px; padding: 0 30px; border: 0; border-radius: 999px; background: var(--aidin-red); color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
 .aidin-hero__search button:hover { background: var(--aidin-red-hover); }
-.aidin-hero__chips { margin-top: 18px; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; }
+.aidin-hero__chips { margin-top: 28px; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; }
 .aidin-hero__chips span { color: rgba(255,255,255,.62); padding-right: 6px; }
 .aidin-hero__chips a { padding: 7px 15px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(0,0,0,.35); color: #fff; }
 .aidin-hero__chips a:hover { border-color: #fff; text-decoration: none; color: #fff; }
@@ -246,6 +246,28 @@ body { background: #fff; }
 .aidin-mcard--dark .aidin-mcard__label { color: rgba(255,255,255,.6); }
 .aidin-mcard--dark .aidin-mcard__label b { color: #fff; }
 .aidin-mcard--dark .aidin-mcard__head + .aidin-mcard__btn { margin-top: auto; }
+
+/* 제품별 매뉴얼: 제품군 카드 / 모델 카드 */
+.aidin-mgrid { display: grid; gap: 18px; }
+.aidin-mgrid--fam { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.aidin-mgrid--fam .aidin-mcard__list { margin-bottom: 0; }
+.aidin-mgrid--fam .aidin-mcard__label b { margin-right: 8px; }
+.aidin-mgrid--prod { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.aidin-pcard { display: flex; flex-direction: column; gap: 28px; padding: 28px 26px 24px; border: 1px solid #e0e0e0; border-radius: 20px; background: #fff; transition: border-color .3s, box-shadow .3s; }
+.aidin-pcard:hover { border-color: #161616; box-shadow: 0 22px 40px -24px rgba(0,0,0,.35); }
+.aidin-pcard__name { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; color: #161616 !important; text-decoration: none !important; }
+.aidin-pcard__btns { margin-top: auto; display: flex; gap: 8px; }
+.aidin-pcard__btn { flex: 1 1 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 44px; padding: 0 16px; border: 1px solid #dcdcdc; border-radius: 8px; font-size: 15px; font-weight: 600; color: #161616 !important; text-decoration: none !important; transition: background-color .25s, border-color .25s, color .25s; }
+.aidin-pcard__btn:hover { border-color: #161616; }
+.aidin-pcard__btn.is-dark { flex: 2 1 auto; background: #161616; border-color: #161616; color: #fff !important; }
+.aidin-pcard__btn.is-dark:hover { background: var(--aidin-red); border-color: var(--aidin-red); }
+.aidin-docs--landing .theme-doc-sidebar-container { display: none !important; }
+.aidin-docs--landing [class*='docMainContainer'] { max-width: 100% !important; flex: 1 1 100% !important; }
+.aidin-docs--landing .theme-doc-footer { display: none; }
+/* 왼쪽 메뉴: 접기 화살표 없이 제품군 이름은 작은 제목처럼 */
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible { border-radius: 4px; }
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link { margin-top: 14px; padding: 6px 12px; }
+.menu__caret, .menu__link--sublist-caret::after { display: none !important; }
 
 /* 하단 공통 CTA (푸터 바로 위) */
 .aidin-cta { padding-bottom: 72px; }
@@ -359,6 +381,7 @@ body { background: #fff; }
   .aidin-visual--sub .aidin-visual__inner { padding-top: 36px; }
   .aidin-visual--sub .aidin-visual__title { font-size: 34px; margin-bottom: 24px; }
   .aidin-cta__box { padding: 24px; }
+  .aidin-mgrid--fam { grid-template-columns: 1fr; }
   .aidin-band__title { font-size: 26px; }
   .aidin-footer__map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .aidin-footer__info dl { flex-wrap: wrap; align-items: flex-start; }
