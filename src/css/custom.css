@@ -234,7 +234,7 @@ body { background: #fff; }
 .aidin-mcard__list a svg { flex: 0 0 auto; color: #b5b5b5; transition: transform .25s, color .25s; }
 .aidin-mcard__list a:hover { color: var(--aidin-red) !important; }
 .aidin-mcard__list a:hover svg { color: var(--aidin-red); transform: translateX(3px); }
-.aidin-mcard__btn { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 46px; border: 1px solid #dcdcdc; border-radius: 8px; font-size: 15px; font-weight: 600; color: #161616 !important; transition: background-color .25s, border-color .25s, color .25s; }
+.aidin-mcard__btn { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border: 1px solid #dcdcdc; border-radius: 8px; font-size: 15px; font-weight: 600; color: #161616 !important; transition: background-color .25s, border-color .25s, color .25s; }
 .aidin-mcard__list + .aidin-mcard__btn { margin-top: auto; }
 .aidin-mcard__list { margin-bottom: 22px; }
 .aidin-mcard:hover .aidin-mcard__btn { background: #161616; border-color: #161616; color: #fff !important; }
