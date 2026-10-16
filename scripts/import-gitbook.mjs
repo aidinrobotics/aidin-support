@@ -89,6 +89,8 @@ function youtubeId(url) {
 // 탭에는 짧은 이름만 (예: '6축 F/T 센서 뉴로메카 키트' → '뉴로메카 키트')
 const tabLabel = (t) => t.replace(/^(6축\s*F\/T\s*센서|6-axis\s*F\/T\s*sensor)\s+/i, '').trim();
 
+const TITLE_OVERRIDE = { en: { as: 'Service Request' } };
+
 let LINK_MAP = {};
 function transform(body, fromFile) {
   let out = body;
@@ -232,7 +234,8 @@ function buildLocale(locale) {
     if (!section) continue; // README(전체보기)는 사이트 첫 화면으로 대체
     if (EXCLUDE.some((x) => top.file.includes(x))) continue;
     const base = `/${section}`;
-    const sec = { title: top.title, path: prefix + base, tabs: [] };
+    // 영문 메뉴 이름은 미국식 표현으로 통일 (헤더 버튼 'Service Request'와 맞춤)
+    const sec = { title: (TITLE_OVERRIDE[locale] || {})[section] || top.title, path: prefix + base, tabs: [] };
     nav.sections[section] = sec;
 
     if (section === 'as') {
