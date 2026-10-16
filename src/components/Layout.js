@@ -28,22 +28,21 @@ function Chevron() {
   return <Icon name="chevron" size={16} />;
 }
 
-function SectionDropdown({ current }) {
-  const nav = useNav();
+// 메뉴 바의 드롭다운 칸 (홈페이지 location1·location2와 같은 구조)
+function DropCell({ label, items, current }) {
   const [open, setOpen] = useState(false);
-  const sec = nav.sections[current];
   return (
     <div className="aidin-cell" onMouseLeave={() => setOpen(false)}>
       <button type="button" className="aidin-cell__btn" aria-expanded={open} onClick={() => setOpen(!open)}>
-        <span>{sec ? sec.title : ''}</span>
+        <span>{label}</span>
         <Chevron />
       </button>
       {open && (
         <ul className="aidin-cell__menu">
-          {SECTION_ORDER.filter((s) => nav.sections[s]).map((s) => (
-            <li key={s}>
-              <Link to={nav.sections[s].path} className={s === current ? 'is-active' : undefined}>
-                {nav.sections[s].title}
+          {items.map((it) => (
+            <li key={it.path}>
+              <Link to={it.path} className={it.path === current ? 'is-active' : undefined} onClick={() => setOpen(false)}>
+                {it.label}
               </Link>
             </li>
           ))}
@@ -53,9 +52,33 @@ function SectionDropdown({ current }) {
   );
 }
 
+function SectionDropdown({ current }) {
+  const nav = useNav();
+  const sec = nav.sections[current];
+  const items = SECTION_ORDER.filter((s) => nav.sections[s]).map((s) => ({ path: nav.sections[s].path, label: nav.sections[s].title }));
+  return <DropCell label={sec ? sec.title : ''} items={items} current={sec?.path} />;
+}
+
+// 두 번째 칸: 탭이 있는 메뉴는 탭 목록, 제품별 매뉴얼은 제품군 목록
+function SubDropdown({ section, slug, page, nav }) {
+  if (section === 'manual') {
+    const fams = Object.entries(nav.pages)
+      .filter(([path, p]) => p.section === 'manual' && !p.family && path !== '/manual' && path.split('/').length === 3)
+      .map(([path, p]) => ({ path, label: p.label || p.title }));
+    if (!fams.length) return null;
+    const cur = page?.family ? fams.find((f) => f.label === page.family) : fams.find((f) => f.path === slug);
+    const items = [{ path: '/manual', label: nav.pages['/manual']?.label || nav.sections.manual.title }, ...fams];
+    return <DropCell label={cur ? cur.label : items[0].label} items={items} current={cur ? cur.path : '/manual'} />;
+  }
+  const tabs = nav.sections[section]?.tabs || [];
+  if (tabs.length < 2) return null;
+  const cur = tabs.find((tb) => tb.path === slug) || tabs[0];
+  return <DropCell label={cur.label} items={tabs.map((tb) => ({ path: tb.path, label: tb.label }))} current={cur.path} />;
+}
+
 export function SubVisual({ variant = 'section' }) {
   const t = useT();
-  const { slug, section, nav } = useCurrentPage();
+  const { slug, section, nav, page } = useCurrentPage();
   const history = useHistory();
   const [q, setQ] = useState('');
   const searchPath = useBaseUrl('/search');
@@ -89,6 +112,8 @@ export function SubVisual({ variant = 'section' }) {
             </Link>
             <span className="aidin-bar__sep" aria-hidden="true" />
             <SectionDropdown current={section} />
+            {(section === 'manual' || tabs.length > 1) && <span className="aidin-bar__sep" aria-hidden="true" />}
+            <SubDropdown section={section} slug={slug} page={page} nav={nav} />
             <span className="aidin-bar__spacer" />
             {tabs.length > 1 && (
               <nav className="aidin-tabs" aria-label="tabs">
