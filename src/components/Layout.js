@@ -149,7 +149,12 @@ export function QuickMenu() {
   // 홈페이지와 동일: 300px 넘게 내려가면 위로가기 버튼이 나타나고 바로가기 버튼이 그 위로 올라감
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const check = () => setScrolled(window.scrollY > 300);
+    const check = () => {
+      const on = window.scrollY > 300;
+      setScrolled(on);
+      // 홈페이지와 동일: 위로 올라와 버튼이 숨겨질 때 열려 있던 바로가기는 닫음
+      if (!on) setOpen(false);
+    };
     check();
     window.addEventListener('scroll', check, { passive: true });
     return () => window.removeEventListener('scroll', check);
