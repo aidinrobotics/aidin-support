@@ -17,8 +17,8 @@
   --aidin-line: #e8e8e8;
   --aidin-line-2: #dcdcdc;
   --aidin-bg-soft: #f7f7f7;
-  --aidin-max: 1360px;
-  --aidin-gutter: 40px;
+  --aidin-max: 1920px;
+  --aidin-gutter: 30px;
 
   --ifm-font-family-base: 'Wanted Sans Variable', 'Wanted Sans', Pretendard, -apple-system, 'Apple SD Gothic Neo', sans-serif;
   --ifm-heading-font-family: var(--ifm-font-family-base);
@@ -61,39 +61,37 @@ body { background: #fff; }
 .navbar__logo { height: 44px; margin: 0; }
 .navbar__logo img { height: 44px; width: auto; }
 .navbar__items--right { gap: 22px; }
-.navbar__search, .navbar [class*='searchBox'], .navbar__toggle, .navbar-sidebar, .navbar-sidebar__backdrop { display: none !important; }
+.navbar__items--right > .navbar__item { padding: 0; }
+.navbar__search, .navbar [class*='navbarSearchContainer'], .navbar [class*='searchBox'], .navbar__toggle, .navbar-sidebar, .navbar-sidebar__backdrop { display: none !important; }
 .aidin-nav-cta.navbar__link {
-  display: inline-flex; align-items: center; height: 36px; padding: 0 26px; border-radius: 4px;
+  display: inline-flex; align-items: center; height: 34px; padding: 0 26px; border-radius: 4px;
   background: var(--aidin-red); color: #fff !important; font-size: 15px; font-weight: 600;
 }
 .aidin-nav-cta.navbar__link:hover { background: var(--aidin-red-hover); }
-.navbar__item.dropdown { position: relative; padding-left: 22px; }
-.navbar__item.dropdown::before { content: ''; position: absolute; left: 0; top: 50%; width: 1px; height: 16px; margin-top: -8px; background: rgba(255,255,255,.35); }
-.navbar__item.dropdown > .navbar__link { color: #fff; font-size: 0; padding: 0; display: flex; align-items: center; gap: 6px; min-height: 44px; }
-.navbar__item.dropdown > .navbar__link::before {
-  content: ''; width: 18px; height: 18px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.6'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z'/%3E%3C/svg%3E") center/contain no-repeat;
-}
-.navbar__item.dropdown > .navbar__link::after { border-color: #fff transparent transparent; border-width: 4px 4px 0; margin-left: 0; top: 0; }
-.navbar__item.dropdown > .navbar__link svg { display: none; }
-.dropdown__menu { min-width: 140px; border-radius: 6px; right: 0; left: auto; }
-.dropdown__link { font-size: 15px; }
+
+/* KO | EN 스위치 */
+.aidin-lang { position: relative; display: flex; align-items: center; gap: 2px; height: 34px; padding: 3px; margin-left: 22px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; box-sizing: border-box; }
+.aidin-lang::before { content: ''; position: absolute; left: -23px; top: 50%; width: 1px; height: 16px; margin-top: -8px; background: rgba(255,255,255,.35); }
+.aidin-lang a { display: flex; align-items: center; justify-content: center; min-width: 38px; height: 100%; padding: 0 10px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: .04em; color: rgba(255,255,255,.6) !important; text-decoration: none !important; transition: background-color .2s, color .2s; }
+.aidin-lang a:hover { color: #fff !important; }
+.aidin-lang a.is-active { background: #fff; color: #000 !important; }
 
 /* ── 검은 영역 ─────────────────────────── */
 .aidin-visual { background: #000 url('/img/sub-visual-bg.jpg') center bottom / cover no-repeat; color: #fff; }
-.aidin-visual__inner { height: 444px; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 30px; }
-.aidin-visual__title { margin: 0 0 52px; font-size: 70px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
+.aidin-visual__inner { height: 444px; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 15px; }
+.aidin-visual__title { margin: 0 0 16px; font-size: 69px; line-height: 90px; font-weight: 700; letter-spacing: -0.02em; }
 .aidin-bar {
-  display: flex; align-items: center; height: 62px; border: 1px solid rgba(255,255,255,.22); border-radius: 6px;
-  background: rgba(22,22,22,.78); color: #fff; position: relative;
+  display: flex; align-items: center; height: 56px; border: 1px solid rgba(255,255,255,.26); border-radius: 7.5px;
+  background: transparent; color: #fff; position: relative; isolation: isolate;
 }
+.aidin-bar::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: rgba(255,255,255,.06); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); }
 .aidin-bar a { color: inherit; }
 .aidin-bar__home { width: 76px; height: 100%; display: flex; align-items: center; justify-content: center; }
 .aidin-bar__sep { width: 1px; height: 30px; background: rgba(255,255,255,.2); }
 .aidin-bar__spacer { flex: 1 1 auto; }
 .aidin-cell { position: relative; height: 100%; }
 .aidin-cell__btn {
-  width: 260px; height: 100%; padding: 0 26px; display: flex; align-items: center; justify-content: space-between;
+  width: 207px; height: 100%; padding: 0 20px; display: flex; align-items: center; justify-content: space-between;
   background: none; border: 0; color: #fff; font: inherit; font-size: 18px; cursor: pointer;
 }
 .aidin-cell__menu {
@@ -238,8 +236,8 @@ body { background: #fff; }
 .aidin-footer__bottom .copy { font-size: 12px; color: rgba(0,0,0,.5); }
 
 /* ── 플로팅 바로가기 (홈페이지와 동일 구조) ── */
-.aidin-quick { position: fixed; right: 28px; bottom: 28px; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
-.aidin-quick__box { display: flex; flex-direction: column; align-items: flex-end; }
+.aidin-quick__box { position: fixed; right: 28px; bottom: 25px; z-index: 60; display: flex; flex-direction: column; align-items: flex-end; transition: all .4s ease-in-out; }
+.aidin-quick__box.is-show { bottom: 84px; }
 .aidin-quick__list { list-style: none; margin: 0; padding: 0 0 15px; display: flex; flex-direction: column; align-items: flex-end; gap: 9px; }
 .aidin-quick__list li { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .3s, transform .4s cubic-bezier(.16,1,.3,1), visibility .3s; }
 .aidin-quick__box.is-open li { opacity: 1; visibility: visible; transform: none; }
@@ -255,7 +253,8 @@ body { background: #fff; }
 .aidin-quick__box.is-open .aidin-quick__btn { background: #111; box-shadow: 6px 6px 20px rgba(0,0,0,.2); }
 .aidin-quick__box.is-open .ic-open { opacity: 0; transform: rotate(90deg) scale(.6); }
 .aidin-quick__box.is-open .ic-close { opacity: 1; transform: none; }
-.aidin-quick__top { width: 62px; height: 62px; border-radius: 50%; border: 0; cursor: pointer; background: #000; color: #fff; box-shadow: 6px 6px 20px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; }
+.aidin-quick__top { position: fixed; right: 28px; bottom: -100px; z-index: 50; width: 62px; height: 62px; border-radius: 50%; border: 0; cursor: pointer; background: #000; color: #fff; box-shadow: 6px 6px 20px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; opacity: 0; filter: blur(10px); transform: translateY(14px); transition: all .4s ease-in-out; }
+.aidin-quick__top.is-on { bottom: 15px; opacity: 1; filter: none; transform: none; }
 
 /* ── 모바일 ─────────────────────────────── */
 @media (max-width: 996px) {
@@ -263,8 +262,9 @@ body { background: #fff; }
   .navbar__logo, .navbar__logo img { height: 34px; }
   .aidin-nav-cta.navbar__link { height: 34px; padding: 0 16px; font-size: 14px; }
   .navbar__items--right { gap: 12px; }
-  .navbar__item.dropdown { padding-left: 12px; }
-  .navbar__item.dropdown::before { display: none; }
+  .aidin-lang { margin-left: 4px; height: 32px; }
+  .aidin-lang::before { display: none; }
+  .aidin-lang a { min-width: 34px; padding: 0 8px; font-size: 12px; }
   .aidin-visual__inner { height: 300px; padding-bottom: 20px; }
   .aidin-visual__title { font-size: 40px; margin-bottom: 28px; }
   .aidin-bar { height: auto; min-height: 56px; flex-wrap: wrap; }
@@ -286,7 +286,10 @@ body { background: #fff; }
   .aidin-footer__info dl { flex-wrap: wrap; align-items: flex-start; }
   .aidin-related__grid { grid-template-columns: 1fr; }
   .navbar__items--right > .navbar__item { display: flex !important; }
-  .aidin-quick { right: 14px; bottom: 14px; gap: 10px; }
+  .aidin-quick__box, .aidin-quick__top { right: 14px; }
+  .aidin-quick__box { bottom: 16px; }
+  .aidin-quick__box.is-show { bottom: 70px; }
+  .aidin-quick__top.is-on { bottom: 12px; }
   .aidin-quick__btn, .aidin-quick__top { width: 48px; height: 48px; }
   .aidin-quick__list .ic { width: 42px; height: 42px; }
   .aidin-mnav { display: block; }
