@@ -51,7 +51,7 @@ function Card({ section, index }) {
         </ul>
       )}
       <Link to={sec.path} className={`aidin-mcard__btn${isAs ? ' is-red' : ''}`}>
-        {isAs ? t.asButton : t.viewAll[section]}
+        {isAs ? <>{t.asButton} <Icon name="arrowRight" size={18} /></> : t.viewAll[section]}
       </Link>
     </div>
   );
