@@ -85,7 +85,7 @@ const config = {
         logo: { alt: 'AIDIN ROBOTICS', src: 'img/logo-white.svg', href: '/' },
         items: [
           { to: '/as', label: 'A/S 신청', position: 'right', className: 'aidin-nav-cta' },
-          { type: 'localeDropdown', position: 'right', className: 'aidin-nav-lang' },
+          { type: 'custom-langSwitch', position: 'right' },
         ],
       },
       docs: { sidebar: { hideable: false, autoCollapseCategories: false } },
