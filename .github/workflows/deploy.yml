@@ -1,0 +1,79 @@
+# 고객지원센터 자동 배포
+# aidin-docs(국문)·aidin-docs-en(영문)을 읽어 사이트를 만들고 GitHub Pages에 올립니다.
+# 연구원은 지금처럼 각 매뉴얼 저장소만 수정하면 됩니다 → 기존 sync-manuals가 aidin-docs로 모으고 → 이 작업이 15분마다 반영.
+name: deploy-support-center
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '7,22,37,52 * * * *'   # 15분마다
+  workflow_dispatch:                # Actions 탭에서 "Run workflow"로 바로 반영
+  repository_dispatch:
+    types: [docs-updated]           # aidin-docs 쪽에서 즉시 호출할 때
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 국문 문서 가져오기 (aidin-docs)
+        uses: actions/checkout@v4
+        with:
+          repository: aidinrobotics/aidin-docs
+          token: ${{ secrets.DOCS_READ_TOKEN }}
+          path: .src/ko
+
+      - name: 영문 문서 가져오기 (aidin-docs-en)
+        uses: actions/checkout@v4
+        with:
+          repository: aidinrobotics/aidin-docs-en
+          token: ${{ secrets.DOCS_READ_TOKEN }}
+          path: .src/en
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - name: GitBook 문서 → 사이트 문서로 변환
+        run: npm run import
+      - name: 사이트 빌드
+        run: npm run build
+        env:
+          SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+          BASE_URL: ${{ vars.CUSTOM_DOMAIN != '' && '/' || format('/{0}/', github.event.repository.name) }}
+      - name: 매뉴얼 PDF 만들기
+        run: |
+          npx playwright install --with-deps chromium
+          npm run pdf
+        env:
+          BASE_URL: ${{ vars.CUSTOM_DOMAIN != '' && '/' || format('/{0}/', github.event.repository.name) }}
+      - name: 도메인 설정
+        if: ${{ vars.CUSTOM_DOMAIN != '' }}
+        run: echo "${{ vars.CUSTOM_DOMAIN }}" > build/CNAME
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
