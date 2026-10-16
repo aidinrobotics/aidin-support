@@ -278,7 +278,7 @@ function buildLocale(locale) {
       if (EXCLUDE.some((x) => k.file.includes(x))) continue;
       const slug = first ? base : `${base}/${slugPart(k.file)}`;
       if (writeDoc(k, section, { slug, label: k.title })) {
-        sec.tabs.push({ label: tabLabel(k.title), path: prefix + slug });
+        sec.tabs.push({ label: section === 'install' ? tabLabel(k.title) : k.title, path: prefix + slug });
         first = false;
       }
     }
