@@ -61,13 +61,14 @@ function SectionDropdown({ current }) {
 
 // 두 번째 칸: 탭이 있는 메뉴는 탭 목록, 제품별 매뉴얼은 제품군 목록
 function SubDropdown({ section, slug, page, nav }) {
+  const t = useT();
   if (section === 'manual') {
     const fams = Object.entries(nav.pages)
       .filter(([path, p]) => p.section === 'manual' && !p.family && path !== '/manual' && path.split('/').length === 3)
       .map(([path, p]) => ({ path, label: p.label || p.title }));
     if (!fams.length) return null;
     const cur = page?.family ? fams.find((f) => f.label === page.family) : fams.find((f) => f.path === slug);
-    const items = [{ path: '/manual', label: nav.pages['/manual']?.label || nav.sections.manual.title }, ...fams];
+    const items = [{ path: '/manual', label: t.all }, ...fams];
     return <DropCell label={cur ? cur.label : items[0].label} items={items} current={cur ? cur.path : '/manual'} />;
   }
   const tabs = nav.sections[section]?.tabs || [];
