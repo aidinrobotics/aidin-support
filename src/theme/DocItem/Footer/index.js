@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '@theme-original/DocItem/Footer';
 import Link from '@docusaurus/Link';
 import { useCurrentPage } from '@site/src/components/Layout';
 import { useT, useLocale } from '@site/src/components/i18n';
@@ -28,7 +27,6 @@ export default function FooterWrapper(props) {
           </div>
         </div>
       )}
-      <Footer {...props} />
     </>
   );
 }
