@@ -51,7 +51,7 @@ export default function LayoutWrapper(props) {
         )}
       </TitleSection>
       {isManual && <MobileManualNav nav={nav} slug={slug} />}
-      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1`}>
+      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1${slug === '/manual' ? ' aidin-docs--landing' : ''}`}>
         <Layout {...props} />
       </div>
     </>
