@@ -29,6 +29,8 @@ const S = {
     qOpen: '바로가기 메뉴 열기',
     toTop: '맨 위로 이동',
     lang: '언어 선택',
+    models: (n) => `${n}개 모델`,
+    viewManual: '매뉴얼 보기',
   },
   en: {
     center: 'Support Center',
@@ -56,6 +58,8 @@ const S = {
     qOpen: 'Open quick menu',
     toTop: 'Back to top',
     lang: 'Language',
+    models: (n) => `${n} ${n === 1 ? 'model' : 'models'}`,
+    viewManual: 'View Manual',
   },
 };
 // 카드 라벨 (홈페이지 카드와 같은 '번호 + 영문' 표기)
