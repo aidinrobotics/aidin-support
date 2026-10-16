@@ -26,15 +26,22 @@ const origin = `http://127.0.0.1:${server.address().port}${BASE}`;
 
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 const page = await browser.newPage();
+// 영상·외부 신청서는 PDF에 필요 없으니 불러오지 않음 (빌드 시간 단축)
+await page.route(/youtube|youtube-nocookie|ytimg|hsforms|hubspot|googlevideo|doubleclick/, (r) => r.abort());
+page.setDefaultTimeout(60000);
 let count = 0;
 for (const [locale, prefix, outDir] of [['ko', '', 'pdf'], ['en', '/en', 'en/pdf']]) {
   for (const [slug, p] of Object.entries(nav[locale]?.pages || {})) {
     if (!p.isManual || !p.pdf) continue;
-    await page.goto(`${origin}${prefix}${slug}`, { waitUntil: 'networkidle' });
+    try {
+    await page.goto(`${origin}${prefix}${slug}`, { waitUntil: 'load' });
     // 이미지·수식 글꼴이 다 불러와질 때까지 대기
     await page.evaluate(async () => {
-      await document.fonts.ready;
-      await Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; }))));
+      // 지연 로딩 이미지를 즉시 불러오고, 최대 20초까지만 기다림
+      const imgs = [...document.images];
+      imgs.forEach((i) => { i.loading = 'eager'; i.decoding = 'sync'; });
+      const all = Promise.all([document.fonts.ready, ...imgs.map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))]);
+      await Promise.race([all, new Promise((r) => setTimeout(r, 20000))]);
     });
     const out = path.join(ROOT, outDir, path.basename(p.pdf));
     fs.mkdirSync(path.dirname(out), { recursive: true });
@@ -47,6 +54,10 @@ for (const [locale, prefix, outDir] of [['ko', '', 'pdf'], ['en', '/en', 'en/pdf
     });
     count++;
     console.log('PDF', out.replace(ROOT, 'build'));
+    } catch (e) {
+      // 한 페이지가 실패해도 사이트 배포는 계속 진행
+      console.warn('PDF 건너뜀', locale, slug, e.message.split('\n')[0]);
+    }
   }
 }
 await browser.close();
