@@ -35,8 +35,8 @@ export default function LayoutWrapper(props) {
   const t = useT();
   const { page, section, nav, slug } = useCurrentPage();
   const isManual = section === 'manual';
-  const title = isManual ? nav.sections.manual?.title : page?.title;
-  const description = isManual ? null : page?.description;
+  const title = page?.title;
+  const description = page?.description;
   const pdfUrl = useBaseUrl(page?.pdf || '/');
   return (
     <>
@@ -51,7 +51,7 @@ export default function LayoutWrapper(props) {
         )}
       </TitleSection>
       {isManual && <MobileManualNav nav={nav} slug={slug} />}
-      <div className={`aidin-docs aidin-docs--${section || 'none'}${isManual ? '' : ' aidin-docs--hide-h1'}`}>
+      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1`}>
         <Layout {...props} />
       </div>
     </>
