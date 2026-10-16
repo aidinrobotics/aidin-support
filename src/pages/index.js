@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import { SubVisual, TitleSection } from '@site/src/components/Layout';
-import { useNav, useT, SECTION_ORDER } from '@site/src/components/i18n';
+import { useHistory } from '@docusaurus/router';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useNav, useT, SECTION_ORDER, CARD_LABEL } from '@site/src/components/i18n';
 import { Icon } from '@site/src/components/Icons';
 
-const ICON = { manual: 'book', install: 'plug', downloads: 'download', faq: 'help', as: 'wrench' };
-// 자주 찾는 제품 (첫 화면 바로가기)
+// 자주 찾는 제품 (검색창 아래 바로가기)
 const POPULAR = [
   ['AFT200-D80', '/manual/aft200-d80-c'],
   ['AFT150-D50', '/manual/aft150-d50-c'],
@@ -15,27 +15,83 @@ const POPULAR = [
   ['ATT', '/manual/att'],
 ];
 
+// 카드 안 하위 메뉴: 매뉴얼은 제품군, 나머지는 각 메뉴의 탭(깃허브 SUMMARY 순서 그대로)
+function useSubLinks(section) {
+  const nav = useNav();
+  if (section === 'manual') {
+    return Object.entries(nav.pages)
+      .filter(([path, p]) => p.section === 'manual' && !p.family && path !== '/manual' && path.split('/').length === 3)
+      .map(([path, p]) => ({ path, label: p.label || p.title }));
+  }
+  return (nav.sections[section]?.tabs || []).map((tb) => ({ path: tb.path, label: tb.label }));
+}
+
+function Card({ section, index }) {
+  const t = useT();
+  const nav = useNav();
+  const sec = nav.sections[section];
+  const links = useSubLinks(section);
+  const isAs = section === 'as';
+  return (
+    <div className={`aidin-mcard${isAs ? ' aidin-mcard--dark' : ''}`}>
+      <Link to={sec.path} className="aidin-mcard__head">
+        <span className="aidin-mcard__top">
+          <span className="aidin-mcard__label"><b>{String(index + 1).padStart(2, '0')}</b>{CARD_LABEL[section]}</span>
+          <span className="aidin-mcard__arrow"><Icon name="arrowRight" size={34} stroke={1.6} /></span>
+        </span>
+        <span className="aidin-mcard__title">{sec.title}</span>
+      </Link>
+      {!isAs && links.length > 0 && (
+        <ul className="aidin-mcard__list">
+          {links.map((l) => (
+            <li key={l.path}>
+              <Link to={l.path}>{l.label}<Icon name="chevronRight" size={14} stroke={2} /></Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      <Link to={sec.path} className={`aidin-mcard__btn${isAs ? ' is-red' : ''}`}>
+        {isAs ? t.asButton : t.viewAll[section]}
+      </Link>
+    </div>
+  );
+}
+
 export default function Home() {
   const t = useT();
   const nav = useNav();
+  const history = useHistory();
+  const [q, setQ] = useState('');
+  const searchPath = useBaseUrl('/search');
   return (
-    <Layout title={t.center} description={t.cards.manual}>
-      <SubVisual variant="search" />
-      <TitleSection title={t.supportMenu}>
-        <div className="aidin-chips">
-          <span>{t.popular}</span>
-          {POPULAR.filter(([, to]) => nav.pages[to]).map(([label, to]) => (
-            <Link key={to} to={to}>{label}</Link>
-          ))}
+    <Layout title={t.center} description={t.heroSub}>
+      <section className="aidin-hero">
+        <div className="aidin-container aidin-hero__inner">
+          <h1 className="aidin-hero__title">{t.heroTitle}</h1>
+          <p className="aidin-hero__sub">{t.heroSub}</p>
+          <form
+            className="aidin-hero__search"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              history.push(`${searchPath}?q=${encodeURIComponent(q)}`);
+            }}>
+            <Icon name="search" size={22} />
+            <label htmlFor="aidin-q" className="sr-only">{t.search}</label>
+            <input id="aidin-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.searchPh} />
+            <button type="submit">{t.search}</button>
+          </form>
+          <div className="aidin-hero__chips">
+            <span>{t.popular}</span>
+            {POPULAR.filter(([, to]) => nav.pages[to]).map(([label, to]) => (
+              <Link key={to} to={to}>{label}</Link>
+            ))}
+          </div>
         </div>
-      </TitleSection>
-      <section className="aidin-container aidin-cards">
-        {SECTION_ORDER.filter((s) => nav.sections[s]).map((s) => (
-          <Link key={s} to={nav.sections[s].path} className="aidin-card">
-            <span className="aidin-card__ic"><Icon name={ICON[s]} size={28} stroke={1.7} /></span>
-            <span className="aidin-card__t">{nav.sections[s].title}</span>
-            <span className="aidin-card__d">{t.cards[s]}</span>
-          </Link>
+      </section>
+      <section className="aidin-container aidin-mcards">
+        {SECTION_ORDER.filter((s) => nav.sections[s]).map((s, i) => (
+          <Card key={s} section={s} index={i} />
         ))}
       </section>
     </Layout>
