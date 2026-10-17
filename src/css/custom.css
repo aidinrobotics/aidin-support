@@ -557,3 +557,18 @@ html[lang^='en'] .aidin-docs--as .aidin-form::before { content: 'Service Request
 .aidin-docs--as .theme-doc-markdown h3 { margin-top: 64px; padding-bottom: 16px; border-bottom: 2px solid var(--aidin-ink); font-size: 28px; }
 .aidin-docs--as .theme-doc-markdown h3 + .theme-admonition .alert, .aidin-docs--as .theme-doc-markdown h3 + .alert { box-shadow: none; border: 0 !important; padding: 20px 0; }
 .aidin-docs--as .theme-doc-markdown h3 + .alert p { font-size: 19px !important; line-height: 2.1; }
+
+/* 제품 매뉴얼 머리: 제품군 + 제품명 왼쪽, PDF 버튼 오른쪽 */
+.aidin-phead { padding: 56px 0 0; }
+.aidin-phead__in { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; padding-bottom: 28px; border-bottom: 2px solid var(--aidin-ink); }
+.aidin-phead__txt { min-width: 0; }
+.aidin-phead__fam { display: block; margin-bottom: 10px; font-size: 16px; font-weight: 600; color: var(--aidin-red); }
+.aidin-phead__h { margin: 0; font-size: 40px; font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; color: var(--aidin-ink); word-break: keep-all; }
+.aidin-phead__pdf { flex: 0 0 auto; height: 52px; padding: 0 24px; gap: 8px; font-size: 16px; }
+.aidin-docs--manual:not(.aidin-docs--landing) { padding-top: 40px; }
+@media (max-width: 996px) {
+  .aidin-phead { padding-top: 32px; }
+  .aidin-phead__in { flex-direction: column; align-items: stretch; gap: 20px; padding-bottom: 24px; }
+  .aidin-phead__h { font-size: 28px; }
+  .aidin-phead__pdf { justify-content: center; }
+}
