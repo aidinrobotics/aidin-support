@@ -426,3 +426,31 @@ body { background: #fff; }
   .theme-doc-markdown details { display: block; }
   .theme-doc-markdown details > div { display: block !important; height: auto !important; overflow: visible !important; }
 }
+
+/* ===== UX 정리 (2026-10) ===== */
+/* 상단 띠: 페이지 설명 */
+.aidin-visual--sub .aidin-visual__desc { margin: -24px 0 32px; font-size: 18px; line-height: 1.6; color: rgba(255,255,255,.65); }
+.aidin-docs--dup { padding-top: 56px; }
+
+/* 매뉴얼 왼쪽 메뉴: 잘림 없이, 단정하게 */
+.aidin-docs--manual { --doc-sidebar-width: 280px; }
+.aidin-docs--manual [class*='sidebar_'], .aidin-docs--manual [class*='sidebarViewport'], .aidin-sidebar { width: 100% !important; max-width: 100%; }
+.aidin-sidebar__search { width: 100%; box-sizing: border-box; transition: border-color .2s; }
+.aidin-sidebar__search:focus-within { border-color: var(--aidin-ink); }
+.aidin-sidebar .menu__list { padding-left: 0; }
+.aidin-sidebar .menu__list-item-collapsible, .aidin-sidebar .menu__list-item-collapsible:hover { background: none !important; }
+.aidin-sidebar .theme-doc-sidebar-item-link-level-1 > .menu__link { padding: 4px 0 14px; margin-bottom: 4px; font-size: 17px; font-weight: 700; color: var(--aidin-ink); background: none !important; border: 0 !important; border-bottom: 2px solid var(--aidin-ink) !important; border-radius: 0; }
+.aidin-sidebar .theme-doc-sidebar-item-category-level-1 { margin-top: 22px; }
+.aidin-sidebar .theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link { padding: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: #8a8a8a !important; background: none !important; border: 0 !important; border-radius: 0; cursor: default; pointer-events: none; }
+.aidin-sidebar .theme-doc-sidebar-item-category-level-1 > .menu__list { margin: 0; border-left: 1px solid var(--aidin-line); }
+.aidin-sidebar .theme-doc-sidebar-item-link-level-2 > .menu__link { margin-left: -1px; padding: 8px 14px; font-size: 15px; font-weight: 500; color: #444; background: none !important; border: 0; border-left: 2px solid transparent; border-radius: 0; white-space: normal; word-break: keep-all; }
+.aidin-sidebar .theme-doc-sidebar-item-link-level-2 > .menu__link:hover { color: var(--aidin-ink); border-left-color: #bdbdbd; }
+.aidin-sidebar .theme-doc-sidebar-item-link-level-2 > .menu__link--active { color: var(--aidin-red) !important; font-weight: 700; border-left-color: var(--aidin-red); }
+
+/* 안내 상자: 파란 기본값 대신 브랜드 톤 */
+.alert { border: 0 !important; border-radius: 8px; padding: 18px 22px; box-shadow: inset 3px 0 0 var(--aidin-ink); }
+.alert--info, .alert--secondary, .alert--success { background: var(--aidin-bg-soft); color: var(--aidin-text); }
+.alert--info [class*='admonitionHeading'], .alert--secondary [class*='admonitionHeading'], .alert--success [class*='admonitionHeading'] { display: none; }
+.alert--warning { background: #fdf6e7; color: #5a4100; box-shadow: inset 3px 0 0 #e0a400; }
+.alert--danger { background: #fdeff0; color: #8f1020; box-shadow: inset 3px 0 0 var(--aidin-red); }
+.alert a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
