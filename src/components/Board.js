@@ -23,7 +23,7 @@ export function SectionTabs({ section, slug, counts }) {
 // 모델명으로 제품을 묶음 (원고 표기가 조금씩 달라도 같은 제품으로)
 const PRODUCTS = [
   { ko: '초소형 6축 F/T 센서', en: 'Miniature 6-Axis F/T Sensor', re: /AFT(20|50|100)\b|AFT20-|AFT100-|AFT-?Mini|초소형|miniature/i },
-  { ko: '6축 F/T 센서 (손목형)', en: '6-Axis F/T Sensor (Wrist)', re: /AFT150/i },
+  { ko: '6축 F/T 센서 (손목형)', en: '6-Axis F/T Sensor (Wrist-Mount)', re: /AFT150/i },
   { ko: '6축 F/T 센서', en: '6-Axis F/T Sensor', re: /AFT200/i },
   { ko: '3축 F/T 센서', en: '3-Axis F/T Sensor', re: /3FT/i },
   { ko: '관절 토크 센서', en: 'Joint Torque Sensor', re: /ATS/i },
