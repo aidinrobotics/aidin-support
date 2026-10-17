@@ -530,3 +530,15 @@ body { background: #fff; }
 /* 메뉴 바 드롭다운이 아래 본문(검색창·카드)보다 항상 위에 오도록 */
 .aidin-visual { position: relative; z-index: 30; }
 .aidin-cell__menu { z-index: 40 !important; }
+
+/* 하단 CTA: 본문 폭에 맞춰 가운데로 모으고 조금 크게, 위 여백은 줄임 */
+.aidin-docs { padding-bottom: 32px; }
+.aidin-docs [class*='docItemContainer'] article { padding-bottom: 16px; }
+.aidin-cta { max-width: 1226px; margin: 0 auto; padding-bottom: 80px; }
+.aidin-cta__box { gap: 28px; padding: 40px 48px; border-radius: 16px; }
+.aidin-cta__ic { width: 64px; height: 64px; }
+.aidin-cta__text { gap: 6px; }
+.aidin-cta__text strong { font-size: 24px; }
+.aidin-cta__text span { font-size: 17px; }
+.aidin-cta__btns .aidin-btn { height: 54px; padding: 0 28px; font-size: 16px; }
+@media (max-width: 996px) { .aidin-cta__box { padding: 28px 24px; } .aidin-cta__text strong { font-size: 20px; } }
