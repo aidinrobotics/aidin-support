@@ -589,3 +589,44 @@ html[lang^='en'] .aidin-docs--as .aidin-form::before { content: 'Service Request
 @media (max-width: 996px) {
   .aidin-hero { background-image: linear-gradient(180deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.2) 100%), url('/img/sub-visual-bg.jpg'); background-size: 100% 100%, 1400px auto; }
 }
+
+/* 메인 화면 CTA는 위 카드 5개와 같은 폭으로, 조금 더 크게 */
+html.plugin-pages .aidin-cta { max-width: var(--aidin-max); padding-bottom: 96px; }
+html.plugin-pages .aidin-cta__box { padding: 48px 80px 48px 56px; }
+html.plugin-pages .aidin-cta__ic { width: 72px; height: 72px; }
+html.plugin-pages .aidin-cta__text strong { font-size: 26px; }
+html.plugin-pages .aidin-cta__text span { font-size: 18px; }
+html.plugin-pages .aidin-cta__btns .aidin-btn { height: 58px; padding: 0 32px; font-size: 17px; }
+@media (max-width: 996px) { html.plugin-pages .aidin-cta__box { padding: 28px 24px; } html.plugin-pages .aidin-cta__text strong { font-size: 20px; } }
+
+/* 상단 띠: 데모 홈페이지와 같은 점 이미지·명암 (왼쪽·오른쪽만 살짝 눌러 글자 가독성 유지) */
+.aidin-visual--sub {
+  background-image: linear-gradient(90deg, rgba(0,0,0,.5) 10%, rgba(17,17,17,0) 44%), linear-gradient(90deg, rgba(0,0,0,0) 61%, rgba(0,0,0,.5) 91%), linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)), url('/img/sub-visual-bg.webp');
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, center;
+}
+.aidin-hero {
+  background-image: radial-gradient(ellipse 46% 52% at 50% 46%, rgba(0,0,0,.7) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,0) 100%), linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)), url('/img/sub-visual-bg.webp');
+  background-size: 100% 100%, 100% 100%, cover;
+  background-position: center, center, center bottom;
+}
+@media (max-width: 996px) {
+  .aidin-hero { background-image: linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.1) 100%), url('/img/sub-visual-bg.webp'); background-size: 100% 100%, cover; }
+}
+
+/* 제품 매뉴얼 화면: 왼쪽 제품 목록은 상단 세 번째 칸으로 옮기고, 목차를 왼쪽에 둬서 본문을 넓게 */
+.aidin-docs--product .theme-doc-sidebar-container { display: none !important; }
+.aidin-docs--product [class*='docMainContainer'] { max-width: 100% !important; flex-grow: 1; }
+.aidin-docs--product main > .container { max-width: none; padding-left: 0; padding-right: 0; }
+.aidin-docs--product main > .container > .row { flex-direction: row-reverse; flex-wrap: nowrap; justify-content: flex-end; gap: 56px; margin: 0; }
+.aidin-docs--product main > .container > .row > .col--3 { flex: 0 0 260px; max-width: 260px; padding: 0; }
+.aidin-docs--product main > .container > .row > [class*='docItemCol'] { flex: 1 1 auto; max-width: none !important; padding: 0; min-width: 0; }
+.aidin-docs--product .theme-doc-toc-desktop { top: 120px; padding: 4px 0 0; border-left: 0; }
+.aidin-docs--product .theme-doc-toc-desktop::before { content: '목차'; display: block; padding-bottom: 14px; margin-bottom: 8px; border-bottom: 2px solid var(--aidin-ink); font-size: 17px; font-weight: 700; color: var(--aidin-ink); }
+html[lang^='en'] .aidin-docs--product .theme-doc-toc-desktop::before { content: 'Contents'; }
+.aidin-docs--product .table-of-contents { padding-left: 0; font-size: 15px; }
+.aidin-docs--product .table-of-contents__link { display: block; padding: 6px 0 6px 12px; border-left: 2px solid transparent; color: #555; }
+.aidin-docs--product .table-of-contents__link:hover { color: var(--aidin-ink); text-decoration: none; }
+.aidin-docs--product .table-of-contents__link--active { color: var(--aidin-red); font-weight: 600; border-left-color: var(--aidin-red); }
+.aidin-docs--product .table-of-contents ul { padding-left: 12px; }
+.aidin-docs--product .theme-doc-toc-desktop .table-of-contents { border-left: 0 !important; }
