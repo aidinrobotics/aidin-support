@@ -278,6 +278,11 @@ function buildLocale(locale) {
       if (writeDoc(k, section, { slug, label: k.title })) {
         sec.tabs.push({ label: section === 'install' ? tabLabel(k.title) : k.title, path: prefix + slug });
         kids.push(k);
+        // 자료실: 원고 표의 각 줄을 게시판 목록 한 줄로 (나중에 허브스팟 HubDB로 바꿔도 같은 모양)
+        if (section === 'downloads') {
+          const { body } = splitFrontmatter(fs.readFileSync(path.join(src, k.file), 'utf8'));
+          (sec.items = sec.items || []).push(...parseDownloadRows(body, k.title, prefix + slug));
+        }
       }
     }
     if (kids.length) {
@@ -304,6 +309,42 @@ function buildLocale(locale) {
     }
   }
   return { nav, sidebar };
+}
+
+// 자료실 원고 표 → 게시판 줄. 내려받기 링크가 있는 표만 읽음 (KC 인증번호 표 등은 본문에 그대로 둠)
+function parseDownloadRows(body, cat, catPath) {
+  const lines = body.split('\n');
+  const cells = (l) => l.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((c) => c.trim());
+  const plain = (x) => (x || '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '').trim();
+  const rows = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (!/^\s*\|/.test(lines[i]) || !/^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1] || '')) continue;
+    const head = cells(lines[i]);
+    let j = i + 2;
+    const data = [];
+    while (j < lines.length && /^\s*\|/.test(lines[j])) data.push(cells(lines[j++]));
+    i = j;
+    const linkCol = head.findIndex((_, c) => data.some((r) => /\]\(([^)\s]+)\)/.test(r[c] || '')));
+    if (linkCol < 0) continue;
+    const fmtCol = head.findIndex((h) => /형식|format|type/i.test(h));
+    const revCol = head.findIndex((h) => /개정|rev/i.test(h));
+    const rest = head.map((_, c) => c).filter((c) => c !== linkCol && c !== fmtCol && c !== revCol);
+    for (const r of data) {
+      const url = ((r[linkCol] || '').match(/\]\(([^)\s]+)\)/) || [])[1];
+      if (!url) continue;
+      const ext = (url.split('?')[0].match(/\.([a-z0-9]+)$/i) || [])[1] || '';
+      rows.push({
+        cat,
+        catPath,
+        title: plain(r[rest[0]]),
+        sub: plain(r[rest[1]]),
+        format: fmtCol >= 0 ? plain(r[fmtCol]) : ext.toUpperCase(),
+        rev: revCol >= 0 ? plain(r[revCol]) : '',
+        url,
+      });
+    }
+  }
+  return rows;
 }
 
 // 전체 페이지에 넣을 때 제목 단계를 한 단계씩 내림 (코드 블록 안은 건드리지 않음)
