@@ -75,7 +75,22 @@ function SubDropdown({ section, slug, page, nav }) {
     cur = items.find((tb) => tb.path === slug);
   }
   if (!items.length || !t.pick[section]) return null;
-  return <DropCell label={cur ? cur.label : t.pick[section]} placeholder={!cur} items={items} current={cur?.path} />;
+  const cell = <DropCell label={cur ? cur.label : t.pick[section]} placeholder={!cur} items={items} current={cur?.path} />;
+  // 제품 매뉴얼 화면: 세 번째 칸에서 같은 제품군의 모델을 바로 고름
+  if (section === 'manual' && page?.isManual && page.family) {
+    const models = Object.entries(nav.pages)
+      .filter(([, p]) => p.section === 'manual' && p.isManual && p.family === page.family)
+      .map(([path, p]) => ({ path, label: p.label || p.title }));
+    const curModel = models.find((m) => m.path === slug);
+    return (
+      <>
+        {cell}
+        <span className="aidin-bar__sep" aria-hidden="true" />
+        <DropCell label={curModel ? curModel.label : t.pick.model} placeholder={!curModel} items={models} current={curModel?.path} />
+      </>
+    );
+  }
+  return cell;
 }
 
 export function SubVisual({ variant = 'section', description }) {
