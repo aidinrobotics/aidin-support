@@ -48,11 +48,6 @@ export function DownloadBoard({ slug }) {
     () => all.map((it, i) => ({ ...it, i, tags: PRODUCTS.filter((p) => p.re.test(`${it.title} ${it.sub}`)).map((p) => p.ko) })),
     [all],
   );
-  const counts = useMemo(() => {
-    const c = { [sec?.path]: tagged.length };
-    tagged.forEach((it) => (c[it.catPath] = (c[it.catPath] || 0) + 1));
-    return c;
-  }, [tagged, sec]);
   const inCat = tagged.filter((it) => isAll || it.catPath === slug);
   const products = PRODUCTS.filter((p) => inCat.some((it) => it.tags.includes(p.ko)));
   const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -72,7 +67,6 @@ export function DownloadBoard({ slug }) {
   if (!sec) return null;
   return (
     <div className="aidin-board">
-      <SectionTabs section="downloads" slug={slug} counts={counts} />
       <div className="aidin-board__bar">
         <p className="aidin-board__count">{loc === 'en' ? <><b>{list.length}</b> {t.board.total(list.length).replace(/^\d+ /, '')}</> : <>총 <b>{list.length}</b>건</>}</p>
         <div className="aidin-board__filters">
