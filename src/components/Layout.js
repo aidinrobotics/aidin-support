@@ -76,12 +76,14 @@ function SubDropdown({ section, slug, page, nav }) {
   }
   if (!items.length || !t.pick[section]) return null;
   const cell = <DropCell label={cur ? cur.label : t.pick[section]} placeholder={!cur} items={items} current={cur?.path} />;
-  // 제품 매뉴얼 화면: 세 번째 칸에서 같은 제품군의 모델을 바로 고름
-  if (section === 'manual' && page?.isManual && page.family) {
+  // 제품군·제품 매뉴얼 화면: 세 번째 칸에서 그 제품군의 모델을 바로 고름 (모델이 1개 이상이면 항상)
+  const famLabel = section === 'manual' ? (page?.family || (cur && cur.path === slug ? cur.label : null)) : null;
+  if (famLabel) {
     const models = Object.entries(nav.pages)
-      .filter(([, p]) => p.section === 'manual' && p.isManual && p.family === page.family)
+      .filter(([, p]) => p.section === 'manual' && p.family === famLabel)
       .map(([path, p]) => ({ path, label: p.label || p.title }));
     const curModel = models.find((m) => m.path === slug);
+    if (!models.length) return cell;
     return (
       <>
         {cell}
