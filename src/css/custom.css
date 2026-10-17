@@ -454,3 +454,74 @@ body { background: #fff; }
 .alert--warning { background: #fdf6e7; color: #5a4100; box-shadow: inset 3px 0 0 #e0a400; }
 .alert--danger { background: #fdeff0; color: #8f1020; box-shadow: inset 3px 0 0 var(--aidin-red); }
 .alert a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
+
+/* 두 번째 칸 안내 문구(제품군 선택) */
+.aidin-cell__btn.is-ph span { color: rgba(255,255,255,.5); }
+
+/* 본문 분류 탭 (자료실·FAQ·설치 가이드) */
+.aidin-ptabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+.aidin-ptabs a { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 20px; border: 1px solid var(--aidin-line-2); border-radius: 22px; font-size: 16px; font-weight: 500; color: #444 !important; white-space: nowrap; transition: border-color .2s, background .2s, color .2s; }
+.aidin-ptabs a:hover { border-color: var(--aidin-ink); color: var(--aidin-ink) !important; text-decoration: none; }
+.aidin-ptabs a.is-on { background: var(--aidin-ink); border-color: var(--aidin-ink); color: #fff !important; font-weight: 600; }
+.aidin-ptabs b { font-size: 14px; font-weight: 500; opacity: .55; }
+
+/* 자료실 게시판 */
+.aidin-docs--downloads [class*='docMainContainer'] { max-width: 1200px !important; }
+.aidin-docs--downloads .theme-doc-toc-desktop, .aidin-docs--downloads [class*='tocCollapsible'] { display: none; }
+.aidin-board__bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 14px; }
+.aidin-board__count { margin: 0; font-size: 15px; color: #666; }
+.aidin-board__count b { color: var(--aidin-red); font-weight: 700; }
+.aidin-board__filters { display: flex; gap: 10px; }
+.aidin-select { -webkit-appearance: none; appearance: none; height: 46px; min-width: 200px; padding: 0 44px 0 16px; font: inherit; font-size: 16px; font-weight: 500; color: var(--aidin-ink); border: 1px solid var(--aidin-line-2); border-radius: 4px; cursor: pointer;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center / 18px; }
+.aidin-select:hover, .aidin-select:focus { border-color: var(--aidin-ink); outline: none; }
+.aidin-board__search { display: flex; align-items: center; gap: 10px; width: 300px; height: 46px; padding: 0 16px; border: 1px solid var(--aidin-line-2); border-radius: 4px; color: #888; transition: border-color .2s; }
+.aidin-board__search:focus-within { border-color: var(--aidin-ink); }
+.aidin-board__search input { flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 16px; color: var(--aidin-ink); background: transparent; }
+.aidin-board__table { display: table !important; width: 100%; border-collapse: collapse; border-top: 2px solid var(--aidin-ink); font-size: 17px; }
+.aidin-board__table thead, .aidin-board__table thead tr, .aidin-board__table tr, .aidin-board__table th { background: #fff !important; border: 0; }
+.aidin-board__table th { padding: 16px 20px; border: 0; border-bottom: 1px solid var(--aidin-line); background: transparent; text-align: left; font-size: 15px; font-weight: 600; color: #777; white-space: nowrap; }
+.aidin-board__table td { padding: 20px; border: 0; border-bottom: 1px solid var(--aidin-line); vertical-align: middle; }
+.aidin-board__table tbody tr:hover td { background: #fafafa; }
+.aidin-board__table .c-no { width: 80px; color: #999; font-variant-numeric: tabular-nums; }
+.aidin-board__table .c-cat { width: 150px; }
+.aidin-board__table .c-fmt { width: 100px; font-size: 14px; font-weight: 600; letter-spacing: .03em; color: #666; }
+.aidin-board__table .c-rev { width: 100px; color: #666; font-variant-numeric: tabular-nums; }
+.aidin-board__table .c-dl { width: 150px; text-align: right; }
+.aidin-board__table .c-title a { display: block; color: var(--aidin-ink) !important; text-decoration: none; }
+.aidin-board__table .c-title strong { display: block; font-weight: 600; line-height: 1.45; }
+.aidin-board__table .c-title span { display: block; margin-top: 3px; font-size: 15px; color: #777; }
+.aidin-board__table tr:hover .c-title strong { text-decoration: underline; text-underline-offset: 3px; }
+.aidin-badge { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 4px; background: #f2f2f2; font-size: 14px; font-weight: 600; color: #444; white-space: nowrap; }
+.aidin-dlbtn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border: 1px solid var(--aidin-line-2); border-radius: 4px; font-size: 15px; font-weight: 600; color: var(--aidin-ink) !important; white-space: nowrap; transition: background .2s, border-color .2s, color .2s; }
+.aidin-dlbtn:hover, .aidin-board__table tr:hover .aidin-dlbtn { background: var(--aidin-red); border-color: var(--aidin-red); color: #fff !important; text-decoration: none; }
+.aidin-board__empty { padding: 72px 20px !important; text-align: center; color: #888; }
+.aidin-pager { display: flex; justify-content: center; gap: 6px; margin-top: 40px; }
+.aidin-pager button { width: 40px; height: 40px; border: 0; border-radius: 4px; background: none; font: inherit; font-size: 16px; color: #666; cursor: pointer; }
+.aidin-pager button:hover:not(:disabled) { background: #f2f2f2; }
+.aidin-pager button.is-on { background: var(--aidin-ink); color: #fff; }
+.aidin-pager button:disabled { opacity: .3; cursor: default; }
+/* 하위 화면: 게시판으로 옮긴 표는 숨기고 안내 문구·인증번호 표만 */
+.aidin-dl-rest { margin-top: 40px; }
+.aidin-dl-rest table:has(a[href]) { display: none !important; }
+.aidin-dl-rest .theme-doc-markdown > header { display: none; }
+
+@media (max-width: 996px) {
+  .aidin-ptabs { flex-wrap: nowrap; overflow-x: auto; margin-left: -20px; margin-right: -20px; padding: 0 20px 4px; scrollbar-width: none; }
+  .aidin-ptabs::-webkit-scrollbar { display: none; }
+  .aidin-board__bar { flex-direction: column; align-items: stretch; }
+  .aidin-board__filters { flex-direction: column; }
+  .aidin-select, .aidin-board__search { width: 100%; }
+  .aidin-board__table thead { display: none; }
+  .aidin-board__table, .aidin-board__table tbody { display: block !important; }
+  .aidin-board__table tr { display: grid; grid-template-columns: auto 1fr auto; gap: 6px 10px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--aidin-line); }
+  .aidin-board__table td { padding: 0; border: 0; }
+  .aidin-board__table .c-no { display: none; }
+  .aidin-board__table .c-cat { order: 1; width: auto; }
+  .aidin-board__table .c-fmt { order: 2; width: auto; justify-self: start; }
+  .aidin-board__table .c-rev { order: 3; width: auto; font-size: 14px; }
+  .aidin-board__table .c-title { order: 4; grid-column: 1 / -1; margin-top: 4px; }
+  .aidin-board__table .c-dl { order: 5; grid-column: 1 / -1; width: auto; text-align: left; margin-top: 6px; }
+  .aidin-dlbtn { width: 100%; justify-content: center; }
+  .aidin-board__table tbody tr:hover td { background: none; }
+}
