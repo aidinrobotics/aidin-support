@@ -52,7 +52,7 @@ const S = {
     filterModel: 'Find by model',
     allProducts: 'All products',
     ctaTitle: "Can't find what you're looking for?",
-    ctaText: 'Check our FAQs first. If that doesn’t solve it, send us an inquiry and our team will get back to you.',
+    ctaText: 'Try our FAQs first. Still need help? Contact us and our team will get back to you.',
     ctaFaq: 'Browse FAQs',
     ctaAs: 'Contact Us',
     asButton: 'Get Started',
