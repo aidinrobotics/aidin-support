@@ -630,3 +630,13 @@ html[lang^='en'] .aidin-docs--product .theme-doc-toc-desktop::before { content: 
 .aidin-docs--product .table-of-contents__link--active { color: var(--aidin-red); font-weight: 600; border-left-color: var(--aidin-red); }
 .aidin-docs--product .table-of-contents ul { padding-left: 12px; }
 .aidin-docs--product .theme-doc-toc-desktop .table-of-contents { border-left: 0 !important; }
+
+/* 메인 상단: 하위 페이지와 같은 명암으로 점이 또렷하게 (가운데 어둡게 누르던 것 제거) */
+.aidin-hero {
+  background-image: linear-gradient(90deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,.35) 100%), url('/img/sub-visual-bg.webp');
+  background-size: 100% 100%, cover;
+  background-position: center, center 70%;
+}
+@media (max-width: 996px) {
+  .aidin-hero { background-image: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)), url('/img/sub-visual-bg.webp'); background-size: 100% 100%, cover; background-position: center, center 70%; }
+}
