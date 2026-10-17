@@ -526,3 +526,7 @@ body { background: #fff; }
   .aidin-dlbtn { width: 100%; justify-content: center; }
   .aidin-board__table tbody tr:hover td { background: none; }
 }
+
+/* 메뉴 바 드롭다운이 아래 본문(검색창·카드)보다 항상 위에 오도록 */
+.aidin-visual { position: relative; z-index: 30; }
+.aidin-cell__menu { z-index: 40 !important; }
