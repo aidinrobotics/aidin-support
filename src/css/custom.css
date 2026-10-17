@@ -58,8 +58,8 @@ body { background: #fff; }
 .navbar { box-shadow: none; padding: 0; height: var(--ifm-navbar-height); }
 .navbar__inner { max-width: var(--aidin-max); margin: 0 auto; padding: 0 var(--aidin-gutter); height: 100%; }
 .navbar__brand { margin: 0; height: 100%; }
-.navbar__logo { height: 44px; margin: 0; }
-.navbar__logo img { height: 44px; width: auto; }
+.navbar__logo { height: 34px; margin: 0; }
+.navbar__logo img { height: 34px; width: auto; }
 .navbar__items--right { gap: 22px; }
 .navbar__items--right > .navbar__item { padding: 0; }
 .navbar__search, .navbar [class*='navbarSearchContainer'], .navbar [class*='searchBox'], .navbar__toggle, .navbar-sidebar, .navbar-sidebar__backdrop { display: none !important; }
@@ -355,7 +355,7 @@ body { background: #fff; }
 /* ── 모바일 ─────────────────────────────── */
 @media (max-width: 996px) {
   :root { --aidin-gutter: 20px; --ifm-navbar-height: 72px; }
-  .navbar__logo, .navbar__logo img { height: 34px; }
+  .navbar__logo, .navbar__logo img { height: 26px; }
   .aidin-nav-cta.navbar__link { height: 34px; padding: 0 16px; font-size: 14px; }
   .navbar__items--right { gap: 12px; }
   .aidin-lang { margin-left: 4px; height: 32px; }
