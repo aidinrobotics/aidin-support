@@ -77,7 +77,7 @@ function SubDropdown({ section, slug, page, nav }) {
   return <DropCell label={cur.label} items={tabs.map((tb) => ({ path: tb.path, label: tb.label }))} current={cur.path} />;
 }
 
-export function SubVisual({ variant = 'section' }) {
+export function SubVisual({ variant = 'section', description }) {
   const t = useT();
   const { slug, section, nav, page } = useCurrentPage();
   const history = useHistory();
@@ -89,6 +89,7 @@ export function SubVisual({ variant = 'section' }) {
       <div className="aidin-container aidin-visual__inner">
         {variant !== 'search' && <div className="aidin-visual__eyebrow">{t.eyebrow}</div>}
         <div className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : nav.sections[section].title}</div>
+        {description && <p className="aidin-visual__desc">{description}</p>}
         {variant === 'search' ? (
           <form
             className="aidin-bar aidin-bar--search"
