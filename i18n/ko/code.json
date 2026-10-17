@@ -1,0 +1,10 @@
+{
+  "theme.SearchBar.label": { "message": "검색" },
+  "theme.SearchBar.noResultsText": { "message": "검색 결과가 없습니다" },
+  "theme.SearchBar.seeAll": { "message": "검색 결과 {count}건 모두 보기" },
+  "theme.SearchPage.existingResultsTitle": { "message": "‘{query}’ 검색 결과" },
+  "theme.SearchPage.emptyResultsTitle": { "message": "고객지원센터 검색" },
+  "theme.SearchPage.searchContext.everywhere": { "message": "전체" },
+  "theme.SearchPage.documentsFound.plurals": { "message": "검색 결과 {count}건" },
+  "theme.SearchPage.noResultsText": { "message": "검색 결과가 없습니다. 다른 모델명이나 증상으로 검색해 보세요." }
+}
