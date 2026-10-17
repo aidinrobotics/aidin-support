@@ -38,11 +38,14 @@ export default function LayoutWrapper(props) {
   const title = page?.title;
   const description = page?.description;
   const pdfUrl = useBaseUrl(page?.pdf || '/');
-  const dup = !!title && title === nav.sections[section]?.title;
+  // 탭으로 고르는 메뉴(자료실·FAQ·설치 가이드)와 '전체' 페이지는 제목을 상단 띠에서 한 번만
+  const tabbed = ['downloads', 'faq', 'install'].includes(section);
+  const dup = tabbed || (!!title && title === nav.sections[section]?.title);
+  const bandDesc = tabbed ? nav.pages[nav.sections[section]?.path]?.description || description : description;
   return (
     <>
       {/* 페이지 제목이 메뉴 이름과 같으면(전체 페이지 등) 상단 띠에서 한 번만 보여줌 */}
-      <SubVisual description={dup ? description : undefined} />
+      <SubVisual description={dup ? bandDesc : undefined} />
       {!dup && (
         <TitleSection title={title} description={description}>
           {page?.isManual && (
