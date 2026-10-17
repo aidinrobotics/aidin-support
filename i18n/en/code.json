@@ -1,0 +1,10 @@
+{
+  "theme.SearchBar.label": { "message": "Search" },
+  "theme.SearchBar.noResultsText": { "message": "No results found" },
+  "theme.SearchBar.seeAll": { "message": "See all {count} results" },
+  "theme.SearchPage.existingResultsTitle": { "message": "Search results for “{query}”" },
+  "theme.SearchPage.emptyResultsTitle": { "message": "Search the Support Center" },
+  "theme.SearchPage.searchContext.everywhere": { "message": "All" },
+  "theme.SearchPage.documentsFound.plurals": { "message": "1 result|{count} results" },
+  "theme.SearchPage.noResultsText": { "message": "No results found. Try a different model number or keyword." }
+}
