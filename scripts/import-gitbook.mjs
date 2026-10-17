@@ -324,13 +324,15 @@ function parseDownloadRows(body, cat, catPath) {
     const data = [];
     while (j < lines.length && /^\s*\|/.test(lines[j])) data.push(cells(lines[j++]));
     i = j;
-    const linkCol = head.findIndex((_, c) => data.some((r) => /\]\(([^)\s]+)\)/.test(r[c] || '')));
+    // 파일명에 괄호가 들어간 링크(예: KO(26.02 updated).pdf)도 끝까지 읽음
+    const LINK = /\]\(((?:[^()\s]|\([^()\s]*\))+)\)/;
+    const linkCol = head.findIndex((_, c) => data.some((r) => LINK.test(r[c] || '')));
     if (linkCol < 0) continue;
     const fmtCol = head.findIndex((h) => /형식|format|type/i.test(h));
     const revCol = head.findIndex((h) => /개정|rev/i.test(h));
     const rest = head.map((_, c) => c).filter((c) => c !== linkCol && c !== fmtCol && c !== revCol);
     for (const r of data) {
-      const url = ((r[linkCol] || '').match(/\]\(([^)\s]+)\)/) || [])[1];
+      const url = ((r[linkCol] || '').match(LINK) || [])[1];
       if (!url) continue;
       const ext = (url.split('?')[0].match(/\.([a-z0-9]+)$/i) || [])[1] || '';
       rows.push({
