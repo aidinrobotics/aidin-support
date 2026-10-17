@@ -59,16 +59,23 @@ function SectionDropdown({ current }) {
   return <DropCell label={sec ? sec.title : ''} items={items} current={sec?.path} />;
 }
 
-// 두 번째 칸: 제품별 매뉴얼에서만 제품군 선택 (자료실·FAQ·설치 가이드는 본문 탭으로 고름)
+// 두 번째 칸: 메뉴 첫 화면에서는 안내 문구(예: 자료 종류 선택), 고르면 그 이름. 목록에 '전체'는 넣지 않음
 function SubDropdown({ section, slug, page, nav }) {
   const t = useT();
-  if (section !== 'manual') return null;
-  const fams = Object.entries(nav.pages)
-    .filter(([path, p]) => p.section === 'manual' && !p.family && path !== '/manual' && path.split('/').length === 3)
-    .map(([path, p]) => ({ path, label: p.label || p.title }));
-  if (!fams.length) return null;
-  const cur = page?.family ? fams.find((f) => f.label === page.family) : fams.find((f) => f.path === slug);
-  return <DropCell label={cur ? cur.label : t.pickFamily} placeholder={!cur} items={fams} current={cur?.path} />;
+  let items;
+  let cur;
+  if (section === 'manual') {
+    items = Object.entries(nav.pages)
+      .filter(([path, p]) => p.section === 'manual' && !p.family && path !== '/manual' && path.split('/').length === 3)
+      .map(([path, p]) => ({ path, label: p.label || p.title }));
+    cur = page?.family ? items.find((f) => f.label === page.family) : items.find((f) => f.path === slug);
+  } else {
+    const sec = nav.sections[section];
+    items = (sec?.tabs || []).filter((tb) => tb.path !== sec.path).map((tb) => ({ path: tb.path, label: tb.label }));
+    cur = items.find((tb) => tb.path === slug);
+  }
+  if (!items.length || !t.pick[section]) return null;
+  return <DropCell label={cur ? cur.label : t.pick[section]} placeholder={!cur} items={items} current={cur?.path} />;
 }
 
 export function SubVisual({ variant = 'section', description }) {
@@ -107,7 +114,7 @@ export function SubVisual({ variant = 'section', description }) {
             </Link>
             <span className="aidin-bar__sep" aria-hidden="true" />
             <SectionDropdown current={section} />
-            {section === 'manual' && <span className="aidin-bar__sep" aria-hidden="true" />}
+            {['manual', 'install', 'downloads', 'faq'].includes(section) && <span className="aidin-bar__sep" aria-hidden="true" />}
             <SubDropdown section={section} slug={slug} page={page} nav={nav} />
             <span className="aidin-bar__spacer" />
           </div>
