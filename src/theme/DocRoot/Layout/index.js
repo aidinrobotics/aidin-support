@@ -38,20 +38,24 @@ export default function LayoutWrapper(props) {
   const title = page?.title;
   const description = page?.description;
   const pdfUrl = useBaseUrl(page?.pdf || '/');
+  const dup = !!title && title === nav.sections[section]?.title;
   return (
     <>
-      <SubVisual />
-      <TitleSection title={title} description={description}>
-        {page?.isManual && (
-          <div className="aidin-title__actions">
-            <a className="aidin-btn aidin-btn--line" href={pdfUrl} download>
-              <Icon name="download" size={16} /> {t.pdf}
-            </a>
-          </div>
-        )}
-      </TitleSection>
+      {/* 페이지 제목이 메뉴 이름과 같으면(전체 페이지 등) 상단 띠에서 한 번만 보여줌 */}
+      <SubVisual description={dup ? description : undefined} />
+      {!dup && (
+        <TitleSection title={title} description={description}>
+          {page?.isManual && (
+            <div className="aidin-title__actions">
+              <a className="aidin-btn aidin-btn--line" href={pdfUrl} download>
+                <Icon name="download" size={16} /> {t.pdf}
+              </a>
+            </div>
+          )}
+        </TitleSection>
+      )}
       {isManual && <MobileManualNav nav={nav} slug={slug} />}
-      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1${slug === '/manual' ? ' aidin-docs--landing' : ''}`}>
+      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1${dup ? ' aidin-docs--dup' : ''}${slug === '/manual' ? ' aidin-docs--landing' : ''}`}>
         <Layout {...props} />
       </div>
     </>
