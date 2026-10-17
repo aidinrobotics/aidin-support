@@ -466,7 +466,8 @@ body { background: #fff; }
 .aidin-ptabs b { font-size: 14px; font-weight: 500; opacity: .55; }
 
 /* 자료실 게시판 */
-.aidin-docs--downloads [class*='docMainContainer'] { max-width: 1200px !important; }
+.aidin-docs--downloads [class*='docMainContainer'] { max-width: 1200px !important; margin: 0 auto; }
+.aidin-docs--downloads [class*='docItemCol'] { max-width: 100% !important; flex: 1 1 100%; }
 .aidin-docs--downloads .theme-doc-toc-desktop, .aidin-docs--downloads [class*='tocCollapsible'] { display: none; }
 .aidin-board__bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 14px; }
 .aidin-board__count { margin: 0; font-size: 15px; color: #666; }
