@@ -579,3 +579,13 @@ html[lang^='en'] .aidin-docs--as .aidin-form::before { content: 'Service Request
   .aidin-docs:not(.aidin-docs--manual) .theme-doc-toc-mobile { display: none; }
   .aidin-mnav { margin-top: 20px; }
 }
+
+/* 메인 상단: 하위 페이지와 같은 점 패턴을 화면 전체에, 제목·검색창 뒤만 어둡게 눌러 가독성 유지 */
+.aidin-hero {
+  background-image: radial-gradient(ellipse 50% 58% at 50% 46%, rgba(0,0,0,.88) 0%, rgba(0,0,0,.6) 55%, rgba(0,0,0,.1) 100%), url('/img/sub-visual-bg.jpg');
+  background-size: 100% 100%, max(1920px, 100%) auto;
+  background-position: center, center bottom;
+}
+@media (max-width: 996px) {
+  .aidin-hero { background-image: linear-gradient(180deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.2) 100%), url('/img/sub-visual-bg.jpg'); background-size: 100% 100%, 1400px auto; }
+}
