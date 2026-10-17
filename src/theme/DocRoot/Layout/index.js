@@ -63,9 +63,8 @@ export default function LayoutWrapper(props) {
         </section>
       )}
       {!dup && !page?.isManual && <TitleSection title={title} description={description} />}
-      {/* 모바일 제품 선택 상자는 제품 매뉴얼 화면에서만 (첫 화면·제품군 화면은 상단 메뉴로 충분) */}
-      {isManual && page?.isManual && <MobileManualNav nav={nav} slug={slug} />}
-      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1${dup ? ' aidin-docs--dup' : ''}${slug === '/manual' ? ' aidin-docs--landing' : ''}`}>
+
+      <div className={`aidin-docs aidin-docs--${section || 'none'} aidin-docs--hide-h1${page?.isManual ? ' aidin-docs--product' : ''}${dup ? ' aidin-docs--dup' : ''}${slug === '/manual' ? ' aidin-docs--landing' : ''}`}>
         <Layout {...props} />
       </div>
     </>
