@@ -8,11 +8,13 @@ const SITE_URL = process.env.SITE_URL || 'https://aidinrobotics.github.io';
 const BASE_URL = process.env.BASE_URL || '/';
 const SHOP_URL = 'https://tebzhj-p0.myshopify.com/';
 const HOMEPAGE_URL = 'https://www.aidinrobotics.co.kr';
+// 언어별 사이트 이름 (링크 공유·브라우저 탭에 표시)
+const IS_EN = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '에이딘로보틱스 고객지원센터',
-  tagline: '제품 매뉴얼 · 설치·연동 가이드 · 자료실 · 자주 묻는 질문 · A/S 신청',
+  title: IS_EN ? 'AIDIN ROBOTICS Support Center' : '에이딘로보틱스 고객지원센터',
+  tagline: IS_EN ? 'Force-Aware Robotics, Empowering Physical AI' : 'Force-Aware Robotics, Empowering Physical AI',
   favicon: 'img/favicon.svg',
   url: SITE_URL,
   baseUrl: BASE_URL,
