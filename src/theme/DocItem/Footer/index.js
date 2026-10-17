@@ -5,7 +5,7 @@ import { useT, useLocale } from '@site/src/components/i18n';
 
 const REL = {
   ko: [['제품 도면', '/downloads/drawing'], ['3D STEP 파일', '/downloads/step'], ['자주 묻는 질문', '/faq'], ['A/S 신청', '/as']],
-  en: [['Product Drawings', '/downloads/drawing'], ['3D STEP Files', '/downloads/step'], ['FAQ', '/faq'], ['Contact Support', '/as']],
+  en: [['Product Drawings', '/downloads/drawing'], ['3D STEP Files', '/downloads/step'], ['FAQ', '/faq'], ['Service Request', '/as']],
 };
 
 export default function FooterWrapper(props) {
