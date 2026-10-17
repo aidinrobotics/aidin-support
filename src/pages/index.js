@@ -65,7 +65,7 @@ export default function Home() {
   const [q, setQ] = useState('');
   const searchPath = useBaseUrl('/search');
   return (
-    <Layout title={t.center} description={t.heroSub}>
+    <Layout description={t.shareDesc}>
       <section className="aidin-hero">
         <div className="aidin-container aidin-hero__inner">
           <h1 className="aidin-hero__title">{t.heroTitle}</h1>
