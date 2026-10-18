@@ -43,10 +43,27 @@ const LANG_ORDER = (code) => {
   const i = ['KO', 'KR', 'EN', 'CN', 'ZH', 'JP'].findIndex((c) => code.startsWith(c));
   return i < 0 ? 9 : i;
 };
-// 사이트에 보일 자료명 (파일 이름은 영문으로 통일, 국문 사이트에서는 국문 이름으로)
+// 사이트에 보일 자료명 [국문, 영문] — 파일 이름(언어·날짜 뺀 것) 기준. 국문 이름이 같은 것끼리는 한 줄로 묶음
 const TITLE_NAME = {
   'AIRO-One Solution for Surface Finishing': ['AIRO-One 표면가공 솔루션', 'AIRO-One Solution for Surface Finishing'],
   'AIRO-One Solution for Logistics Leaflet': ['AIRO-One 물류피킹 솔루션', 'AIRO-One Solution for Logistics'],
+  '3-axis FT sensor': ['3축 힘/토크 센서 (3FT2000)', '3-Axis F/T Sensor (3FT2000)'],
+  'AFT-Mini Flyer': ['6축 힘/토크 센서 (AFT20-D15)', '6-Axis F/T Sensor (AFT20-D15)'],
+  'AFT200+MINI': ['6축 힘/토크 센서 (AFT20/50/100, AFT200)', '6-Axis F/T Sensor (AFT20/50/100, AFT200)'],
+  'AFT MINI+AFT200 leaflet': ['6축 힘/토크 센서 (AFT-MINI, AFT200)', '6-Axis F/T Sensor (AFT-MINI, AFT200)'],
+  'AIDIN-Hand leaflet': ['AIDIN Hand Gen1', 'AIDIN Hand Gen1'],
+  'ATSB Series Flyer': ['ATSB 시리즈', 'ATSB Series'],
+  'ATSB leaflet': ['ATSB (관절 토크 센서)', 'ATSB (Joint Torque Sensor)'],
+  'ATS FLYER': ['ATS 시리즈', 'ATS Series'],
+  '6-axis FT Sensor KIT Leaflet 2': ['6축 힘/토크 센서 키트 (AFT200 kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
+  'AFT200-Kit': ['6축 힘/토크 센서 키트 (AFT200 kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
+  'AFT200-KIT-NRMK leaflet': ['AFT200 뉴로메카 키트', 'AFT200 Neuromeka Kit'],
+  'AFT200-KIT-RB leaflet': ['AFT200 레인보우 키트', 'AFT200 Rainbow Robotics Kit'],
+  'Tactile Sensor Leaflet': ['ATT (택타일 센서)', 'ATT (Tactile Sensor)'],
+  '6-axis Force torque sensor(Wrist)': ['6축 힘/토크 센서 (AFT150-D50)', '6-Axis F/T Sensor (AFT150-D50)'],
+  '치아교정장비 리플렛': ['OrthoForce (치아교정장비)', 'OrthoForce (Orthodontic Device)'],
+  'ARC Flyer': ['ARC 시리즈 (모션컨트롤러)', 'ARC Series (Motion Controller)'],
+  'Panoradar+Smart Gripper Flyer': ['Panoradar + 스마트 그리퍼', 'Panoradar + Smart Gripper'],
 };
 const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
 function splitLang(sub, en) {
@@ -79,7 +96,7 @@ export function DownloadBoard({ slug }) {
   const list = inCat.filter(
     (it) =>
       (!prod || it.tags.includes(prod)) &&
-      words.every((w) => `${it.cat} ${it.title} ${showTitle(it.title, false)} ${it.sub} ${it.format}`.toLowerCase().includes(w)),
+      words.every((w) => `${it.cat} ${it.title} ${showTitle(it.title, false)} ${showTitle(it.title, true)} ${it.sub} ${it.format}`.toLowerCase().includes(w)),
   );
   // 같은 자료(분류·자료명이 같은 것)는 한 줄로 묶고, 언어별로 가장 최신 파일 하나만 내려받기 버튼으로
   const groups = [];
@@ -87,7 +104,7 @@ export function DownloadBoard({ slug }) {
   const revOf = (it) => (/^\d{2}\.\d{2}$/.test(it.rev || '') ? it.rev : '');
   list.forEach((it) => {
     const L = splitLang(it.sub, loc === 'en');
-    const key = plain(it) || !L.lang ? `${it.url}` : `${it.cat}|${it.title}|${L.rest}`;
+    const key = plain(it) || !L.lang ? `${it.url}` : `${it.cat}|${showTitle(it.title, false)}|${L.rest}`;
     if (!byKey[key]) {
       byKey[key] = { ...it, rest: L.rest, files: [] };
       groups.push(byKey[key]);
