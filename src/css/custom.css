@@ -688,3 +688,7 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p + details { border-top
   .aidin-dlset { display: flex; flex-wrap: wrap; width: 100%; }
   .aidin-dlset .aidin-dlbtn { flex: 1 1 0; width: auto; }
 }
+
+/* 하단 문의 박스와 푸터 사이 구분선 */
+html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 56px !important; }
+html .aidin-cta + .aidin-footer { border-top: 1px solid var(--aidin-line) !important; }
