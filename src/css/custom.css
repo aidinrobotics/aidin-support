@@ -704,3 +704,11 @@ html .aidin-cta + .aidin-footer { border-top: 1px solid var(--aidin-line) !impor
 @media (min-width: 997px) {
   .aidin-mgrid--prod { grid-template-columns: repeat(auto-fit, calc((100% - 3 * 18px) / 4)) !important; justify-content: center; }
 }
+
+/* 자료실: 다운로드 칸도 왼쪽 정렬 */
+.aidin-board__table th.c-dl, .aidin-board__table td.c-dl { text-align: left; }
+.aidin-board__table .aidin-dlset { justify-content: flex-start; }
+
+/* 자주 묻는 질문 안내 문구를 A/S 신청 안내 문구와 같은 글씨로 */
+html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 20px; color: #161616; line-height: 1.8; }
+@media (max-width: 996px) { html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 17px; } }
