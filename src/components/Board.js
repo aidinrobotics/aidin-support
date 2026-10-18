@@ -51,7 +51,7 @@ const TITLE_NAME = {
   'AFT-Mini Flyer': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
   'AFT200+MINI': ['6축 힘/토크 센서 (AFT-MINI, AFT200)', '6-Axis F/T Sensor (AFT-MINI, AFT200)'],
   'AFT MINI+AFT200 leaflet': ['6축 힘/토크 센서 (AFT-MINI, AFT200)', '6-Axis F/T Sensor (AFT-MINI, AFT200)'],
-  'AIDIN-Hand leaflet': ['AIDIN Hand Gen1', 'AIDIN Hand Gen1'],
+  'AIDIN-Hand leaflet': ['AIDIN ROBOTICS Hand Gen1 (로봇핸드)', 'AIDIN ROBOTICS Hand Gen1 (Robot Hand)'],
   'ATSB Series Flyer': ['ATSB 시리즈 (초박형 관절 토크 센서)', 'ATSB Series (Ultra-Thin Joint Torque Sensor)'],
   'ATSB leaflet': ['ATSB (관절 토크 센서)', 'ATSB (Joint Torque Sensor)'],
   'ATS FLYER': ['ATS 시리즈', 'ATS Series'],
