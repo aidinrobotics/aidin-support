@@ -644,3 +644,7 @@ html[lang^='en'] .aidin-docs--product .theme-doc-toc-desktop::before { content: 
 /* 하단 문의 박스: 아래 여백 없이 바로 푸터로 이어지게 */
 html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 0; }
 .aidin-cta + .aidin-footer { border-top: 0; }
+
+/* 하단 문의 박스 위아래 간격 맞춤 */
+html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 24px; }
+html .aidin-mcards, html.plugin-pages .aidin-mcards { padding-bottom: 64px; }
