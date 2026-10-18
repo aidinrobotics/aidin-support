@@ -70,7 +70,7 @@ async function all(base) {
   return out;
 }
 
-const LANG = /\b(KO|KOR|EN|ENG|CN|CHN|JP|JPN)\b/gi;
+const LANG = /\b(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)\b/gi;
 
 // 파일 이름 → 자료명·언어·개정일
 function parseFileName(name) {
@@ -84,7 +84,7 @@ function parseFileName(name) {
   const rev = (base.match(/(\d{2}\.\d{2})(?:\s*updated?)?/i) || [])[1] || '';
   // 언어·개정일은 따로 보여주니 자료명에서는 뺌: 'Catalog KO(26.02 updated)' → 'Catalog'
   const title = base
-    .replace(/\(([^()]*)\)/g, (m, inner) => (/\b(KO|KOR|EN|ENG|CN|CHN|JP|JPN)\b|\d{2}\.\d{2}|update/i.test(inner) ? ' ' : m))
+    .replace(/\(([^()]*)\)/g, (m, inner) => (/\b(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)\b|\d{2}\.\d{2}|update/i.test(inner) ? ' ' : m))
     .replace(LANG, ' ')
     .replace(/\s*(배포\s*최종본|배포용|최종본)\s*/g, ' ')
     .replace(/\.(step|stp)\b/gi, '')
