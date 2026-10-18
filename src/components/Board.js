@@ -39,6 +39,10 @@ const LANG_CODE = /^(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)$/i;
 // 3D STEP 파일·제품 도면·제품 인증은 언어·개정 칸을 쓰지 않음
 const NO_META = /STEP|도면|인증|Drawing|Certific/i;
 const plain = (it) => NO_META.test(it.cat || '');
+const LANG_ORDER = (code) => {
+  const i = ['KO', 'KR', 'EN', 'CN', 'ZH', 'JP'].findIndex((c) => code.startsWith(c));
+  return i < 0 ? 9 : i;
+};
 function splitLang(sub, en) {
   const parts = (sub || '').split(/[\s·,/]+/).filter(Boolean);
   if (parts.length && parts.every((x) => LANG_CODE.test(x))) {
@@ -71,9 +75,22 @@ export function DownloadBoard({ slug }) {
       (!prod || it.tags.includes(prod)) &&
       words.every((w) => `${it.cat} ${it.title} ${it.sub} ${it.format}`.toLowerCase().includes(w)),
   );
-  const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  // 같은 자료(분류·자료명·개정일이 같은 것)는 한 줄로 묶고, 언어별 내려받기 버튼을 나란히
+  const groups = [];
+  const byKey = {};
+  list.forEach((it) => {
+    const L = splitLang(it.sub, loc === 'en');
+    const key = plain(it) || !L.lang ? `${it.url}` : `${it.cat}|${it.title}|${L.rest}|${it.rev}`;
+    if (!byKey[key]) {
+      byKey[key] = { ...it, rest: L.rest, files: [] };
+      groups.push(byKey[key]);
+    }
+    byKey[key].files.push({ url: it.url, lang: plain(it) ? '' : L.lang, code: (it.sub || '').toUpperCase() });
+  });
+  groups.forEach((g) => g.files.sort((a, b) => LANG_ORDER(a.code) - LANG_ORDER(b.code)));
+  const pages = Math.max(1, Math.ceil(groups.length / PER_PAGE));
   const cur = Math.min(page, pages);
-  const shown = list.slice((cur - 1) * PER_PAGE, cur * PER_PAGE);
+  const shown = groups.slice((cur - 1) * PER_PAGE, cur * PER_PAGE);
   const showMeta = !inCat.length || inCat.some((it) => !plain(it));
   const reset = (fn) => (e) => {
     fn(e.target.value);
@@ -84,7 +101,7 @@ export function DownloadBoard({ slug }) {
   return (
     <div className="aidin-board">
       <div className="aidin-board__bar">
-        <p className="aidin-board__count">{loc === 'en' ? <><b>{list.length}</b> {t.board.total(list.length).replace(/^\d+ /, '')}</> : <>총 <b>{list.length}</b>건</>}</p>
+        <p className="aidin-board__count">{loc === 'en' ? <><b>{groups.length}</b> {t.board.total(groups.length).replace(/^\d+ /, '')}</> : <>총 <b>{groups.length}</b>건</>}</p>
         <div className="aidin-board__filters">
           {products.length > 1 && (
             <select value={prod} onChange={reset(setProd)} aria-label={t.allProducts} className="aidin-select">
@@ -107,39 +124,38 @@ export function DownloadBoard({ slug }) {
             <th className="c-no">{t.board.no}</th>
             <th className="c-cat">{t.board.cat}</th>
             <th>{t.board.title}</th>
-            {showMeta && <th className="c-lang">{t.board.lang}</th>}
             <th className="c-fmt">{t.board.format}</th>
             {showMeta && <th className="c-rev">{t.board.rev}</th>}
             <th className="c-dl">{t.board.download}</th>
           </tr>
         </thead>
         <tbody>
-          {shown.map((it, k) => {
-            const L = splitLang(it.sub, loc === 'en');
-            return (
+          {shown.map((it, k) => (
             <tr key={`${it.url}-${it.i}`}>
-              <td className="c-no">{list.length - ((cur - 1) * PER_PAGE + k)}</td>
+              <td className="c-no">{groups.length - ((cur - 1) * PER_PAGE + k)}</td>
               <td className="c-cat"><span className="aidin-badge">{it.cat}</span></td>
               <td className="c-title">
                 <a href={it.url} target="_blank" rel="noopener noreferrer">
                   <strong>{it.title}</strong>
-                  {L.rest && <span>{L.rest}</span>}
+                  {it.rest && <span>{it.rest}</span>}
                 </a>
               </td>
-              {showMeta && <td className="c-lang">{plain(it) ? '' : L.lang || '—'}</td>}
               <td className="c-fmt">{it.format}</td>
               {showMeta && <td className="c-rev">{plain(it) ? '' : it.rev && it.rev !== '—' && it.rev !== '-' ? it.rev : '—'}</td>}
               <td className="c-dl">
-                <a className="aidin-dlbtn" href={it.url} target="_blank" rel="noopener noreferrer">
-                  <Icon name="download" size={17} /> {t.board.dl}
-                </a>
+                <div className="aidin-dlset">
+                  {it.files.map((f) => (
+                    <a key={f.url} className="aidin-dlbtn" href={f.url} target="_blank" rel="noopener noreferrer">
+                      <Icon name="download" size={17} /> {f.lang || t.board.dl}
+                    </a>
+                  ))}
+                </div>
               </td>
             </tr>
-            );
-          })}
+          ))}
           {!shown.length && (
             <tr>
-              <td colSpan={showMeta ? 7 : 5} className="aidin-board__empty">{t.board.empty}</td>
+              <td colSpan={showMeta ? 6 : 5} className="aidin-board__empty">{t.board.empty}</td>
             </tr>
           )}
         </tbody>
