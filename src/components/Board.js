@@ -75,23 +75,26 @@ export function DownloadBoard({ slug }) {
       (!prod || it.tags.includes(prod)) &&
       words.every((w) => `${it.cat} ${it.title} ${it.sub} ${it.format}`.toLowerCase().includes(w)),
   );
-  // 같은 자료(분류·자료명·개정일이 같은 것)는 한 줄로 묶고, 언어별 내려받기 버튼을 나란히
+  // 같은 자료(분류·자료명이 같은 것)는 한 줄로 묶고, 언어별로 가장 최신 파일 하나만 내려받기 버튼으로
   const groups = [];
   const byKey = {};
+  const revOf = (it) => (/^\d{2}\.\d{2}$/.test(it.rev || '') ? it.rev : '');
   list.forEach((it) => {
     const L = splitLang(it.sub, loc === 'en');
-    const key = plain(it) || !L.lang ? `${it.url}` : `${it.cat}|${it.title}|${L.rest}|${it.rev}`;
+    const key = plain(it) || !L.lang ? `${it.url}` : `${it.cat}|${it.title}|${L.rest}`;
     if (!byKey[key]) {
       byKey[key] = { ...it, rest: L.rest, files: [] };
       groups.push(byKey[key]);
     }
-    byKey[key].files.push({ url: it.url, lang: plain(it) ? '' : L.lang, code: (it.sub || '').toUpperCase() });
+    const file = { url: it.url, lang: plain(it) ? '' : L.lang, code: (it.sub || '').toUpperCase(), rev: revOf(it) };
+    const same = byKey[key].files.findIndex((f) => f.lang === file.lang);
+    if (same < 0) byKey[key].files.push(file);
+    else if (file.rev > byKey[key].files[same].rev) byKey[key].files[same] = file;
   });
   groups.forEach((g) => g.files.sort((a, b) => LANG_ORDER(a.code) - LANG_ORDER(b.code)));
   const pages = Math.max(1, Math.ceil(groups.length / PER_PAGE));
   const cur = Math.min(page, pages);
   const shown = groups.slice((cur - 1) * PER_PAGE, cur * PER_PAGE);
-  const showMeta = !inCat.length || inCat.some((it) => !plain(it));
   const reset = (fn) => (e) => {
     fn(e.target.value);
     setPage(1);
@@ -125,7 +128,6 @@ export function DownloadBoard({ slug }) {
             <th className="c-cat">{t.board.cat}</th>
             <th>{t.board.title}</th>
             <th className="c-fmt">{t.board.format}</th>
-            {showMeta && <th className="c-rev">{t.board.rev}</th>}
             <th className="c-dl">{t.board.download}</th>
           </tr>
         </thead>
@@ -135,13 +137,12 @@ export function DownloadBoard({ slug }) {
               <td className="c-no">{groups.length - ((cur - 1) * PER_PAGE + k)}</td>
               <td className="c-cat"><span className="aidin-badge">{it.cat}</span></td>
               <td className="c-title">
-                <a href={it.url} target="_blank" rel="noopener noreferrer">
+                <a href={it.files[0].url} target="_blank" rel="noopener noreferrer">
                   <strong>{it.title}</strong>
                   {it.rest && <span>{it.rest}</span>}
                 </a>
               </td>
               <td className="c-fmt">{it.format}</td>
-              {showMeta && <td className="c-rev">{plain(it) ? '' : it.rev && it.rev !== '—' && it.rev !== '-' ? it.rev : '—'}</td>}
               <td className="c-dl">
                 <div className="aidin-dlset">
                   {it.files.map((f) => (
@@ -155,7 +156,7 @@ export function DownloadBoard({ slug }) {
           ))}
           {!shown.length && (
             <tr>
-              <td colSpan={showMeta ? 6 : 5} className="aidin-board__empty">{t.board.empty}</td>
+              <td colSpan={5} className="aidin-board__empty">{t.board.empty}</td>
             </tr>
           )}
         </tbody>
