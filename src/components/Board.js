@@ -33,6 +33,18 @@ const PRODUCTS = [
 ];
 const PER_PAGE = 12;
 
+// 파일 이름의 언어 표기(KO·EN·CN·JP)를 '언어' 칸에 보여 줄 이름으로
+const LANG_NAME = { KO: ['국문', 'Korean'], EN: ['영문', 'English'], CN: ['중문', 'Chinese'], JP: ['일문', 'Japanese'] };
+const LANG_CODE = /^(KO|KOR|EN|ENG|CN|CHN|JP|JPN)$/i;
+function splitLang(sub, en) {
+  const parts = (sub || '').split(/[\s·,/]+/).filter(Boolean);
+  if (parts.length && parts.every((x) => LANG_CODE.test(x))) {
+    const names = [...new Set(parts.map((x) => LANG_NAME[x.toUpperCase().slice(0, 2)][en ? 1 : 0]))];
+    return { lang: names.join(' · '), rest: '' };
+  }
+  return { lang: '', rest: sub || '' };
+}
+
 export function DownloadBoard({ slug }) {
   const t = useT();
   const loc = useLocale();
@@ -92,22 +104,26 @@ export function DownloadBoard({ slug }) {
             <th className="c-cat">{t.board.cat}</th>
             <th>{t.board.title}</th>
             <th className="c-fmt">{t.board.format}</th>
+            <th className="c-lang">{t.board.lang}</th>
             <th className="c-rev">{t.board.rev}</th>
             <th className="c-dl">{t.board.download}</th>
           </tr>
         </thead>
         <tbody>
-          {shown.map((it, k) => (
+          {shown.map((it, k) => {
+            const L = splitLang(it.sub, loc === 'en');
+            return (
             <tr key={`${it.url}-${it.i}`}>
               <td className="c-no">{list.length - ((cur - 1) * PER_PAGE + k)}</td>
               <td className="c-cat"><span className="aidin-badge">{it.cat}</span></td>
               <td className="c-title">
                 <a href={it.url} target="_blank" rel="noopener noreferrer">
                   <strong>{it.title}</strong>
-                  {it.sub && <span>{it.sub}</span>}
+                  {L.rest && <span>{L.rest}</span>}
                 </a>
               </td>
               <td className="c-fmt">{it.format}</td>
+              <td className="c-lang">{L.lang || '—'}</td>
               <td className="c-rev">{it.rev && it.rev !== '—' && it.rev !== '-' ? it.rev : '—'}</td>
               <td className="c-dl">
                 <a className="aidin-dlbtn" href={it.url} target="_blank" rel="noopener noreferrer">
@@ -115,10 +131,11 @@ export function DownloadBoard({ slug }) {
                 </a>
               </td>
             </tr>
-          ))}
+            );
+          })}
           {!shown.length && (
             <tr>
-              <td colSpan={6} className="aidin-board__empty">{t.board.empty}</td>
+              <td colSpan={7} className="aidin-board__empty">{t.board.empty}</td>
             </tr>
           )}
         </tbody>
