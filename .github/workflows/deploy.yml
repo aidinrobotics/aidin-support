@@ -1,5 +1,6 @@
 # 고객지원센터 자동 배포
 # aidin-docs(국문)·aidin-docs-en(영문)을 읽어 사이트를 만들고 GitHub Pages에 올립니다.
+# 자료실은 HubSpot 파일함(에이딘 브로슈어·리플렛·스텝파일·도면·인증 폴더)에서 가져옵니다 (HUBSPOT_TOKEN 이 있을 때).
 # 연구원은 지금처럼 각 매뉴얼 저장소만 수정하면 됩니다 → 기존 sync-manuals가 aidin-docs로 모으고 → 이 작업이 15분마다 반영.
 name: deploy-support-center
 
@@ -47,8 +48,11 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - name: GitBook 문서 → 사이트 문서로 변환
+      - name: GitBook 문서 + HubSpot 자료실 → 사이트 문서로 변환
         run: npm run import
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+          HUBSPOT_DOWNLOADS_FOLDERS: ${{ vars.HUBSPOT_DOWNLOADS_FOLDERS }}
       - name: 사이트 빌드
         run: npm run build
         env:
