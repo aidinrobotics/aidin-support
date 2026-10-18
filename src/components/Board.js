@@ -89,8 +89,9 @@ const TITLE_NAME = {
 };
 const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
 // 길어서 두 줄이 되는 자료명은 괄호 안 모델명을 아래 줄로
-const splitTitle = (t) => {
-  const m = t.length > 34 && t.match(/^(.*?) \((.*)\)$/);
+// 줄바꿈 여부는 국문 이름 길이로 정해 국문·영문 사이트에서 같은 자료가 같은 모양으로
+const splitTitle = (t, ko) => {
+  const m = (ko || t).length > 34 && t.match(/^(.*?) \((.*)\)$/);
   return m ? [m[1], m[2]] : [t, ''];
 };
 function splitLang(sub, en) {
@@ -189,7 +190,7 @@ export function DownloadBoard({ slug }) {
               <td className="c-title">
                 <a href={it.files[0].url} target="_blank" rel="noopener noreferrer">
                   {(() => {
-                    const [main, model] = splitTitle(showTitle(it.title, loc === 'en'));
+                    const [main, model] = splitTitle(showTitle(it.title, loc === 'en'), showTitle(it.title, false));
                     return <strong>{main}{model && <><br />({model})</>}</strong>;
                   })()}
                   {it.rest && <span>{it.rest}</span>}
