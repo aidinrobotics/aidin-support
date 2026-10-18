@@ -672,3 +672,9 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p + details { border-top
 
 /* 목차: 현재 위치 빨간 세로선 없이 글자색으로만 표시 */
 .theme-doc-toc-desktop .table-of-contents a, .theme-doc-toc-desktop .table-of-contents a.table-of-contents__link--active { border-left-color: transparent !important; box-shadow: none !important; }
+
+/* 제품 매뉴얼 목차도 설치·연동 가이드처럼: 오른쪽에, '목차' 제목 없이 */
+.aidin-docs--product main > .container > .row { flex-direction: row !important; }
+.aidin-docs--product .theme-doc-toc-desktop::before { content: none !important; display: none !important; }
+.aidin-docs--product .theme-doc-toc-desktop { padding: 20px 18px !important; }
+.aidin-docs--product .table-of-contents__link { padding: 5px 0 5px 4px; }
