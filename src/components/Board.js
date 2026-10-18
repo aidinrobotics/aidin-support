@@ -43,6 +43,12 @@ const LANG_ORDER = (code) => {
   const i = ['KO', 'KR', 'EN', 'CN', 'ZH', 'JP'].findIndex((c) => code.startsWith(c));
   return i < 0 ? 9 : i;
 };
+// 사이트에 보일 자료명 (파일 이름은 영문으로 통일, 국문 사이트에서는 국문 이름으로)
+const TITLE_NAME = {
+  'AIRO-One Solution for Surface Finishing': ['AIRO-One 표면가공 솔루션', 'AIRO-One Solution for Surface Finishing'],
+  'AIRO-One Solution for Logistics Leaflet': ['AIRO-One 물류피킹 솔루션', 'AIRO-One Solution for Logistics'],
+};
+const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
 function splitLang(sub, en) {
   const parts = (sub || '').split(/[\s·,/]+/).filter(Boolean);
   if (parts.length && parts.every((x) => LANG_CODE.test(x))) {
@@ -73,7 +79,7 @@ export function DownloadBoard({ slug }) {
   const list = inCat.filter(
     (it) =>
       (!prod || it.tags.includes(prod)) &&
-      words.every((w) => `${it.cat} ${it.title} ${it.sub} ${it.format}`.toLowerCase().includes(w)),
+      words.every((w) => `${it.cat} ${it.title} ${showTitle(it.title, false)} ${it.sub} ${it.format}`.toLowerCase().includes(w)),
   );
   // 같은 자료(분류·자료명이 같은 것)는 한 줄로 묶고, 언어별로 가장 최신 파일 하나만 내려받기 버튼으로
   const groups = [];
@@ -138,7 +144,7 @@ export function DownloadBoard({ slug }) {
               <td className="c-cat"><span className="aidin-badge">{it.cat}</span></td>
               <td className="c-title">
                 <a href={it.files[0].url} target="_blank" rel="noopener noreferrer">
-                  <strong>{it.title}</strong>
+                  <strong>{showTitle(it.title, loc === 'en')}</strong>
                   {it.rest && <span>{it.rest}</span>}
                 </a>
               </td>
