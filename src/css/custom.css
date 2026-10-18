@@ -640,3 +640,7 @@ html[lang^='en'] .aidin-docs--product .theme-doc-toc-desktop::before { content: 
 @media (max-width: 996px) {
   .aidin-hero { background-image: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)), url('/img/sub-visual-bg.webp'); background-size: 100% 100%, cover; background-position: center, center 70%; }
 }
+
+/* 하단 문의 박스: 아래 여백 없이 바로 푸터로 이어지게 */
+html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 0; }
+.aidin-cta + .aidin-footer { border-top: 0; }
