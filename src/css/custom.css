@@ -692,3 +692,10 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p + details { border-top
 /* 하단 문의 박스와 푸터 사이 구분선 */
 html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 56px !important; }
 html .aidin-cta + .aidin-footer { border-top: 1px solid var(--aidin-line) !important; }
+
+/* 제품별 매뉴얼 목록·제품군 화면: 왼쪽 제품 목록은 상단 메뉴와 겹쳐서 빼고 본문을 가운데로 */
+@media (min-width: 997px) {
+  .aidin-docs--manual .theme-doc-sidebar-container { display: none !important; }
+  .aidin-docs--manual [class*='docMainContainer'] { max-width: 100% !important; flex-grow: 1; }
+  .aidin-docs--manual:not(.aidin-docs--product) main > .container { max-width: 1226px; }
+}
