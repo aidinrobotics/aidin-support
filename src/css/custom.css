@@ -678,3 +678,13 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p + details { border-top
 .aidin-docs--product .theme-doc-toc-desktop::before { content: none !important; display: none !important; }
 .aidin-docs--product .theme-doc-toc-desktop { padding: 20px 18px !important; }
 .aidin-docs--product .table-of-contents__link { padding: 5px 0 5px 4px; }
+
+/* 자료실: 언어별 내려받기 버튼 묶음 */
+.aidin-board__table .c-dl { width: auto; white-space: nowrap; }
+.aidin-dlset { display: inline-flex; gap: 6px; justify-content: flex-end; }
+.aidin-dlset .aidin-dlbtn { padding: 0 14px; }
+.aidin-board__table tr:hover .aidin-dlset:has(.aidin-dlbtn + .aidin-dlbtn) .aidin-dlbtn:not(:hover) { background: none; border-color: var(--aidin-line-2); color: var(--aidin-ink) !important; }
+@media (max-width: 996px) {
+  .aidin-dlset { display: flex; flex-wrap: wrap; width: 100%; }
+  .aidin-dlset .aidin-dlbtn { flex: 1 1 0; width: auto; }
+}
