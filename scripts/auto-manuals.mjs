@@ -50,19 +50,24 @@ function addToSummary(dir, entry, fam) {
 function addToFamilyPage(dir, entry, fam) {
   const file = path.join(dir, fam.file);
   if (!fs.existsSync(file)) return;
-  const lines = fs.readFileSync(file, 'utf8').replace(/\s+$/, '').split('\n');
+  const text = fs.readFileSync(file, 'utf8');
+  if (text.includes(`](${entry.link})`)) return false;
+  const lines = text.replace(/\s+$/, '').split('\n');
   let last = -1;
   lines.forEach((l, i) => { if (/^\s*[*-]\s+\[.*\]\(.*\)/.test(l)) last = i; });
   const line = `* [${entry.title}](${entry.link})`;
   if (last >= 0) lines.splice(last + 1, 0, line);
   else lines.push('', line);
   fs.writeFileSync(file, lines.join('\n') + '\n');
+  return true;
 }
 
 function addToIndexTable(dir, entry, fam) {
   const file = path.join(dir, 'index-manual.md');
   if (!fs.existsSync(file)) return;
-  const lines = fs.readFileSync(file, 'utf8').split('\n');
+  const text = fs.readFileSync(file, 'utf8');
+  if (text.includes(`](${entry.link})`)) return false;
+  const lines = text.split('\n');
   const cells = (l) => l.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((c) => c.trim());
   // 표 찾기: 머리줄 + 구분줄(| --- |)
   const tables = [];
@@ -85,13 +90,14 @@ function addToIndexTable(dir, entry, fam) {
       row[fam.col] = link;
       lines[r] = `| ${row.join(' | ')} |`;
       fs.writeFileSync(file, lines.join('\n'));
-      return;
+      return true;
     }
   }
   const row = Array(width).fill('');
   row[fam.col] = link;
   lines.splice(t.end, 0, `| ${row.join(' | ')} |`);
   fs.writeFileSync(file, lines.join('\n'));
+  return true;
 }
 
 function run(locale) {
@@ -103,20 +109,26 @@ function run(locale) {
   for (const name of fs.readdirSync(manualDir).sort()) {
     if (/^[._]/.test(name)) continue; // 숨김·보조 폴더는 제외
     const link = `manual/${name}/README.md`;
-    if (!fs.existsSync(path.join(dir, link)) || summary.includes(`](${link})`)) continue;
+    if (!fs.existsSync(path.join(dir, link))) continue;
     const fam = FAMILIES.find((f) => f.re.test(name));
+    // 목차에 이미 있으면 그 이름을 그대로 씀 (목차에서 이름을 고치면 목록 페이지에도 그 이름으로 들어감)
+    const known = summary.match(new RegExp(`\\[([^\\]]+)\\]\\(${link.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`));
     if (!fam) {
-      console.warn(`[${locale}] 제품군을 정하지 못해 메뉴에 넣지 않음: ${link} (scripts/auto-manuals.mjs 의 FAMILIES 에 규칙 추가 필요)`);
+      if (!known) console.warn(`[${locale}] 제품군을 정하지 못해 메뉴에 넣지 않음: ${link} (scripts/auto-manuals.mjs 의 FAMILIES 에 규칙 추가 필요)`);
       continue;
     }
-    const entry = { title: name.toUpperCase(), link };
-    if (!addToSummary(dir, entry, fam)) {
-      console.warn(`[${locale}] 목차에 제품군(${fam.file})이 없어 건너뜀: ${link}`);
-      continue;
+    const entry = { title: known ? known[1] : name.toUpperCase(), link };
+    let changed = false;
+    if (!known) {
+      if (!addToSummary(dir, entry, fam)) {
+        console.warn(`[${locale}] 목차에 제품군(${fam.file})이 없어 건너뜀: ${link}`);
+        continue;
+      }
+      changed = true;
     }
-    addToFamilyPage(dir, entry, fam);
-    addToIndexTable(dir, entry, fam);
-    added.push(entry.title);
+    if (addToFamilyPage(dir, entry, fam)) changed = true;
+    if (addToIndexTable(dir, entry, fam)) changed = true;
+    if (changed) added.push(entry.title);
   }
   return added;
 }
