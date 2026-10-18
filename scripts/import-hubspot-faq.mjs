@@ -26,7 +26,7 @@ const SRC = { ko: path.resolve(process.env.FAQ_SRC_KO || '.src/ko'), en: path.re
 const SHEETS = { ko: /국문|KO|한국/i, en: /영문|EN|영어/i };
 const INTRO = {
   ko: { description: '고객님들이 자주 문의하신 질문과 답변입니다.', lead: '고객님들이 자주 문의하신 질문과 답변입니다. 항목을 누르면 답변을 확인하실 수 있습니다.' },
-  en: { description: 'Questions our support team receives most often.', lead: 'Questions our support team receives most often. Select a question to see the answer.' },
+  en: { description: 'Answers to the questions our customers ask most often.', lead: 'Answers to the questions our customers ask most often. Select a question to see the answer.' },
 };
 
 // ── 작은 xlsx 읽기 (zip → 시트 XML). 패키지를 더 설치하지 않으려고 직접 읽음 ─────────
