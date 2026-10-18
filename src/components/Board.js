@@ -190,7 +190,7 @@ export function DownloadBoard({ slug }) {
                 <a href={it.files[0].url} target="_blank" rel="noopener noreferrer">
                   {(() => {
                     const [main, model] = splitTitle(showTitle(it.title, loc === 'en'));
-                    return (<><strong>{main}</strong>{model && <span>{model}</span>}</>);
+                    return <strong>{main}{model && <><br />({model})</>}</strong>;
                   })()}
                   {it.rest && <span>{it.rest}</span>}
                 </a>
