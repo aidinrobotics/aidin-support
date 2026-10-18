@@ -46,8 +46,8 @@ const LANG_ORDER = (code) => {
 // 사이트에 보일 자료명 [국문, 영문] — 파일 이름(언어·날짜 뺀 것) 기준. 국문 이름이 같은 것끼리는 한 줄로 묶음
 const TITLE_NAME = {
   'Catalog AIDIN ROBOTICS': ['에이딘로보틱스 제품 카탈로그', 'AIDIN ROBOTICS Product Catalog'],
-  'AIRO-One Solution for Surface Finishing': ['AIRO-One 표면가공 솔루션', 'AIRO-One Solution for Surface Finishing'],
-  'AIRO-One Solution for Logistics Leaflet': ['AIRO-One 물류피킹 솔루션', 'AIRO-One Solution for Logistics'],
+  'AIRO-One Solution for Surface Finishing': ['표면가공 솔루션 (AIRO-One)', 'Surface Finishing Solution (AIRO-One)'],
+  'AIRO-One Solution for Logistics Leaflet': ['물류피킹 솔루션 (AIRO-One)', 'Logistics Picking Solution (AIRO-One)'],
   '3-axis FT sensor': ['3축 힘/토크 센서 (3FT2000)', '3-Axis F/T Sensor (3FT2000)'],
   'AFT-Mini Flyer': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
   'AFT200+MINI': ['6축 힘/토크 센서 (AFT-MINI, AFT200)', '6-Axis F/T Sensor (AFT-MINI, AFT200)'],
@@ -56,15 +56,15 @@ const TITLE_NAME = {
   'ATSB Series Flyer': ['초박형 관절 토크 센서 (ATSB 시리즈)', 'Ultra-Thin Joint Torque Sensor (ATSB Series)'],
   'ATSB leaflet': ['관절 토크 센서 (ATSB)', 'Joint Torque Sensor (ATSB)'],
   'ATS FLYER': ['관절 토크 센서 (ATS 시리즈)', 'Joint Torque Sensor (ATS Series)'],
-  '6-axis FT Sensor KIT Leaflet 2': ['6축 힘/토크 센서 키트 (AFT200 kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
-  'AFT200-Kit': ['6축 힘/토크 센서 키트 (AFT200 kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
-  'AFT200-KIT-NRMK leaflet': ['AFT200 뉴로메카 키트', 'AFT200 Neuromeka Kit'],
-  'AFT200-KIT-RB leaflet': ['AFT200 레인보우 키트', 'AFT200 Rainbow Robotics Kit'],
+  '6-axis FT Sensor KIT Leaflet 2': ['6축 힘/토크 센서 키트 (AFT200 Kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
+  'AFT200-Kit': ['6축 힘/토크 센서 키트 (AFT200 Kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
+  'AFT200-KIT-NRMK leaflet': ['6축 힘/토크 센서 뉴로메카 키트 (AFT200)', '6-Axis F/T Sensor Neuromeka Kit (AFT200)'],
+  'AFT200-KIT-RB leaflet': ['6축 힘/토크 센서 레인보우로보틱스 키트 (AFT200)', '6-Axis F/T Sensor Rainbow Robotics Kit (AFT200)'],
   'Tactile Sensor Leaflet': ['택타일 센서 (ATT)', 'Tactile Sensor (ATT)'],
   '6-axis Force torque sensor(Wrist)': ['6축 힘/토크 센서 (AFT150-D50)', '6-Axis F/T Sensor (AFT150-D50)'],
   '치아교정장비 리플렛': ['치아교정장비 (OrthoForce)', 'Orthodontic Device (OrthoForce)'],
   'ARC Flyer': ['모션 컨트롤러 (ARC 시리즈)', 'Motion Controller (ARC Series)'],
-  'Panoradar+Smart Gripper Flyer': ['Panoradar + 스마트 그리퍼', 'Panoradar + Smart Gripper'],
+  'Panoradar+Smart Gripper Flyer': ['스마트 그리퍼 (Panoradar)', 'Smart Gripper (Panoradar)'],
 };
 const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
 function splitLang(sub, en) {
