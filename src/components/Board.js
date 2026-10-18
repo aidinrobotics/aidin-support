@@ -88,6 +88,11 @@ const TITLE_NAME = {
   'Certificate': ['6축 힘/토크 센서 (AFT200-D80-EN)', '6-Axis F/T Sensor (AFT200-D80-EN)'],
 };
 const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
+// 길어서 두 줄이 되는 자료명은 괄호 안 모델명을 아래 줄로
+const splitTitle = (t) => {
+  const m = t.length > 34 && t.match(/^(.*?) \((.*)\)$/);
+  return m ? [m[1], m[2]] : [t, ''];
+};
 function splitLang(sub, en) {
   const parts = (sub || '').split(/[\s·,/]+/).filter(Boolean);
   if (parts.length && parts.every((x) => LANG_CODE.test(x))) {
@@ -183,7 +188,10 @@ export function DownloadBoard({ slug }) {
               <td className="c-cat"><span className="aidin-badge">{it.cat}</span></td>
               <td className="c-title">
                 <a href={it.files[0].url} target="_blank" rel="noopener noreferrer">
-                  <strong>{showTitle(it.title, loc === 'en')}</strong>
+                  {(() => {
+                    const [main, model] = splitTitle(showTitle(it.title, loc === 'en'));
+                    return (<><strong>{main}</strong>{model && <span>{model}</span>}</>);
+                  })()}
                   {it.rest && <span>{it.rest}</span>}
                 </a>
               </td>
