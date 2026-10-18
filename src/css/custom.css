@@ -648,3 +648,10 @@ html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 0; }
 /* 하단 문의 박스 위아래 간격 맞춤 */
 html .aidin-cta, html.plugin-pages .aidin-cta { padding-bottom: 24px; }
 html .aidin-mcards, html.plugin-pages .aidin-mcards { padding-bottom: 64px; }
+
+/* 자료실 표: 언어 칸 (국문·영문·중문) */
+.aidin-board__table .c-lang { width: 110px; font-size: 14px; color: #666; white-space: nowrap; }
+@media (max-width: 996px) {
+  .aidin-board__table tr { grid-template-columns: auto auto 1fr auto; }
+  .aidin-board__table .c-lang { order: 2; width: auto; justify-self: start; }
+}
