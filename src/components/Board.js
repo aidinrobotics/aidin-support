@@ -34,8 +34,11 @@ const PRODUCTS = [
 const PER_PAGE = 12;
 
 // 파일 이름의 언어 표기(KO·EN·CN·JP)를 '언어' 칸에 보여 줄 이름으로
-const LANG_NAME = { KO: ['국문', 'Korean'], EN: ['영문', 'English'], CN: ['중문', 'Chinese'], JP: ['일문', 'Japanese'] };
-const LANG_CODE = /^(KO|KOR|EN|ENG|CN|CHN|JP|JPN)$/i;
+const LANG_NAME = { KO: ['국문', 'Korean'], KR: ['국문', 'Korean'], EN: ['영문', 'English'], CN: ['중문', 'Chinese'], ZH: ['중문', 'Chinese'], JP: ['일문', 'Japanese'] };
+const LANG_CODE = /^(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)$/i;
+// 3D STEP 파일·제품 도면·제품 인증은 언어·개정 칸을 쓰지 않음
+const NO_META = /STEP|도면|인증|Drawing|Certific/i;
+const plain = (it) => NO_META.test(it.cat || '');
 function splitLang(sub, en) {
   const parts = (sub || '').split(/[\s·,/]+/).filter(Boolean);
   if (parts.length && parts.every((x) => LANG_CODE.test(x))) {
@@ -71,6 +74,7 @@ export function DownloadBoard({ slug }) {
   const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
   const cur = Math.min(page, pages);
   const shown = list.slice((cur - 1) * PER_PAGE, cur * PER_PAGE);
+  const showMeta = !inCat.length || inCat.some((it) => !plain(it));
   const reset = (fn) => (e) => {
     fn(e.target.value);
     setPage(1);
@@ -103,9 +107,9 @@ export function DownloadBoard({ slug }) {
             <th className="c-no">{t.board.no}</th>
             <th className="c-cat">{t.board.cat}</th>
             <th>{t.board.title}</th>
+            {showMeta && <th className="c-lang">{t.board.lang}</th>}
             <th className="c-fmt">{t.board.format}</th>
-            <th className="c-lang">{t.board.lang}</th>
-            <th className="c-rev">{t.board.rev}</th>
+            {showMeta && <th className="c-rev">{t.board.rev}</th>}
             <th className="c-dl">{t.board.download}</th>
           </tr>
         </thead>
@@ -122,9 +126,9 @@ export function DownloadBoard({ slug }) {
                   {L.rest && <span>{L.rest}</span>}
                 </a>
               </td>
+              {showMeta && <td className="c-lang">{plain(it) ? '' : L.lang || '—'}</td>}
               <td className="c-fmt">{it.format}</td>
-              <td className="c-lang">{L.lang || '—'}</td>
-              <td className="c-rev">{it.rev && it.rev !== '—' && it.rev !== '-' ? it.rev : '—'}</td>
+              {showMeta && <td className="c-rev">{plain(it) ? '' : it.rev && it.rev !== '—' && it.rev !== '-' ? it.rev : '—'}</td>}
               <td className="c-dl">
                 <a className="aidin-dlbtn" href={it.url} target="_blank" rel="noopener noreferrer">
                   <Icon name="download" size={17} /> {t.board.dl}
@@ -135,7 +139,7 @@ export function DownloadBoard({ slug }) {
           })}
           {!shown.length && (
             <tr>
-              <td colSpan={7} className="aidin-board__empty">{t.board.empty}</td>
+              <td colSpan={showMeta ? 7 : 5} className="aidin-board__empty">{t.board.empty}</td>
             </tr>
           )}
         </tbody>
