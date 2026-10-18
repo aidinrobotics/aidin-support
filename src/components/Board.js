@@ -65,6 +65,27 @@ const TITLE_NAME = {
   '치아교정장비 리플렛': ['치아교정장비 (OrthoForce)', 'Orthodontic Device (OrthoForce)'],
   'ARC Flyer': ['모션 컨트롤러 (ARC 시리즈)', 'Motion Controller (ARC Series)'],
   'Panoradar+Smart Gripper Flyer': ['스마트 그리퍼 (Panoradar)', 'Smart Gripper (Panoradar)'],
+  // 3D STEP 파일 · 제품 도면 · 제품 인증
+  'AFT200 STEP': ['6축 힘/토크 센서 (AFT200)', '6-Axis F/T Sensor (AFT200)'],
+  'AFT200-D80': ['6축 힘/토크 센서 (AFT200-D80-EN)', '6-Axis F/T Sensor (AFT200-D80-EN)'],
+  'AFT200-D80-C': ['6축 힘/토크 센서 (AFT200-D80-C)', '6-Axis F/T Sensor (AFT200-D80-C)'],
+  'AFT200-D80-EC': ['6축 힘/토크 센서 (AFT200-D80-EC)', '6-Axis F/T Sensor (AFT200-D80-EC)'],
+  'AFT200 D80 Drawing': ['6축 힘/토크 센서 (AFT200-D80)', '6-Axis F/T Sensor (AFT200-D80)'],
+  'AFT150-D50-C': ['6축 힘/토크 센서 (AFT150-D50-C)', '6-Axis F/T Sensor (AFT150-D50-C)'],
+  'Miniature 6-axis FT Sensor(AFT20,50,100) STEP': ['초소형 6축 힘/토크 센서 (AFT20, AFT50, AFT100)', 'Miniature 6-Axis F/T Sensor (AFT20, AFT50, AFT100)'],
+  'AFT20-D15 3D STEP': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
+  'AFT20-D15 Drawing': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
+  'Certificate (AFT20-D15)': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
+  'AFT100-D20-C': ['초소형 6축 힘/토크 센서 (AFT100-D20-C)', 'Miniature 6-Axis F/T Sensor (AFT100-D20-C)'],
+  'AFT100-D20 Drawing': ['초소형 6축 힘/토크 센서 (AFT100-D20)', 'Miniature 6-Axis F/T Sensor (AFT100-D20)'],
+  'AFT200-KIT': ['6축 힘/토크 센서 키트 (AFT200 Kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
+  'AFT200-D80-C-KIT v2': ['6축 힘/토크 센서 키트 (AFT200-D80-C-KIT v2)', '6-Axis F/T Sensor Kit (AFT200-D80-C-KIT v2)'],
+  'ATSB SERIES 3D CAD': ['초박형 관절 토크 센서 (ATSB 시리즈)', 'Ultra-Thin Joint Torque Sensor (ATSB Series)'],
+  'ATSB SERIES 2D Drawings': ['초박형 관절 토크 센서 (ATSB 시리즈)', 'Ultra-Thin Joint Torque Sensor (ATSB Series)'],
+  'ATSB Design Drawing': ['관절 토크 센서 (ATSB)', 'Joint Torque Sensor (ATSB)'],
+  'Certificate (AFT200-D80-EC)': ['6축 힘/토크 센서 (AFT200-D80-EC)', '6-Axis F/T Sensor (AFT200-D80-EC)'],
+  'Certifcation of AFT200-C (Smart 6-axis FT Sensor)': ['스마트 6축 힘/토크 센서 (AFT200-C)', 'Smart 6-Axis F/T Sensor (AFT200-C)'],
+  'Certificate': ['6축 힘/토크 센서 (AFT200-D80-EN)', '6-Axis F/T Sensor (AFT200-D80-EN)'],
 };
 const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
 function splitLang(sub, en) {
