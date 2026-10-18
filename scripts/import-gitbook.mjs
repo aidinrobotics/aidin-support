@@ -16,7 +16,7 @@ const OUT = {
   en: path.join(ROOT, 'i18n/en/docusaurus-plugin-content-docs/current'),
 };
 
-// ── 설정 ───────────────────────────────────────────────
+// ── 설정 ──────────────────────────────────────────────
 // 사이트에서 뺄 항목 (경로에 이 문자열이 들어가면 그 항목과 하위 항목을 모두 제외)
 const EXCLUDE = ['manual-controller'];
 
@@ -47,6 +47,15 @@ const MANUAL_REPOS = {
 };
 const DOCS_REPO = { ko: 'aidin-docs', en: 'aidin-docs-en' };
 const ORG = 'aidinrobotics';
+// HubSpot 자료실 (scripts/import-hubspot.mjs 결과). 없으면 깃북 자료실 표를 그대로 씀
+const HUBSPOT = (() => {
+  try {
+    const j = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/hubspot-downloads.json'), 'utf8'));
+    return j.categories && j.categories.length ? j : null;
+  } catch {
+    return null;
+  }
+})();
 // ──────────────────────────────────────────────────────
 
 const warnings = [];
@@ -284,6 +293,29 @@ function buildLocale(locale) {
           (sec.items = sec.items || []).push(...parseDownloadRows(body, k.title, prefix + slug));
         }
       }
+    }
+    // 자료실: HubSpot 폴더가 있으면 목록과 분류 탭을 HubSpot 기준으로 다시 만듦
+    if (section === 'downloads' && HUBSPOT) {
+      const byTitle = Object.fromEntries(sec.tabs.map((tb) => [tb.label, tb.path]));
+      sec.tabs = [];
+      sec.items = [];
+      HUBSPOT.categories.forEach((c, i) => {
+        const label = locale === 'en' ? c.en : c.ko;
+        let p = byTitle[label] || byTitle[c.ko] || byTitle[c.en];
+        if (!p) {
+          // 깃북에 없는 새 자료 종류 → 빈 화면을 만들어 탭이 열리게 함
+          const name = `hs-${(c.en || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || i + 1}`;
+          const s = `${base}/${name}`;
+          const front = { slug: s, title: label, sidebar_label: label, pagination_next: 'null', pagination_prev: 'null', hide_table_of_contents: true };
+          fs.writeFileSync(path.join(out, `downloads-${name}.md`), yaml(front).replace(/: "null"/g, ': null') + `# ${label}\n`);
+          nav.pages[prefix + s] = { section, title: label, label, description: '', family: null, isManual: false, pdf: null };
+          p = prefix + s;
+        }
+        sec.tabs.push({ label, path: p });
+        for (const f of c.files) {
+          sec.items.push({ cat: label, catPath: p, title: f.title, sub: f.sub, format: f.format, rev: f.rev, url: f.url });
+        }
+      });
     }
     if (kids.length) {
       const allLabel = locale === 'en' ? 'All' : '전체';
