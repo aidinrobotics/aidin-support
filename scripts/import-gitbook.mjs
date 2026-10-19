@@ -103,8 +103,6 @@ const TITLE_OVERRIDE = { en: { as: 'Service Request' } };
 let LINK_MAP = {};
 function transform(body, fromFile) {
   let out = body;
-  // 개정 이력(Revision History) 단락은 고객 사이트에서 뺌 — 다음 같은 수준 제목 전까지 삭제
-  out = out.replace(/^(#{1,4})\s*(Revision History|개정\s*이력)\s*$[\s\S]*?(?=^#{1,4}\s|(?![\s\S]))/gim, (m, h) => '');
   // 모션 제어기(ARC6) 관련 표 행은 국문·영문 모두 제외
   out = out.replace(/^\|[^\n]*(모션\s*제어기|Motion Controller|ARC6)[^\n]*\|\s*$\n?/gim, '');
   // GitBook 섹션 첫 화면(index-*.md)·전체보기(README.md) 링크를 새 사이트 경로로 바꿈
