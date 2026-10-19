@@ -38,6 +38,8 @@ export default function LayoutWrapper(props) {
   const title = page?.title;
   const description = page?.description;
   const pdfUrl = useBaseUrl(page?.pdf || '/');
+  // 내려받는 파일 이름: 에이딘로보틱스_모델명.pdf (영문 사이트는 AIDIN-ROBOTICS_모델명.pdf)
+  const pdfName = `${pdfUrl.includes('/en/') ? 'AIDIN-ROBOTICS' : '에이딘로보틱스'}_${(page?.pdf || '').split('/').pop().replace(/\.pdf$/i, '').toUpperCase()}.pdf`;
   // 탭으로 고르는 메뉴(자료실·FAQ·설치 가이드)와 '전체' 페이지는 제목을 상단 띠에서 한 번만
   const tabbed = ['downloads', 'faq', 'install'].includes(section);
   const dup = tabbed || (!!title && title === nav.sections[section]?.title);
@@ -55,7 +57,7 @@ export default function LayoutWrapper(props) {
               {page.family && <span className="aidin-phead__fam">{page.family}</span>}
               <h1 className="aidin-phead__h">{title}</h1>
             </div>
-            <a className="aidin-btn aidin-btn--red aidin-phead__pdf" href={pdfUrl} download>
+            <a className="aidin-btn aidin-btn--red aidin-phead__pdf" href={pdfUrl} download={pdfName}>
               <Icon name="download" size={18} /> {t.pdf}
             </a>
             </div>
