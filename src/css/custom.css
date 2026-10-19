@@ -409,7 +409,8 @@ body { background: #fff; }
 /* ── PDF(인쇄) ─────────────────────────── */
 @media print {
   .navbar, .aidin-visual, .aidin-title, .theme-doc-sidebar-container, .theme-doc-toc-desktop, .theme-doc-toc-mobile,
-  .aidin-related, .theme-doc-footer, .aidin-band-wrap, .aidin-footer, .aidin-quick, .aidin-modelfilter { display: none !important; }
+  .aidin-related, .theme-doc-footer, .aidin-band-wrap, .aidin-footer, .aidin-quick, .aidin-modelfilter,
+  .aidin-docs .row > .col--3, .aidin-phead__pdf { display: none !important; }
   .aidin-docs { padding-top: 0; }
   .aidin-docs [class*='docRoot'] { padding: 0; }
   html, body, #__docusaurus, .main-wrapper, [class*='docRoot'], [class*='docsWrapper'] { min-height: 0 !important; height: auto !important; display: block !important; }
