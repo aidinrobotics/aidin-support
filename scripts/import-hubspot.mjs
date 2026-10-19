@@ -12,7 +12,7 @@
 //   - 공개(Public) 파일만 올라갑니다. 비공개로 바꾸면 사이트에서 빠집니다.
 //   - 파일 이름 맨 앞에 _ 를 붙이면 사이트에 올리지 않습니다. (예: _구버전 카탈로그.pdf)
 //   - 파일 이름이 그대로 자료명이 됩니다. 괄호 안 KO·EN·CN 은 언어, 26.06 같은 숫자는 개정일로 표시됩니다.
-//   - 폴더 안에 하위 폴더를 만들어도 함께 읽습니다.
+//   - 폴더 안에 하위 폴더를 만들어도 함께 읽습니다. 단, 이름이 old 또는 _ 로 시작하는 하위 폴더는 읽지 않습니다. (지난 자료 보관용)
 //
 // 폴더 구성을 바꾸려면 저장소 Settings → Variables 에 HUBSPOT_DOWNLOADS_FOLDERS 를
 // 아래 FOLDERS 와 같은 형식(JSON)으로 넣으면 됩니다.
@@ -107,7 +107,7 @@ try {
     }
     // 하위 폴더까지 함께 읽음
     const ids = [];
-    const walk = (f) => { ids.push(f.id); childrenOf(f.id).forEach(walk); };
+    const walk = (f) => { ids.push(f.id); childrenOf(f.id).filter((s) => !/^(old|_)/i.test(s.name.trim())).forEach(walk); };
     walk(root);
     const files = [];
     for (const id of ids) {
