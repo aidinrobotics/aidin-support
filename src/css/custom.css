@@ -794,3 +794,6 @@ html.docs-doc-id-support-inquiry .aidin-title__desc { display: none; }
   .aidin-footer__info dt { flex-basis: 115px; }
   .aidin-footer__info dl { align-items: baseline; }
 }
+
+/* 자주 묻는 질문: 상단 설명은 숨김(검색 설명으로만 사용, 아래 본문과 중복) */
+body:has(.aidin-docs--faq) .aidin-visual__desc { display: none; }
