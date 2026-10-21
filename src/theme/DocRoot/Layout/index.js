@@ -42,7 +42,8 @@ export default function LayoutWrapper(props) {
   const pdfName = `${pdfUrl.includes('/en/') ? 'AIDIN-ROBOTICS' : '에이딘로보틱스'}_${(page?.pdf || '').split('/').pop().replace(/\.pdf$/i, '').toUpperCase()}.pdf`;
   // 탭으로 고르는 메뉴(자료실·FAQ·설치 가이드)와 '전체' 페이지는 제목을 상단 띠에서 한 번만
   const tabbed = ['downloads', 'faq', 'install'].includes(section);
-  const dup = tabbed || (!!title && title === nav.sections[section]?.title);
+  // A/S·문의는 A/S 신청과 제품 문의하기 모두 본문 위에 가운데 제목을 보여줌
+  const dup = tabbed || (section !== 'as' && !!title && title === nav.sections[section]?.title);
   const bandDesc = tabbed ? nav.pages[nav.sections[section]?.path]?.description || description : description;
   return (
     <>
