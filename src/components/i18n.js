@@ -5,7 +5,7 @@ import nav from '@site/src/data/nav.json';
 const S = {
   ko: {
     center: '고객지원센터',
-    eyebrow: 'CUSTOMER SUPPORT',
+    eyebrow: 'CUSTOMER SUPPORT', enLabels: false,
     home: '고객지원센터 홈',
     heroTitle: '무엇을 도와드릴까요?',
     heroSub: '에이딘로보틱스 고객지원센터에 오신 것을 환영합니다.',
@@ -44,7 +44,7 @@ const S = {
   },
   en: {
     center: 'Support Center',
-    eyebrow: 'CUSTOMER SUPPORT',
+    eyebrow: 'CUSTOMER SUPPORT', enLabels: true,
     home: 'Support Center home',
     heroTitle: 'How can we help?',
     heroSub: 'Welcome to the AIDIN ROBOTICS Support Center.',
