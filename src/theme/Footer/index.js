@@ -1,5 +1,6 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useLocation } from '@docusaurus/router';
 import { useLocale } from '@site/src/components/i18n';
 import { SupportBand, QuickMenu, useSlug } from '@site/src/components/Layout';
 
@@ -16,6 +17,23 @@ export default function Footer() {
   const l = L[loc];
   const slug = useSlug();
   const showBand = slug !== '/as' && !slug.startsWith('/search');
+  const { pathname } = useLocation();
+  // 매뉴얼 본문: 설명 없는 그림에 '제품명 그림 N' 대체 텍스트, 화면보다 넓은 표는 표 안에서만 옆으로 넘기기
+  React.useEffect(() => {
+    const run = () => {
+      const h = document.querySelector('.aidin-phead__h, .theme-doc-markdown h1, h1');
+      const name = h ? h.textContent.trim() : '';
+      const fig = loc === 'en' ? 'figure' : '그림';
+      document.querySelectorAll('.theme-doc-markdown img:not([alt])').forEach((img, i) => img.setAttribute('alt', `${name} ${fig} ${i + 1}`.trim()));
+      document.querySelectorAll('.theme-doc-markdown table').forEach((tb) => {
+        tb.classList.remove('is-wide');
+        if (tb.parentElement && tb.scrollWidth > tb.parentElement.clientWidth + 1) tb.classList.add('is-wide');
+      });
+    };
+    const id = setTimeout(run, 300);
+    window.addEventListener('resize', run);
+    return () => { clearTimeout(id); window.removeEventListener('resize', run); };
+  }, [pathname, loc]);
   return (
     <>
       {showBand && <SupportBand />}
