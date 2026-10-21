@@ -168,7 +168,7 @@ function slugPart(file) {
   return path
     .basename(file, '.md')
     .replace(/-README$/i, '')
-    .replace(/^(manual|install|downloads|faq)-/, '');
+    .replace(/^(manual|install|downloads|faq|support)-/, '');
 }
 
 function buildLocale(locale) {
@@ -245,6 +245,12 @@ function buildLocale(locale) {
 
     if (section === 'as') {
       writeDoc(top, section, { slug: base });
+      // 하위 페이지(제품 문의하기 등)가 있으면 A/S 신청과 함께 탭으로 보여줌
+      for (const k of top.children) {
+        const slug = `${base}/${slugPart(k.file)}`;
+        if (writeDoc(k, section, { slug, label: k.title })) sec.tabs.push({ label: k.title, path: prefix + slug });
+      }
+      if (sec.tabs.length) sec.tabs.unshift({ label: sec.title, path: prefix + base });
       continue;
     }
     if (section === 'manual') {
