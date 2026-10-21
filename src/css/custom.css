@@ -774,3 +774,12 @@ html.docs-doc-id-support-inquiry .aidin-title__desc { display: none; }
 @media screen and (max-width: 996px) {
   .aidin-docs--as .theme-doc-markdown > p:first-of-type { font-size: 16px !important; margin-top: -20px; }
 }
+
+/* ── 글자 크기 균형 맞추기 (2026-10): 버튼 16, 카드·문의 박스 제목 27, 푸터 본문 14 ── */
+.aidin-cta__btns .aidin-btn { font-size: 16px !important; }
+.aidin-footer__addr dt.ko, .aidin-footer__addr dd { font-size: 14px !important; }
+.aidin-footer__info dd span, .aidin-footer__info dd em { font-size: 14px !important; }
+.aidin-footer__info dt { font-size: 13px !important; }
+@media screen and (min-width: 997px) {
+  .aidin-cta__text strong { font-size: 27px !important; }
+}
