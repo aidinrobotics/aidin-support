@@ -60,7 +60,7 @@ const S = {
     ctaTitle: "Can't find what you're looking for?",
     ctaText: 'Try our FAQs first. Still need help? Contact us and our team will get back to you.',
     ctaFaq: 'Browse FAQs',
-    ctaAs: 'Contact Us',
+    ctaAs: 'Contact Sales',
     asButton: 'Get Started',
     asCardTitle: 'Support',
     asCardDesc: 'Need a repair or inspection? Submit a service request.\nQuestions about products or pricing? Contact sales.',
