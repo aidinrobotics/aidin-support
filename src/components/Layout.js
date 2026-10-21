@@ -103,7 +103,9 @@ function SubDropdown({ section, slug, page, nav }) {
   return cell;
 }
 
-export function SubVisual({ variant = 'section', description }) {
+export function SubVisual({ variant = 'section', description, asTitle }) {
+  // 메뉴 첫 화면처럼 이 띠가 페이지 제목일 때는 h1으로 (검색엔진용)
+  const TitleTag = asTitle ? 'h1' : 'div';
   const t = useT();
   const { slug, section, nav, page } = useCurrentPage();
   const history = useHistory();
@@ -113,7 +115,7 @@ export function SubVisual({ variant = 'section', description }) {
     <section className={`aidin-visual${variant === 'search' ? '' : ' aidin-visual--sub'}`}>
       <div className="aidin-container aidin-visual__inner">
         {variant !== 'search' && <div className="aidin-visual__eyebrow">{t.eyebrow}</div>}
-        <div className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : secTitle(nav, t, section)}</div>
+        <TitleTag className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : secTitle(nav, t, section)}</TitleTag>
         {description && <p className="aidin-visual__desc">{description}</p>}
         {variant === 'search' ? (
           <form
