@@ -52,11 +52,19 @@ function DropCell({ label, items, current, placeholder }) {
   );
 }
 
+// A/S 섹션에 하위 페이지(제품 문의하기)가 있으면 상단 제목은 'A/S·문의'
+function secTitle(nav, t, s) {
+  const sec = nav.sections[s];
+  if (!sec) return '';
+  return s === 'as' && (sec.tabs || []).length ? t.asCardTitle : sec.title;
+}
+
 function SectionDropdown({ current }) {
   const nav = useNav();
+  const t = useT();
   const sec = nav.sections[current];
-  const items = SECTION_ORDER.filter((s) => nav.sections[s]).map((s) => ({ path: nav.sections[s].path, label: nav.sections[s].title }));
-  return <DropCell label={sec ? sec.title : ''} items={items} current={sec?.path} />;
+  const items = SECTION_ORDER.filter((s) => nav.sections[s]).map((s) => ({ path: nav.sections[s].path, label: secTitle(nav, t, s) }));
+  return <DropCell label={sec ? secTitle(nav, t, current) : ''} items={items} current={sec?.path} />;
 }
 
 // 두 번째 칸: 메뉴 첫 화면에서는 안내 문구(예: 자료 종류 선택), 고르면 그 이름. 목록에 '전체'는 넣지 않음
@@ -71,7 +79,7 @@ function SubDropdown({ section, slug, page, nav }) {
     cur = page?.family ? items.find((f) => f.label === page.family) : items.find((f) => f.path === slug);
   } else {
     const sec = nav.sections[section];
-    items = (sec?.tabs || []).filter((tb) => tb.path !== sec.path).map((tb) => ({ path: tb.path, label: tb.label }));
+    items = (sec?.tabs || []).filter((tb) => section === 'as' || tb.path !== sec.path).map((tb) => ({ path: tb.path, label: tb.label }));
     cur = items.find((tb) => tb.path === slug);
   }
   if (!items.length || !t.pick[section]) return null;
@@ -105,7 +113,7 @@ export function SubVisual({ variant = 'section', description }) {
     <section className={`aidin-visual${variant === 'search' ? '' : ' aidin-visual--sub'}`}>
       <div className="aidin-container aidin-visual__inner">
         {variant !== 'search' && <div className="aidin-visual__eyebrow">{t.eyebrow}</div>}
-        <div className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : nav.sections[section].title}</div>
+        <div className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : secTitle(nav, t, section)}</div>
         {description && <p className="aidin-visual__desc">{description}</p>}
         {variant === 'search' ? (
           <form
