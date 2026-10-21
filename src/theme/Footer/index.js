@@ -22,12 +22,12 @@ export default function Footer() {
       <footer className="aidin-footer">
         <div className="aidin-container aidin-footer__body">
           <div className="aidin-footer__addr">
-            <dl><dt className="en">R&amp;D &amp; HQ</dt><dt className="ko">{l.hq}</dt><dd>{l.addrHq}</dd></dl>
-            <dl><dt className="en">FACTORY</dt><dt className="ko">{l.fac}</dt><dd>{l.addrFac}</dd></dl>
+            <dl>{loc === 'en' && <dt className="en">R&amp;D &amp; HQ</dt>}<dt className="ko">{l.hq}</dt><dd>{l.addrHq}</dd></dl>
+            <dl>{loc === 'en' && <dt className="en">FACTORY</dt>}<dt className="ko">{l.fac}</dt><dd>{l.addrFac}</dd></dl>
           </div>
           <div className="aidin-footer__info">
             <dl>
-              <dt>CONTACT</dt>
+              <dt>{loc === 'en' ? 'CONTACT' : '연락처'}</dt>
               <dd>
                 <span><em>{l.tel}</em>+82-31-360-7926</span>
                 <span><em>{l.sales}</em>sales@aidinrobotics.co.kr</span>
@@ -36,7 +36,7 @@ export default function Footer() {
               </dd>
             </dl>
             <dl>
-              <dt>BUSINESS</dt>
+              <dt>{loc === 'en' ? 'BUSINESS' : '사업자 정보'}</dt>
               <dd>
                 <span><em>{l.corp}</em>{l.corpName}</span>
                 <span><em>{l.ceo}</em>{l.ceoName}</span>
