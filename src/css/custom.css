@@ -835,3 +835,5 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .aidin-board__search input::placeholder { color: #707070; opacity: 1; }
 .aidin-board__table th, .aidin-board__table .c-title span { color: #666; }
 .aidin-board__table .c-no { color: #707070; }
+/* 매뉴얼 수식도 화면보다 넓으면 수식 안에서만 옆으로 넘기기 */
+.theme-doc-markdown .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
