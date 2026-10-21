@@ -555,6 +555,9 @@ body { background: #fff; }
 .aidin-docs--as .aidin-form iframe { border: 1px solid var(--aidin-line-2); border-radius: 10px; }
 .aidin-docs--as .aidin-form::before { content: 'A/S 신청하기'; display: block; padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--aidin-ink); font-size: 28px; font-weight: 700; letter-spacing: -0.02em; color: var(--aidin-ink); }
 html[lang^='en'] .aidin-docs--as .aidin-form::before { content: 'Service Request Form'; }
+/* 제품 문의하기 페이지 양식 제목 */
+html.docs-doc-id-support-inquiry .aidin-docs--as .aidin-form::before { content: '문의 남기기'; }
+html[lang^='en'].docs-doc-id-support-inquiry .aidin-docs--as .aidin-form::before { content: 'Sales Inquiry Form'; }
 .aidin-docs--as .theme-doc-markdown h3 { margin-top: 64px; padding-bottom: 16px; border-bottom: 2px solid var(--aidin-ink); font-size: 28px; }
 .aidin-docs--as .theme-doc-markdown h3 + .theme-admonition .alert, .aidin-docs--as .theme-doc-markdown h3 + .alert { box-shadow: none; border: 0 !important; padding: 20px 0; }
 .aidin-docs--as .theme-doc-markdown h3 + .alert p { font-size: 19px !important; line-height: 2.1; }
