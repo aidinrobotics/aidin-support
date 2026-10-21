@@ -713,3 +713,33 @@ html .aidin-cta + .aidin-footer { border-top: 1px solid var(--aidin-line) !impor
 /* 자주 묻는 질문 안내 문구를 A/S 신청 안내 문구와 같은 글씨로 */
 html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 20px; color: #161616; line-height: 1.8; }
 @media (max-width: 996px) { html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 17px; } }
+
+/* ── 모바일 화면 다듬기 (2026-10) · 인쇄(PDF)에는 적용 안 됨 ─────────── */
+@media screen and (max-width: 996px) {
+  /* 상단 띠와 본문 사이 빈 공간 줄이기 */
+  .aidin-docs { padding-top: 28px !important; }
+  .aidin-docs .container.padding-top--md { padding-top: 0 !important; }
+  /* 상단 메뉴: 로고와 버튼이 붙지 않게 */
+  .navbar__brand { margin-right: 12px !important; flex-shrink: 0; }
+  .navbar .navbar__link { white-space: nowrap; }
+  /* 본문 제목 크기·간격 */
+  .theme-doc-markdown > header + h2, .theme-doc-markdown > h2:first-child { margin-top: 0 !important; }
+  .theme-doc-markdown h2 { font-size: 24px !important; margin-top: 44px !important; }
+  .theme-doc-markdown h3 { font-size: 18px !important; margin-top: 24px !important; }
+  /* '찾으시는 내용이 없나요?' 버튼 폭 맞추기 */
+  .aidin-cta__btns { flex-direction: column; align-items: stretch !important; width: 100%; }
+  .aidin-cta__btns .aidin-btn { width: 100%; justify-content: center; }
+  /* A/S 신청 카드: 제목과 버튼 사이 간격 */
+  .aidin-mcard--dark .aidin-mcard__btn { margin-top: 24px !important; }
+  /* 하단 주소·연락처 */
+  .aidin-footer__addr dt { width: auto !important; margin-right: 10px; }
+  .aidin-footer__addr dd { flex-basis: 100%; margin-top: 4px; }
+  .aidin-footer__addr dl + dl { margin-top: 14px; }
+  .aidin-footer__info dl + dl { margin-top: 18px; }
+  .aidin-footer__info dt { margin-bottom: 6px; }
+  /* 오른쪽 아래 떠 있는 버튼이 하단 글자를 가리지 않게 */
+  .aidin-footer { padding-bottom: 84px; }
+}
+@media screen and (max-width: 400px) {
+  .navbar .navbar__link { padding-left: 12px !important; padding-right: 12px !important; font-size: 13px !important; }
+}
