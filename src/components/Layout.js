@@ -204,15 +204,15 @@ export function QuickMenu() {
       <div className={`aidin-quick__box${open ? ' is-open' : ''}${scrolled ? ' is-show' : ''}`}>
         <ul className="aidin-quick__list" aria-hidden={!open}>
           <li>
-            <Link to="/" tabIndex={open ? 0 : -1}>
-              <span className="lb">{t.qSupport}</span>
-              <span className="ic"><Icon name="group" size={21} /></span>
+            <Link to="/as/inquiry" tabIndex={open ? 0 : -1}>
+              <span className="lb">{t.qContact}</span>
+              <span className="ic"><Icon name="chat" size={21} /></span>
             </Link>
           </li>
           <li>
             <Link to="/as" tabIndex={open ? 0 : -1}>
-              <span className="lb">{t.qContact}</span>
-              <span className="ic"><Icon name="pen" size={21} /></span>
+              <span className="lb">{t.qAs}</span>
+              <span className="ic"><Icon name="wrench" size={21} /></span>
             </Link>
           </li>
           <li className="key">
