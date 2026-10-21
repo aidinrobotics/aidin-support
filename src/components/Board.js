@@ -46,6 +46,8 @@ const LANG_ORDER = (code) => {
 // 사이트에 보일 자료명 [국문, 영문] — 파일 이름(언어·날짜 뺀 것) 기준. 국문 이름이 같은 것끼리는 한 줄로 묶음
 const TITLE_NAME = {
   'Catalog AIDIN ROBOTICS': ['에이딘로보틱스 제품 카탈로그', 'AIDIN ROBOTICS Product Catalog'],
+  // 허브스팟 파일 이름이 '[AIDIN ROBOTICS] Catalog ...'로 바뀌면서 자료명이 'Catalog'만 남는 경우
+  'Catalog': ['에이딘로보틱스 제품 카탈로그', 'AIDIN ROBOTICS Product Catalog'],
   'AIRO-One Solution for Surface Finishing': ['표면가공 솔루션 (AIRO-One)', 'Surface Finishing Solution (AIRO-One)'],
   'AIRO-One Solution for Logistics Leaflet': ['물류피킹 솔루션 (AIRO-One)', 'Logistics Picking Solution (AIRO-One)'],
   '3-axis FT sensor': ['3축 힘/토크 센서 (3FT2000)', '3-Axis F/T Sensor (3FT2000)'],
