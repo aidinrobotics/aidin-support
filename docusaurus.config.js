@@ -6,7 +6,7 @@ import rehypeKatex from 'rehype-katex';
 // 배포 주소: 도메인을 붙이면 SITE_URL만 바꾸면 됩니다 (예: https://support.aidinrobotics.co.kr)
 const SITE_URL = process.env.SITE_URL || 'https://aidinrobotics.github.io';
 const BASE_URL = process.env.BASE_URL || '/';
-const SHOP_URL = 'https://tebzhj-p0.myshopify.com/';
+const SHOP_URL = 'https://shop.aidinrobotics.co.kr/';
 const HOMEPAGE_URL = 'https://www.aidinrobotics.co.kr';
 // 언어별 사이트 이름 (링크 공유·브라우저 탭에 표시)
 const IS_EN = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
