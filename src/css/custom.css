@@ -753,7 +753,7 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 20px; col
 }
 
 /* ── 첫 화면 A/S·문의 카드, 상단 문의하기 버튼 (2026-10) ── */
-.aidin-mcard__desc { margin: 14px 0 0; color: rgba(255,255,255,.65); font-size: 15px; line-height: 1.6; word-break: keep-all; }
+.aidin-mcard__desc { margin: 14px 0 0; color: rgba(255,255,255,.65); font-size: 15px; line-height: 1.6; word-break: keep-all; white-space: pre-line; }
 .aidin-mcard__btns { margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 10px; }
 .aidin-mcard--dark .aidin-mcard__btns .aidin-mcard__btn { margin-top: 0 !important; }
 .aidin-mcard__btn.is-ghost { background: rgba(0,0,0,.35); border-color: rgba(255,255,255,.6); color: #fff !important; }
