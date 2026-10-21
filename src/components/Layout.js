@@ -175,7 +175,7 @@ export function SupportBand() {
         </div>
         <div className="aidin-cta__btns">
           <Link to="/faq" className="aidin-btn aidin-btn--line">{t.ctaFaq}</Link>
-          <Link to="/as" className="aidin-btn aidin-btn--red">{t.ctaAs} <Icon name="arrowRight" size={18} /></Link>
+          <Link to="/as/inquiry" className="aidin-btn aidin-btn--red">{t.ctaAs} <Icon name="arrowRight" size={18} /></Link>
         </div>
       </div>
     </section>
