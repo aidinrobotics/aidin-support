@@ -88,6 +88,7 @@ const config = {
       navbar: {
         logo: { alt: 'AIDIN ROBOTICS', src: 'img/logo-white.svg', href: '/' },
         items: [
+          { to: '/as/inquiry', label: IS_EN ? 'Contact Sales' : '문의하기', position: 'right', className: 'aidin-nav-cta aidin-nav-cta--ghost' },
           { to: '/as', label: 'A/S 신청', position: 'right', className: 'aidin-nav-cta' },
           { type: 'custom-langSwitch', position: 'right' },
         ],
