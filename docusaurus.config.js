@@ -83,7 +83,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // 링크 공유 시 미리보기 이미지 (카카오톡·문자·슬랙 등)
-      image: 'img/og-support-black.jpg',
+      image: 'img/og-support-black-v2.jpg',
       colorMode: { defaultMode: 'light', disableSwitch: true, respectPrefersColorScheme: false },
       navbar: {
         logo: { alt: 'AIDIN ROBOTICS', src: 'img/logo-white.svg', href: '/' },
