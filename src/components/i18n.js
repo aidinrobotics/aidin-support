@@ -23,7 +23,7 @@ const S = {
     ctaFaq: '자주 묻는 질문',
     ctaAs: '문의하기',
     asButton: '바로가기',
-    asCardTitle: 'A/S·문의',
+    asCardTitle: 'A/S 및 문의',
     asCardDesc: '수리·점검이 필요하면 A/S 신청, 제품·견적이 궁금하면 문의하기를 이용해 주세요.',
     asCardAs: 'A/S 신청',
     asCardInquiry: '제품 문의하기',
