@@ -764,3 +764,13 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 20px; col
 @media screen and (max-width: 600px) {
   .navbar .aidin-nav-cta.aidin-nav-cta--ghost { display: none !important; }
 }
+
+/* ── A/S 신청·제품 문의하기: 중복 제목·설명 빼고 가운데 정렬 (2026-10) ── */
+html.docs-doc-id-support-as-request .aidin-title__desc,
+html.docs-doc-id-support-inquiry .aidin-title__desc { display: none; }
+.aidin-docs--as .theme-doc-markdown > p:first-of-type { text-align: center; font-size: 18px !important; line-height: 1.75; color: #555 !important; margin: -44px auto 0; max-width: 720px; word-break: keep-all; }
+.aidin-docs--as .aidin-form { margin-top: 44px; }
+.aidin-docs--as .aidin-form::before { display: none !important; }
+@media screen and (max-width: 996px) {
+  .aidin-docs--as .theme-doc-markdown > p:first-of-type { font-size: 16px !important; margin-top: -20px; }
+}
