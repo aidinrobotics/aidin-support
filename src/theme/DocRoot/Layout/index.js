@@ -48,7 +48,7 @@ export default function LayoutWrapper(props) {
   return (
     <>
       {/* 페이지 제목이 메뉴 이름과 같으면(전체 페이지 등) 상단 띠에서 한 번만 보여줌 */}
-      <SubVisual description={dup ? bandDesc : undefined} />
+      <SubVisual description={dup ? bandDesc : undefined} asTitle={dup || slug === '/manual'} />
       {/* 제품 매뉴얼: 왼쪽 제품군·제품명, 오른쪽 PDF 버튼을 한 줄로 */}
       {!dup && page?.isManual && (
         <section className="aidin-phead">
