@@ -74,6 +74,7 @@ export default function Home() {
   const searchPath = useBaseUrl('/search');
   return (
     <Layout description={t.shareDesc}>
+      <main>
       <section className="aidin-hero">
         <div className="aidin-container aidin-hero__inner">
           <h1 className="aidin-hero__title">{t.heroTitle}</h1>
@@ -103,6 +104,7 @@ export default function Home() {
           <Card key={s} section={s} index={i} />
         ))}
       </section>
+      </main>
     </Layout>
   );
 }
