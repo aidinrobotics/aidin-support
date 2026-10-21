@@ -84,6 +84,9 @@ body { background: #fff; }
 .aidin-visual__eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .14em; color: #f14959; }
 .aidin-visual--sub .aidin-visual__title { margin: 10px 0 36px; font-size: 52px; line-height: 1.2; }
 .aidin-visual__title { margin: 0 0 16px; font-size: 69px; line-height: 90px; font-weight: 700; letter-spacing: -0.02em; }
+/* 페이지 제목이 h1일 때도 흰 글자 그대로 */
+h1.aidin-visual__title { color: inherit; font-family: inherit; }
+.aidin-md-h1 { margin: 0; }
 .aidin-bar {
   display: flex; align-items: center; height: 56px; border: 1px solid rgba(255,255,255,.26); border-radius: 7.5px;
   background: transparent; color: #fff; position: relative; isolation: isolate;
