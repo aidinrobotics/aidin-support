@@ -114,7 +114,7 @@ export function SubVisual({ variant = 'section', description, asTitle }) {
   return (
     <section className={`aidin-visual${variant === 'search' ? '' : ' aidin-visual--sub'}`}>
       <div className="aidin-container aidin-visual__inner">
-        {variant !== 'search' && <div className="aidin-visual__eyebrow">{t.eyebrow}</div>}
+        {variant !== 'search' && t.enLabels && <div className="aidin-visual__eyebrow">{t.eyebrow}</div>}
         <TitleTag className="aidin-visual__title">{variant === 'search' || !nav.sections[section] ? t.center : secTitle(nav, t, section)}</TitleTag>
         {description && <p className="aidin-visual__desc">{description}</p>}
         {variant === 'search' ? (
