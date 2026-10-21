@@ -23,6 +23,11 @@ const S = {
     ctaFaq: '자주 묻는 질문',
     ctaAs: '문의하기',
     asButton: '바로가기',
+    asCardTitle: 'A/S·문의',
+    asCardDesc: '수리·점검이 필요하면 A/S 신청, 제품·견적이 궁금하면 문의하기를 이용해 주세요.',
+    asCardAs: 'A/S 신청',
+    asCardInquiry: '제품 문의하기',
+    navInquiry: '문의하기',
     viewAll: { manual: '매뉴얼 전체 보기', install: '가이드 전체 보기', downloads: '자료실 전체 보기', faq: '질문 전체 보기' },
     qSupport: '고객지원',
     qContact: '문의하기',
@@ -56,6 +61,11 @@ const S = {
     ctaFaq: 'Browse FAQs',
     ctaAs: 'Contact Us',
     asButton: 'Get Started',
+    asCardTitle: 'Service & Sales',
+    asCardDesc: 'Request a repair or inspection, or contact our sales team about products and quotes.',
+    asCardAs: 'Service Request',
+    asCardInquiry: 'Contact Sales',
+    navInquiry: 'Contact Sales',
     viewAll: { manual: 'View all manuals', install: 'View all guides', downloads: 'View all downloads', faq: 'View all FAQs' },
     qSupport: 'Support',
     qContact: 'Contact Us',
@@ -71,7 +81,7 @@ const S = {
   },
 };
 // 카드 라벨 (홈페이지 카드와 같은 '번호 + 영문' 표기)
-export const CARD_LABEL = { manual: 'PRODUCT MANUAL', install: 'INSTALLATION', downloads: 'DOWNLOADS', faq: 'FAQ', as: 'SERVICE' };
+export const CARD_LABEL = { manual: 'PRODUCT MANUAL', install: 'INSTALLATION', downloads: 'DOWNLOADS', faq: 'FAQ', as: 'SUPPORT' };
 
 export function useLocale() {
   const { i18n } = useDocusaurusContext();
