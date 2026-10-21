@@ -743,3 +743,8 @@ html[class*="docs-doc-id-faq"] .theme-doc-markdown h2 + p { font-size: 20px; col
 @media screen and (max-width: 400px) {
   .navbar .navbar__link { padding-left: 12px !important; padding-right: 12px !important; font-size: 13px !important; }
 }
+
+/* ── 영문 푸터 주소: PC에서 주소 구분명을 한 줄로 (2026-10) ── */
+@media screen and (min-width: 997px) {
+  html[lang^='en'] .aidin-footer__addr dt.ko { width: 224px !important; flex-shrink: 0; white-space: nowrap; }
+}
