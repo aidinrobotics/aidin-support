@@ -33,6 +33,8 @@ function Card({ section, index }) {
   const sec = nav.sections[section];
   const links = useSubLinks(section);
   const isAs = section === 'as';
+  // 문의하기: A/S 섹션의 하위 페이지(없으면 /as/inquiry)
+  const inquiryPath = (sec.tabs || []).find((tb) => tb.path !== sec.path)?.path || `${sec.path}/inquiry`;
   return (
     <div className={`aidin-mcard${isAs ? ' aidin-mcard--dark' : ''}`}>
       <Link to={sec.path} className="aidin-mcard__head">
@@ -40,8 +42,9 @@ function Card({ section, index }) {
           <span className="aidin-mcard__label"><b>{String(index + 1).padStart(2, '0')}</b>{CARD_LABEL[section]}</span>
           <span className="aidin-mcard__arrow"><Icon name="arrowRight" size={34} stroke={1.6} /></span>
         </span>
-        <span className="aidin-mcard__title">{sec.title}</span>
+        <span className="aidin-mcard__title">{isAs ? t.asCardTitle : sec.title}</span>
       </Link>
+      {isAs && <p className="aidin-mcard__desc">{t.asCardDesc}</p>}
       {!isAs && links.length > 0 && (
         <ul className="aidin-mcard__list">
           {links.map((l) => (
@@ -51,9 +54,14 @@ function Card({ section, index }) {
           ))}
         </ul>
       )}
-      <Link to={sec.path} className={`aidin-mcard__btn${isAs ? ' is-red' : ''}`}>
-        {isAs ? <>{t.asButton} <Icon name="arrowRight" size={18} /></> : t.viewAll[section]}
-      </Link>
+      {isAs ? (
+        <div className="aidin-mcard__btns">
+          <Link to={sec.path} className="aidin-mcard__btn is-red">{t.asCardAs} <Icon name="arrowRight" size={18} /></Link>
+          <Link to={inquiryPath} className="aidin-mcard__btn is-ghost">{t.asCardInquiry} <Icon name="arrowRight" size={18} /></Link>
+        </div>
+      ) : (
+        <Link to={sec.path} className="aidin-mcard__btn">{t.viewAll[section]}</Link>
+      )}
     </div>
   );
 }
