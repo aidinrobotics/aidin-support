@@ -788,3 +788,9 @@ html.docs-doc-id-support-inquiry .aidin-title__desc { display: none; }
 @media screen and (min-width: 997px) {
   .aidin-cta__text strong { font-size: 27px !important; }
 }
+
+/* 푸터: 연락처·사업자 줄도 주소 줄과 같은 세로선에 맞춤, 두 줄짜리 항목은 제목을 첫 줄에 맞춤 */
+@media (min-width: 997px) {
+  .aidin-footer__info dt { flex-basis: 115px; }
+  .aidin-footer__info dl { align-items: baseline; }
+}
