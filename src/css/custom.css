@@ -851,7 +851,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .aidin-cta__text strong { grid-column: 2; grid-row: 1; font-size: 19px; line-height: 1.35; }
   .aidin-cta__text span { grid-column: 1 / -1; grid-row: 2; }
   .aidin-cta__btns { grid-column: 1 / -1; grid-row: 3; }
-  .aidin-cta__btns .aidin-btn { flex: 1 1 0; justify-content: center; }
   /* 영문 박스 설명은 강제 줄바꿈 없이 이어서 */
   html[lang^='en'] .aidin-cta__text span { white-space: normal; }
 }
