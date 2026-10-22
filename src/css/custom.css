@@ -818,8 +818,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .aidin-footer__info dd { display: grid; gap: 6px; width: 100%; }
   .aidin-footer__info dd span { display: flex; align-items: baseline; }
   .aidin-footer__info em { flex: 0 0 122px; margin-right: 8px !important; }
-  html[lang^='en'] .aidin-footer__info dd span { flex-direction: column; }
-  html[lang^='en'] .aidin-footer__info em { flex: none; margin: 0 0 2px !important; }
+  html[lang^='en'] .aidin-footer__info dd span { flex-wrap: wrap; }
+  html[lang^='en'] .aidin-footer__info em { flex: none; margin: 0 10px 0 0 !important; }
   /* 맨 아래 줄: 회사명 / 링크 / 저작권을 한 줄씩, 남는 구분선 없이 */
   .aidin-footer { padding-bottom: 0 !important; }
   .aidin-footer__bottom { padding-bottom: 84px; }
@@ -837,3 +837,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .aidin-board__table .c-no { color: #707070; }
 /* 매뉴얼 수식도 화면보다 넓으면 수식 안에서만 옆으로 넘기기 */
 .theme-doc-markdown .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+/* ── 모바일 보완 2차 (2026-10-22) — PC 화면은 그대로 ── */
+@media (max-width: 996px) {
+  /* 제목 아래 회색 설명 문장 숨김 (국문·영문 모든 페이지) */
+  .aidin-visual__desc { display: none; }
+  /* 상단 헤더 빨간 A/S 신청(Service Request) 버튼 숨김: 로고와 KO/EN 전환만 */
+  .aidin-nav-cta, .aidin-nav-cta.navbar__link { display: none !important; }
+  /* 찾으시는 내용이 없나요? 박스: 아이콘을 작게 줄여 제목 왼쪽에, 설명·버튼은 아래 전체 폭 */
+  .aidin-cta__box { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; row-gap: 14px; align-items: center; }
+  .aidin-cta__ic { width: 44px; height: 44px; grid-column: 1; grid-row: 1; }
+  .aidin-cta__ic svg { width: 22px; height: 22px; }
+  .aidin-cta__text { display: contents; }
+  .aidin-cta__text strong { grid-column: 2; grid-row: 1; font-size: 19px; line-height: 1.35; }
+  .aidin-cta__text span { grid-column: 1 / -1; grid-row: 2; }
+  .aidin-cta__btns { grid-column: 1 / -1; grid-row: 3; }
+  .aidin-cta__btns .aidin-btn { flex: 1 1 0; justify-content: center; }
+  /* 영문 박스 설명은 강제 줄바꿈 없이 이어서 */
+  html[lang^='en'] .aidin-cta__text span { white-space: normal; }
+}
