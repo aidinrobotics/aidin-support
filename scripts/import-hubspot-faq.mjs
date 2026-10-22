@@ -25,7 +25,7 @@ const API = 'https://api.hubapi.com/files/v3';
 const SRC = { ko: path.resolve(process.env.FAQ_SRC_KO || '.src/ko'), en: path.resolve(process.env.FAQ_SRC_EN || '.src/en') };
 const SHEETS = { ko: /국문|KO|한국/i, en: /영문|EN|영어/i };
 const INTRO = {
-  ko: { description: '고객님들이 자주 문의하신 질문과 답변입니다.', lead: '고객님들이 자주 문의하신 질문과 답변입니다. 항목을 누르면 답변을 확인하실 수 있습니다.' },
+  ko: { description: '고객님들이 자주 문의하신 질문과 답변입니다.', lead: '고객님들이 자주 문의하신 질문과 답변입니다.<br />항목을 누르면 답변을 확인하실 수 있습니다.' },
   en: { description: 'Answers to the questions our customers ask most often.', lead: 'Answers to the questions our customers ask most often.<br />Select a question to see the answer.' },
 };
 
