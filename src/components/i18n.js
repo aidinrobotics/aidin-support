@@ -24,7 +24,7 @@ const S = {
     ctaAs: '문의하기',
     asButton: '바로가기',
     asCardTitle: '지원',
-    asCardDesc: "수리·점검이 필요하시면 A/S 신청을,\n제품·견적이 궁금하시면 '문의하기'를 이용해 주세요.",
+    asCardDesc: "수리·점검이 필요하시면 A/S 신청을, 제품·견적이 궁금하시면 '문의하기'를 이용해 주세요.",
     asCardAs: 'A/S 신청',
     asCardInquiry: '제품 문의하기',
     navInquiry: '문의하기',
