@@ -854,3 +854,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   /* 영문 박스 설명은 강제 줄바꿈 없이 이어서 */
   html[lang^='en'] .aidin-cta__text span { white-space: normal; }
 }
+/* ── 모바일 3차 (2026-10-27): '찾으시는 내용이 없나요?' 박스를 바로 위 '05 지원' 카드와 같은 글자·버튼 체계로 ──
+   카드 기준: 안쪽 여백 28/26/24, 모서리 20, 제목 22·700, 설명 15·500·1.75, 버튼 높이 46·모서리 8·15·600
+   아이콘은 제목 왼쪽이 아니라 제목 위 한 줄로 (첫 화면에서 PC용 72px 규칙이 남아 제목과 겹치던 문제) */
+@media (max-width: 996px) {
+  html .aidin-cta__box, html.plugin-pages .aidin-cta__box { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 28px 26px 24px; border-radius: 20px; }
+  html .aidin-cta__ic, html.plugin-pages .aidin-cta__ic { width: 44px; height: 44px; }
+  html .aidin-cta__ic svg { width: 22px; height: 22px; }
+  html .aidin-cta__text, html.plugin-pages .aidin-cta__text { display: flex; flex-direction: column; gap: 0; flex: none; }
+  html .aidin-cta__text strong, html.plugin-pages .aidin-cta__text strong { margin-top: 16px; font-size: 22px !important; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; color: #161616; }
+  html .aidin-cta__text span, html.plugin-pages .aidin-cta__text span { margin-top: 18px; font-size: 15px; font-weight: 500; line-height: 1.75; color: #444; word-break: keep-all; }
+  html .aidin-cta__btns, html.plugin-pages .aidin-cta__btns { margin-top: 24px; gap: 10px; }
+  html .aidin-cta__btns .aidin-btn, html.plugin-pages .aidin-cta__btns .aidin-btn { height: 46px; padding: 0 18px; border-radius: 8px; font-size: 15px !important; font-weight: 600; }
+}

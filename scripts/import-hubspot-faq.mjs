@@ -124,10 +124,12 @@ function pageMd(locale, title, items) {
   return `---\ndescription: ${JSON.stringify(description)}\n---\n\n# ${esc(title)}\n\n${lead}\n\n${blocks.join('\n\n')}\n`;
 }
 
-function rewriteLocale(locale, cats) {
+// sameFiles: 국문에서 정한 파일 이름 목록. 영문은 같은 순서의 분류에 같은 파일 이름을 씀
+// (Docusaurus 영문 페이지는 국문과 파일 이름이 같아야 열림. 다르면 영문 탭이 Page Not Found가 되고 국문 내용이 보임)
+function rewriteLocale(locale, cats, sameFiles) {
   const dir = SRC[locale];
   const sumFile = path.join(dir, 'SUMMARY.md');
-  if (!fs.existsSync(sumFile) || !cats.length) return 0;
+  if (!fs.existsSync(sumFile) || !cats.length) return { count: 0, files: [] };
   const lines = fs.readFileSync(sumFile, 'utf8').split('\n');
   const ind = (l) => l.match(/^\s*/)[0].replace(/\t/g, '  ').length;
   const top = lines.findIndex((l) => /\]\(index-faq\.md\)/.test(l));
@@ -141,17 +143,19 @@ function rewriteLocale(locale, cats) {
   }).filter(Boolean);
   const pad = lines[top + 1] && end > top + 1 ? lines[top + 1].match(/^\s*/)[0] : ' '.repeat(ind(lines[top]) + 2);
   const used = new Set();
+  const files = [];
   const entries = cats.map((c, i) => {
-    // 기존 분류와 이름이 같으면 같은 주소(faq-common 등)를 그대로 씀
-    let file = (old.find((o) => o.title === c.cat) || {}).file;
+    // 영문: 국문 같은 순서 분류의 파일 이름. 국문: 기존 분류와 이름이 같으면 같은 주소(faq-common 등)를 그대로 씀
+    let file = sameFiles ? sameFiles[i] : (old.find((o) => o.title === c.cat) || {}).file;
     if (!file || used.has(file)) file = `faq-hs-${i + 1}.md`;
     used.add(file);
+    files.push(file);
     fs.writeFileSync(path.join(dir, file), pageMd(locale, c.cat, c.items));
     return `${pad}* [${c.cat}](${file})`;
   });
   lines.splice(top + 1, end - top - 1, ...entries);
   fs.writeFileSync(sumFile, lines.join('\n'));
-  return cats.reduce((n, c) => n + c.items.length, 0);
+  return { count: cats.reduce((n, c) => n + c.items.length, 0), files };
 }
 
 // ── HubSpot에서 파일 찾기 ─────────────────────────────────────
@@ -210,8 +214,10 @@ async function main(localFile) {
   }
   if (!result.ko.length) throw new Error("'국문' 시트에서 질문을 하나도 찾지 못했습니다");
   // 모두 읽은 뒤에 한꺼번에 씀 (중간에 실패하면 원고를 건드리지 않음)
-  const counts = Object.fromEntries(['ko', 'en'].map((loc) => [loc, rewriteLocale(loc, result[loc])]));
-  console.log(`HubSpot FAQ: 국문 ${counts.ko}개(${result.ko.map((c) => c.cat).join(', ')}), 영문 ${counts.en}개`);
+  const ko = rewriteLocale('ko', result.ko);
+  const en = rewriteLocale('en', result.en, ko.files);
+  if (result.en.length > result.ko.length) console.warn(`영문 분류가 국문보다 ${result.en.length - result.ko.length}개 많아 남는 영문 분류는 사이트에 나오지 않습니다`);
+  console.log(`HubSpot FAQ: 국문 ${ko.count}개(${result.ko.map((c) => c.cat).join(', ')}), 영문 ${en.count}개 · 파일 ${ko.files.join(', ')}`);
 }
 
 try {
