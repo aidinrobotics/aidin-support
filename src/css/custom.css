@@ -873,6 +873,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    페이지마다 !important 로 덮어쓴 값이 많아, 이 묶음은 :not(#_) 로 우선순위를 높여 한 번에 정리함 */
 :root {
   --m-title: 30px;      /* 페이지 제목 (상단 검정 띠·첫 화면·404) 700 / 1.25 */
+  --m-doc: 28px;        /* 문서 제목 (매뉴얼 이름 등 본문 맨 위) 700 / 1.25 */
   --m-h2: 22px;         /* 섹션 제목 = 카드 제목 700 / 1.35 */
   --m-h3: 18px;         /* 소제목 700 / 1.4 */
   --m-h4: 16px;         /* 작은 소제목 700 / 1.45 */
@@ -887,6 +888,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   /* 페이지 제목 */
   html .aidin-visual__title:not(#_), html .aidin-hero__title:not(#_), html main .hero__title:not(#_) { font-size: var(--m-title) !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: -0.02em !important; }
   /* 문서 제목 */
+  html .aidin-phead__h:not(#_) { font-size: var(--m-doc) !important; line-height: 1.25 !important; }
   html .theme-doc-markdown h2:not(#_) { font-size: var(--m-h2) !important; line-height: 1.35 !important; }
   html .theme-doc-markdown h3:not(#_) { font-size: var(--m-h3) !important; line-height: 1.4 !important; }
   html .theme-doc-markdown h4:not(#_) { font-size: var(--m-h4) !important; line-height: 1.45 !important; }
@@ -909,4 +911,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   html .aidin-mcard__btn:not(#_) { height: var(--m-btn-h) !important; border-radius: var(--m-btn-r) !important; font-size: var(--m-btn-fs) !important; }
   /* 푸터: 작은 글 하나로 */
   html .aidin-footer__addr dt:not(#_), html .aidin-footer__addr dd:not(#_), html .aidin-footer__info dt:not(#_), html .aidin-footer__info dd span:not(#_), html .aidin-footer__info dd em:not(#_) { font-size: var(--m-small) !important; line-height: 1.7 !important; }
+}
+
+/* ── PC 글자 체계 (2026-10-27) — 화면 폭 997px 이상 화면에서만 (인쇄·PDF는 그대로) ──────────
+   모바일 체계와 같은 역할 이름. 값은 아래 변수 한 곳에서만 바꿈 (모바일_글자체계.html 표의 PC 열과 같음) */
+:root {
+  --d-title: 52px;      /* 페이지 제목 700 / 1.2 */
+  --d-doc: 40px;        /* 문서 제목 (매뉴얼 이름 등 본문 맨 위) 700 / 1.25 */
+  --d-h2: 28px;         /* 섹션 제목 = 카드 제목 = 문의 박스 제목 700 / 1.3 */
+  --d-h3: 21px;         /* 소제목 700 / 1.35 */
+  --d-h4: 18px;         /* 작은 소제목 700 / 1.4 */
+  --d-item: 18px;       /* 목록 항목 제목 (FAQ 질문·자료명) 600 / 1.5 */
+  --d-lead: 18px;       /* 제목 아래 안내 문장 400 / 1.7 */
+  --d-body: 17px;       /* 본문 400 / 1.75 */
+  --d-sub: 16px;        /* 설명·보조 글·표 500(표 400) / 1.7 */
+  --d-small: 14px;      /* 캡션·푸터 500 / 1.7 (저작권 줄 13) */
+  --d-btn-h: 52px; --d-btn-r: 8px; --d-btn-fs: 16px;   /* 버튼 600 */
+  --d-tab-h: 44px; --d-tab-fs: 16px;                    /* 분류 탭 500 */
+}
+@media screen and (min-width: 997px) {
+  /* 페이지 제목 */
+  html .aidin-visual__title:not(#_), html .aidin-hero__title:not(#_), html main .hero__title:not(#_) { font-size: var(--d-title) !important; line-height: 1.2 !important; font-weight: 700 !important; }
+  html .aidin-visual__desc:not(#_), html .aidin-hero__sub:not(#_) { font-size: var(--d-lead) !important; line-height: 1.7 !important; }
+  /* 문서 제목 */
+  html .aidin-phead__h:not(#_) { font-size: var(--d-doc) !important; line-height: 1.25 !important; }
+  /* 섹션·카드·문의 박스 제목 */
+  html .theme-doc-markdown h2:not(#_), html .aidin-docs--as .theme-doc-markdown h3:not(#_), html .aidin-mcard__title:not(#_), html .aidin-cta__text strong:not(#_) { font-size: var(--d-h2) !important; line-height: 1.3 !important; }
+  html .theme-doc-markdown h3:not(#_) { font-size: var(--d-h3) !important; line-height: 1.35 !important; }
+  html .theme-doc-markdown h4:not(#_) { font-size: var(--d-h4) !important; line-height: 1.4 !important; }
+  /* 목록 항목 제목 */
+  html .theme-doc-markdown details > summary:not(#_), html .aidin-board__table .c-title strong:not(#_) { font-size: var(--d-item) !important; line-height: 1.5 !important; }
+  /* 본문 (매뉴얼·A/S 안내·404) */
+  html .theme-doc-markdown p:not(#_), html .theme-doc-markdown li:not(#_), html main.container.margin-vert--xl p:not(#_) { font-size: var(--d-body) !important; line-height: 1.75 !important; }
+  html .aidin-docs--as .theme-doc-markdown > p:first-of-type:not(#_) { font-size: var(--d-lead) !important; line-height: 1.7 !important; }
+  /* 설명·표 */
+  html .aidin-mcard__desc:not(#_), html .aidin-cta__text span:not(#_) { font-size: var(--d-sub) !important; font-weight: 500 !important; line-height: 1.7 !important; }
+  html .theme-doc-markdown td:not(#_), html .theme-doc-markdown th:not(#_) { font-size: var(--d-sub) !important; line-height: 1.6 !important; }
+  /* 버튼 하나로 (검색창 안 버튼 제외) */
+  html .aidin-mcard__btn:not(#_), html .aidin-cta__btns .aidin-btn:not(#_), html .aidin-phead__pdf:not(#_), html .aidin-btn--lg:not(#_), html main .aidin-btn--line:not(#_) { height: var(--d-btn-h) !important; border-radius: var(--d-btn-r) !important; font-size: var(--d-btn-fs) !important; font-weight: 600 !important; }
+  html .aidin-ptabs a:not(#_) { height: var(--d-tab-h) !important; font-size: var(--d-tab-fs) !important; }
+  /* 문의 박스: 모든 페이지 같은 여백·모서리 (카드와 같은 모서리) */
+  html .aidin-cta__box:not(#_) { padding: 40px 48px !important; border-radius: 20px !important; }
+  html .aidin-cta__ic:not(#_) { width: 64px !important; height: 64px !important; }
+  /* 푸터 */
+  html .aidin-footer__addr dt:not(#_), html .aidin-footer__addr dd:not(#_), html .aidin-footer__info dt:not(#_), html .aidin-footer__info dd span:not(#_), html .aidin-footer__info dd em:not(#_) { font-size: var(--d-small) !important; line-height: 1.7 !important; }
 }
