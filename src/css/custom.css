@@ -889,7 +889,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   html .aidin-visual__title:not(#_), html .aidin-hero__title:not(#_), html main .hero__title:not(#_) { font-size: var(--m-title) !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: -0.02em !important; }
   /* 문서 제목 */
   html .aidin-phead__h:not(#_) { font-size: var(--m-doc) !important; line-height: 1.25 !important; }
-  html .theme-doc-markdown h2:not(#_) { font-size: var(--m-h2) !important; line-height: 1.35 !important; }
+  html .theme-doc-markdown h2:not(#_), html .aidin-docs--as .theme-doc-markdown h3:not(#_) { font-size: var(--m-h2) !important; line-height: 1.35 !important; }
   html .theme-doc-markdown h3:not(#_) { font-size: var(--m-h3) !important; line-height: 1.4 !important; }
   html .theme-doc-markdown h4:not(#_) { font-size: var(--m-h4) !important; line-height: 1.45 !important; }
   /* 본문 (매뉴얼·A/S 안내·404 포함) */
