@@ -961,3 +961,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .aidin-mcard__head { position: relative; }
 .aidin-mcard__top { position: absolute; top: 0; right: 0; height: auto; }
 html .aidin-mcard__title:not(#_) { margin-top: 0 !important; padding-right: 44px; }
+
+/* ── 첫 화면: 부제를 제목 위로 (배경 점무늬에 가리지 않게) (2026-10) ── */
+html .aidin-hero__sub:not(#_) { order: -1; margin: 0 0 14px !important; font-weight: 500; color: rgba(255,255,255,.85) !important; letter-spacing: -0.01em; }
