@@ -956,3 +956,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   /* 푸터 */
   html .aidin-footer__addr dt:not(#_), html .aidin-footer__addr dd:not(#_), html .aidin-footer__info dt:not(#_), html .aidin-footer__info dd span:not(#_), html .aidin-footer__info dd em:not(#_) { font-size: var(--d-small) !important; line-height: 1.7 !important; }
 }
+
+/* ── 카드 번호·라벨(01 · 4개 모델 등) 없애고 제목을 카드 맨 위로 (2026-10) ── */
+.aidin-mcard__head { position: relative; }
+.aidin-mcard__top { position: absolute; top: 0; right: 0; height: auto; }
+html .aidin-mcard__title:not(#_) { margin-top: 0 !important; padding-right: 44px; }

@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { useHistory } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useNav, useT, SECTION_ORDER, CARD_LABEL } from '@site/src/components/i18n';
+import { useNav, useT, SECTION_ORDER } from '@site/src/components/i18n';
 import { Icon } from '@site/src/components/Icons';
 
 // 자주 찾는 제품 (검색창 아래 바로가기)
@@ -39,7 +39,6 @@ function Card({ section, index }) {
     <div className={`aidin-mcard${isAs ? ' aidin-mcard--dark' : ''}`}>
       <Link to={sec.path} className="aidin-mcard__head">
         <span className="aidin-mcard__top">
-          <span className="aidin-mcard__label"><b>{String(index + 1).padStart(2, '0')}</b>{t.enLabels && CARD_LABEL[section]}</span>
           <span className="aidin-mcard__arrow"><Icon name="arrowRight" size={34} stroke={1.6} /></span>
         </span>
         <span className="aidin-mcard__title">{isAs ? t.asCardTitle : sec.title}</span>

@@ -31,7 +31,6 @@ function FamilyCards() {
         <div key={f.path} className="aidin-mcard">
           <Link to={f.path} className="aidin-mcard__head">
             <span className="aidin-mcard__top">
-              <span className="aidin-mcard__label"><b>{String(i + 1).padStart(2, '0')}</b>{t.models(f.products.length)}</span>
               <span className="aidin-mcard__arrow"><Icon name="arrowRight" size={30} stroke={1.6} /></span>
             </span>
             <span className="aidin-mcard__title">{f.title}</span>
