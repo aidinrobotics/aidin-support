@@ -26,6 +26,7 @@ const config = {
     hooks: { onBrokenMarkdownLinks: 'warn', onBrokenMarkdownImages: 'warn' },
   },
   customFields: { SHOP_URL, HOMEPAGE_URL },
+  clientModules: ['./src/clientModules/fixes.js'],
 
   i18n: {
     defaultLocale: 'ko',

@@ -968,3 +968,8 @@ html .aidin-hero__sub:not(#_) { order: -1; margin: 0 0 14px !important; font-wei
 
 /* ── 첫 화면: 큰 화면에서 카드 줄·아래 문의 구역이 양옆 끝까지 퍼지지 않게 최대 1600px로 가운데 (로고·첫 화면 띠·푸터는 그대로) (2026-10) ── */
 html section.aidin-mcards:not(#_), html section.aidin-cta:not(#_) { max-width: 1600px !important; margin-left: auto !important; margin-right: auto !important; }
+
+/* ── 모바일: 스크롤하는 동안 바로가기·위로 버튼을 잠깐 숨김 (내려받기 버튼·목차 가림 방지, src/clientModules/fixes.js) (2026-10) ── */
+@media (max-width: 996px) {
+  html.aidin-scrolling .aidin-quick__box:not(.is-open), html.aidin-scrolling .aidin-quick__top { opacity: 0 !important; pointer-events: none !important; }
+}
