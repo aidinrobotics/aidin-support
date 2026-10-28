@@ -2,60 +2,60 @@
   "_설명": "자료실(HubSpot) 파일 이름에서 [AIDIN ROBOTICS]·확장자·(언어, 날짜)를 뗀 이름 → 사이트에 보일 국문(ko)·영문(en) 자료명. 여기에 없으면 HubSpot 이름이 그대로 보이고, 매일 점검 목록(/download-names-check.json)에 올라감.",
   "names": {
     "Catalog AIDIN ROBOTICS": {
-      "ko": "에이딘로보틱스 제품 카탈로그",
-      "en": "AIDIN ROBOTICS Product Catalog"
+      "ko": "에이딘로보틱스 카탈로그",
+      "en": "AIDIN ROBOTICS Catalog"
     },
     "Catalog": {
-      "ko": "에이딘로보틱스 제품 카탈로그",
-      "en": "AIDIN ROBOTICS Product Catalog"
+      "ko": "에이딘로보틱스 카탈로그",
+      "en": "AIDIN ROBOTICS Catalog"
     },
     "AIRO-One Solution for Surface Finishing": {
-      "ko": "표면가공 솔루션 (AIRO-One)",
-      "en": "Surface Finishing Solution (AIRO-One)"
+      "ko": "AIRO-One 표면가공 솔루션",
+      "en": "AIRO-One Solution for Surface Finishing"
     },
     "AIRO-One Solution for Logistics Leaflet": {
-      "ko": "물류피킹 솔루션 (AIRO-One)",
-      "en": "Logistics Picking Solution (AIRO-One)"
+      "ko": "AIRO-One 물류 피킹 솔루션",
+      "en": "AIRO-One Solution for Logistics"
     },
     "3-axis FT sensor": {
       "ko": "3축 힘/토크 센서 (3FT2000)",
-      "en": "3-Axis F/T Sensor (3FT2000)"
+      "en": "3-axis F/T Sensor (3FT2000)"
     },
     "AFT-Mini Flyer": {
       "ko": "초소형 6축 힘/토크 센서 (AFT20-D15)",
       "en": "Miniature 6-Axis F/T Sensor (AFT20-D15)"
     },
     "AFT200+MINI": {
-      "ko": "6축 힘/토크 센서 (AFT-MINI, AFT200)",
-      "en": "6-Axis F/T Sensor (AFT-MINI, AFT200)"
+      "ko": "6축 힘/토크 센서 (AFT-Mini, AFT200)",
+      "en": "6-axis F/T Sensor (AFT-Mini, AFT200)"
     },
     "AFT MINI+AFT200 leaflet": {
-      "ko": "6축 힘/토크 센서 (AFT-MINI, AFT200)",
-      "en": "6-Axis F/T Sensor (AFT-MINI, AFT200)"
+      "ko": "6축 힘/토크 센서 (AFT-Mini, AFT200)",
+      "en": "6-axis F/T Sensor (AFT-Mini, AFT200)"
     },
     "AIDIN-Hand leaflet": {
       "ko": "로봇핸드 (AIDIN ROBOTICS Hand Gen1)",
       "en": "Robot Hand (AIDIN ROBOTICS Hand Gen1)"
     },
     "ATSB Series Flyer": {
-      "ko": "초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)",
-      "en": "Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)"
+      "ko": "관절 토크 센서 (ATSB)",
+      "en": "Joint Torque Sensor (ATSB)"
     },
     "ATSB leaflet": {
-      "ko": "초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)",
-      "en": "Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)"
+      "ko": "관절 토크 센서 (ATSB)",
+      "en": "Joint Torque Sensor (ATSB)"
     },
     "ATS FLYER": {
       "ko": "초박형 관절 토크 센서 (ATS50, ATS100, ATS200, ATS400)",
       "en": "Ultra-Thin Joint Torque Sensor (ATS50, ATS100, ATS200, ATS400)"
     },
     "6-axis FT Sensor KIT Leaflet 2": {
-      "ko": "6축 힘/토크 센서 키트 (AFT200 Kit)",
-      "en": "6-Axis F/T Sensor Kit (AFT200 Kit)"
+      "ko": "6축 힘/토크 센서 키트 (AFT200-KIT)",
+      "en": "6-axis F/T Sensor KIT (AFT200-KIT)"
     },
     "AFT200-Kit": {
-      "ko": "6축 힘/토크 센서 키트 (AFT200 Kit)",
-      "en": "6-Axis F/T Sensor Kit (AFT200 Kit)"
+      "ko": "6축 힘/토크 센서 키트 (AFT200-KIT)",
+      "en": "6-axis F/T Sensor KIT (AFT200-KIT)"
     },
     "AFT200-KIT-NRMK leaflet": {
       "ko": "6축 힘/토크 센서 뉴로메카 키트 (AFT200-KIT-NRMK)",
@@ -70,12 +70,12 @@
       "en": "Tactile Sensor (ATT)"
     },
     "6-axis Force torque sensor(Wrist)": {
-      "ko": "6축 힘/토크 센서 (AFT150-D50)",
-      "en": "6-Axis F/T Sensor (AFT150-D50)"
+      "ko": "6축 힘/토크 센서 손목형 (AFT150-D50)",
+      "en": "6-axis F/T Sensor, Wrist Type (AFT150-D50)"
     },
     "치아교정장비 리플렛": {
-      "ko": "치아교정장비 (OrthoForce)",
-      "en": "Orthodontic Device (OrthoForce)"
+      "ko": "치아 교정력 측정 장비 (OrthoForce)",
+      "en": "Orthodontic Force Measurement System (OrthoForce)"
     },
     "ARC Flyer": {
       "ko": "실시간 로봇 모션 컨트롤러 (ARC6)",
@@ -172,6 +172,59 @@
     "Certificate (AFT200-D80-EN)": {
       "ko": "6축 힘/토크 센서 (AFT200-D80-EN)",
       "en": "6-Axis F/T Sensor (AFT200-D80-EN)"
+    },
+    "ATSB Leaflet": {
+      "ko": "관절 토크 센서 (ATSB)",
+      "en": "Joint Torque Sensor (ATSB)"
+    },
+    "AFT200-KIT Leaflet": {
+      "ko": "6축 힘/토크 센서 키트 (AFT200-KIT)",
+      "en": "6-axis F/T Sensor KIT (AFT200-KIT)"
+    },
+    "ATT Leaflet": {
+      "ko": "택타일 센서 (ATT)",
+      "en": "Tactile Sensor (ATT)"
+    },
+    "AFT150-D50-C Leaflet": {
+      "ko": "6축 힘/토크 센서 손목형 (AFT150-D50)",
+      "en": "6-axis F/T Sensor, Wrist Type (AFT150-D50)"
+    },
+    "AFT150 Leaflet": {
+      "ko": "6축 힘/토크 센서 손목형 (AFT150-D50)",
+      "en": "6-axis F/T Sensor, Wrist Type (AFT150-D50)"
+    },
+    "AIRO-One Logistics Leaflet": {
+      "ko": "AIRO-One 물류 피킹 솔루션",
+      "en": "AIRO-One Solution for Logistics"
+    },
+    "AIRO-One Surface Finishing Leaflet": {
+      "ko": "AIRO-One 표면가공 솔루션",
+      "en": "AIRO-One Solution for Surface Finishing"
+    },
+    "OrthoForce Leaflet": {
+      "ko": "치아 교정력 측정 장비 (OrthoForce)",
+      "en": "Orthodontic Force Measurement System (OrthoForce)"
+    },
+    "Orthoforce Leaflet": {
+      "ko": "치아 교정력 측정 장비 (OrthoForce)",
+      "en": "Orthodontic Force Measurement System (OrthoForce)"
+    },
+    "AFT-Mini+AFT200 Leaflet": {
+      "ko": "6축 힘/토크 센서 (AFT-Mini, AFT200)",
+      "en": "6-axis F/T Sensor (AFT-Mini, AFT200)"
+    },
+    "AFT MINI+AFT200 Leaflet": {
+      "ko": "6축 힘/토크 센서 (AFT-Mini, AFT200)",
+      "en": "6-axis F/T Sensor (AFT-Mini, AFT200)"
+    },
+    "3FT2000 Leaflet": {
+      "ko": "3축 힘/토크 센서 (3FT2000)",
+      "en": "3-axis F/T Sensor (3FT2000)"
+    },
+    "3-axis FT sensor Leaflet": {
+      "ko": "3축 힘/토크 센서 (3FT2000)",
+      "en": "3-axis F/T Sensor (3FT2000)"
     }
-  }
+  },
+  "_출처": "브로슈어·리플렛 국·영 자료명: 하나 엑셀 자료실_브로슈어·리플렛_이름정리표_261028.xlsx (소리 확인 반영, OrthoForce 이름은 팀장님 확인 전 소리 추천안)"
 }

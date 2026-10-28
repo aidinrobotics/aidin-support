@@ -46,12 +46,12 @@ const MANUAL_REPOS = {
   en: {},
 };
 const DOCS_REPO = { ko: 'aidin-docs', en: 'aidin-docs-en' };
-// 매뉴얼 'Flyer' 칸 → 자료실(HubSpot) 리플렛. 그 언어 파일이 자료실에 있으면 가장 최근 파일로 연결하고, 없으면 원본 그대로 둠
+// 매뉴얼 'Flyer' 칸 → 자료실(HubSpot) 리플렛(새 이름, 예전 이름 순). 그 언어 파일이 자료실에 있으면 가장 최근 파일로 연결하고, 없으면 원본 그대로 둠
 const FLYER = {
-  'manual/aft150-d50-c': 'AFT150 Leaflet',
-  'manual/aft200-d80-c': 'AFT MINI+AFT200 Leaflet',
-  'manual/aft200-d80-en': 'AFT MINI+AFT200 Leaflet',
-  'manual/aft200-d80-ec': 'AFT MINI+AFT200 Leaflet',
+  'manual/aft150-d50-c': ['AFT150-D50-C Leaflet', 'AFT150 Leaflet'],
+  'manual/aft200-d80-c': ['AFT-Mini+AFT200 Leaflet', 'AFT MINI+AFT200 Leaflet'],
+  'manual/aft200-d80-en': ['AFT-Mini+AFT200 Leaflet', 'AFT MINI+AFT200 Leaflet'],
+  'manual/aft200-d80-ec': ['AFT-Mini+AFT200 Leaflet', 'AFT MINI+AFT200 Leaflet'],
 };
 const ORG = 'aidinrobotics';
 // HubSpot 자료실 (scripts/import-hubspot.mjs 결과). 없으면 깃북 자료실 표를 그대로 씀
@@ -141,14 +141,14 @@ function transform(body, fromFile, locale) {
 }
 
 function linkFlyer(md, dir, locale) {
-  const title = FLYER[dir];
-  if (!title || !locale) return md;
+  const titles = FLYER[dir];
+  if (!titles || !locale) return md;
   const lang = locale === 'ko' ? 'KO' : 'EN';
   const file = (HUBSPOT?.categories || []).flatMap((c) => c.files)
-    .filter((f) => f.title === title && f.sub.split(' · ').includes(lang) && f.format === 'PDF')
+    .filter((f) => titles.includes(f.title) && f.sub.split(' · ').includes(lang) && f.format === 'PDF')
     .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)))[0];
   if (!file) {
-    warn(`[${locale}] 자료실에 ${title} ${lang} 파일이 없어 Flyer 칸을 그대로 둠: ${dir}`);
+    warn(`[${locale}] 자료실에 ${titles[0]} ${lang} 파일이 없어 Flyer 칸을 그대로 둠: ${dir}`);
     return md;
   }
   const name = decodeURIComponent(file.url.split('/').pop());
