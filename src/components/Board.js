@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import Link from '@docusaurus/Link';
 import { useNav, useT, useLocale } from './i18n';
 import { Icon } from './Icons';
+import NAME_TABLE from '../data/download-names.json';
 
 // 본문 위 분류 탭 (자료실·자주 묻는 질문·설치 가이드 공통)
 export function SectionTabs({ section, slug, counts }) {
@@ -43,53 +44,10 @@ const LANG_ORDER = (code) => {
   const i = ['KO', 'KR', 'EN', 'CN', 'ZH', 'JP'].findIndex((c) => code.startsWith(c));
   return i < 0 ? 9 : i;
 };
-// 사이트에 보일 자료명 [국문, 영문] — 파일 이름(언어·날짜 뺀 것) 기준. 국문 이름이 같은 것끼리는 한 줄로 묶음
-const TITLE_NAME = {
-  'Catalog AIDIN ROBOTICS': ['에이딘로보틱스 제품 카탈로그', 'AIDIN ROBOTICS Product Catalog'],
-  // 허브스팟 파일 이름이 '[AIDIN ROBOTICS] Catalog ...'로 바뀌면서 자료명이 'Catalog'만 남는 경우
-  'Catalog': ['에이딘로보틱스 제품 카탈로그', 'AIDIN ROBOTICS Product Catalog'],
-  'AIRO-One Solution for Surface Finishing': ['표면가공 솔루션 (AIRO-One)', 'Surface Finishing Solution (AIRO-One)'],
-  'AIRO-One Solution for Logistics Leaflet': ['물류피킹 솔루션 (AIRO-One)', 'Logistics Picking Solution (AIRO-One)'],
-  '3-axis FT sensor': ['3축 힘/토크 센서 (3FT2000)', '3-Axis F/T Sensor (3FT2000)'],
-  'AFT-Mini Flyer': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
-  'AFT200+MINI': ['6축 힘/토크 센서 (AFT-MINI, AFT200)', '6-Axis F/T Sensor (AFT-MINI, AFT200)'],
-  'AFT MINI+AFT200 leaflet': ['6축 힘/토크 센서 (AFT-MINI, AFT200)', '6-Axis F/T Sensor (AFT-MINI, AFT200)'],
-  'AIDIN-Hand leaflet': ['로봇핸드 (AIDIN ROBOTICS Hand Gen1)', 'Robot Hand (AIDIN ROBOTICS Hand Gen1)'],
-  'ATSB Series Flyer': ['초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)', 'Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)'],
-  'ATSB leaflet': ['초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)', 'Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)'],
-  'ATS FLYER': ['초박형 관절 토크 센서 (ATS50, ATS100, ATS200, ATS400)', 'Ultra-Thin Joint Torque Sensor (ATS50, ATS100, ATS200, ATS400)'],
-  '6-axis FT Sensor KIT Leaflet 2': ['6축 힘/토크 센서 키트 (AFT200 Kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
-  'AFT200-Kit': ['6축 힘/토크 센서 키트 (AFT200 Kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
-  'AFT200-KIT-NRMK leaflet': ['6축 힘/토크 센서 뉴로메카 키트 (AFT200-KIT-NRMK)', '6-Axis F/T Sensor Neuromeka Kit (AFT200-KIT-NRMK)'],
-  'AFT200-KIT-RB leaflet': ['6축 힘/토크 센서 레인보우로보틱스 키트 (AFT200-KIT-RB)', '6-Axis F/T Sensor Rainbow Robotics Kit (AFT200-KIT-RB)'],
-  'Tactile Sensor Leaflet': ['택타일 센서 (ATT)', 'Tactile Sensor (ATT)'],
-  '6-axis Force torque sensor(Wrist)': ['6축 힘/토크 센서 (AFT150-D50)', '6-Axis F/T Sensor (AFT150-D50)'],
-  '치아교정장비 리플렛': ['치아교정장비 (OrthoForce)', 'Orthodontic Device (OrthoForce)'],
-  'ARC Flyer': ['실시간 로봇 모션 컨트롤러 (ARC6)', 'Real-Time Robot Motion Controller (ARC6)'],
-  'Panoradar+Smart Gripper Flyer': ['스마트 그리퍼 솔루션 (Panoradar, SUSGRIP-FT)', 'Smart Gripper Solution (Panoradar, SUSGRIP-FT)'],
-  // 3D STEP 파일 · 제품 도면 · 제품 인증
-  'AFT200 STEP': ['6축 힘/토크 센서 (AFT200)', '6-Axis F/T Sensor (AFT200)'],
-  'AFT200-D80': ['6축 힘/토크 센서 (AFT200-D80-EN)', '6-Axis F/T Sensor (AFT200-D80-EN)'],
-  'AFT200-D80-C': ['6축 힘/토크 센서 (AFT200-D80-C)', '6-Axis F/T Sensor (AFT200-D80-C)'],
-  'AFT200-D80-EC': ['6축 힘/토크 센서 (AFT200-D80-EC)', '6-Axis F/T Sensor (AFT200-D80-EC)'],
-  'AFT200 D80 Drawing': ['6축 힘/토크 센서 (AFT200-D80)', '6-Axis F/T Sensor (AFT200-D80)'],
-  'AFT150-D50-C': ['6축 힘/토크 센서 (AFT150-D50-C)', '6-Axis F/T Sensor (AFT150-D50-C)'],
-  'Miniature 6-axis FT Sensor(AFT20,50,100) STEP': ['초소형 6축 힘/토크 센서 (AFT20, AFT50, AFT100)', 'Miniature 6-Axis F/T Sensor (AFT20, AFT50, AFT100)'],
-  'AFT20-D15 3D STEP': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
-  'AFT20-D15 Drawing': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
-  'Certificate (AFT20-D15)': ['초소형 6축 힘/토크 센서 (AFT20-D15)', 'Miniature 6-Axis F/T Sensor (AFT20-D15)'],
-  'AFT100-D20-C': ['초소형 6축 힘/토크 센서 (AFT100-D20-C)', 'Miniature 6-Axis F/T Sensor (AFT100-D20-C)'],
-  'AFT100-D20 Drawing': ['초소형 6축 힘/토크 센서 (AFT100-D20)', 'Miniature 6-Axis F/T Sensor (AFT100-D20)'],
-  'AFT200-KIT': ['6축 힘/토크 센서 키트 (AFT200 Kit)', '6-Axis F/T Sensor Kit (AFT200 Kit)'],
-  'AFT200-D80-C-KIT v2': ['6축 힘/토크 센서 키트 (AFT200-D80-C-KIT v2)', '6-Axis F/T Sensor Kit (AFT200-D80-C-KIT v2)'],
-  'ATSB SERIES 3D CAD': ['초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)', 'Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)'],
-  'ATSB SERIES 2D Drawings': ['초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)', 'Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)'],
-  'ATSB Design Drawing': ['초박형 관절 토크 센서 설계 도면 (ATSB)', 'Ultra-Thin Joint Torque Sensor Design Drawing (ATSB)'],
-  'Certificate (AFT200-D80-EC)': ['6축 힘/토크 센서 (AFT200-D80-EC)', '6-Axis F/T Sensor (AFT200-D80-EC)'],
-  'Certifcation of AFT200-C (Smart 6-axis FT Sensor)': ['스마트 6축 힘/토크 센서 (AFT200-C)', 'Smart 6-Axis F/T Sensor (AFT200-C)'],
-  'Certificate': ['6축 힘/토크 센서 (AFT200-D80-EN)', '6-Axis F/T Sensor (AFT200-D80-EN)'],
-};
-const showTitle = (title, en) => (TITLE_NAME[title] ? TITLE_NAME[title][en ? 1 : 0] : title);
+// 사이트에 보일 자료명 — HubSpot 파일 이름(언어·날짜 뺀 것) 기준 국문·영문 이름 표는 src/data/download-names.json에서 관리
+// 국문 이름이 같은 것끼리는 한 줄로 묶음. 표에 없으면 HubSpot 이름 그대로 (매일 점검 목록에 올라감)
+const NAMES = NAME_TABLE.names;
+const showTitle = (title, en) => (NAMES[title] ? NAMES[title][en ? 'en' : 'ko'] || NAMES[title].ko : title);
 // 길어서 두 줄이 되는 자료명은 괄호 안 모델명을 아래 줄로
 // 줄바꿈 여부는 국문 이름 길이로 정해 국문·영문 사이트에서 같은 자료가 같은 모양으로
 const splitTitle = (t, ko) => {

@@ -80,12 +80,26 @@ function parseFileName(name) {
     .replace(/_/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  const langs = [...new Set((base.match(LANG) || []).map((l) => l.toUpperCase().slice(0, 2)))];
-  const rev = (base.match(/(\d{2}\.\d{2})(?:\s*updated?)?/i) || [])[1] || '';
-  // 언어·개정일은 따로 보여주니 자료명에서는 뺌: 'Catalog KO(26.02 updated)' → 'Catalog'
-  const title = base
-    .replace(/\(([^()]*)\)/g, (m, inner) => (/\b(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)\b|\d{2}\.\d{2}|update/i.test(inner) ? ' ' : m))
-    .replace(LANG, ' ')
+  // 언어·개정일은 '(KO, 26.06)'처럼 언어·날짜만 든 괄호나 맨 끝 언어 표기('… Leaflet KO')에서만 읽음
+  // → 모델명 안의 EN('AFT200-D80-EN')을 언어로 잘못 읽지 않음
+  const META = /^\s*((KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)|\d{2}\.\d{2}(\s*updated?)?|updated?|ver)\s*$/i;
+  const metaParts = [];
+  let rest = base.replace(/\(([^()]*)\)/g, (m, inner) => {
+    const parts = inner.split(/[,\s]+/).filter(Boolean);
+    if (!parts.length || !parts.every((p) => META.test(p))) return m;
+    metaParts.push(...parts);
+    return ' ';
+  });
+  rest = rest.replace(/[\s-]+(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)\s*$/i, (m, l) => { metaParts.push(l); return ' '; });
+  // 예전 이름처럼 밑줄로 떨어진 언어('…_EN_Flyer', '…_KO(26.02 updated)')도 언어로 봄. 모델명은 하이픈이라 해당 없음
+  for (const m of name.matchAll(/_(KO|KOR|KR|EN|ENG|CN|CHN|ZH|JP|JPN)(?=[_\s(.]|$)/gi)) {
+    metaParts.push(m[1]);
+    rest = rest.replace(new RegExp(`(^|\\s)${m[1]}(?=\\s|\\(|$)`), ' ');
+  }
+  const langs = [...new Set(metaParts.filter((p) => new RegExp(`^${LANG.source}$`, 'i').test(p)).map((l) => l.toUpperCase().slice(0, 2)))];
+  const rev = (metaParts.join(' ').match(/(\d{2}\.\d{2})/) || [])[1] || '';
+  // 언어·개정일은 따로 보여주니 자료명에서는 뺌: 'Catalog (KO, 26.03)' → 'Catalog'
+  const title = rest
     .replace(/\s*(배포\s*최종본|배포용|최종본)\s*/g, ' ')
     .replace(/\.(step|stp)\b/gi, '')
     .replace(/\s+/g, ' ')
@@ -133,6 +147,14 @@ try {
   if (!total) throw new Error('불러온 파일이 하나도 없습니다');
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify({ categories: result }, null, 2));
+  // 이름 표(src/data/download-names.json)에 없는 자료명 점검 → 사이트에 HubSpot 영어 이름이 그대로 보이는 자료
+  // 결과는 /download-names-check.json 으로 공개(매일 하나가 확인), 빌드 기록에도 경고로 남김
+  const names = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/download-names.json'), 'utf8')).names;
+  const missing = [];
+  for (const c of result) for (const f of c.files) if (!names[f.title] && !missing.some((m) => m.title === f.title)) missing.push({ cat: c.ko, title: f.title, file: decodeURIComponent(String(f.url).split('/').pop()) });
+  fs.mkdirSync(path.join(ROOT, 'static'), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, 'static/download-names-check.json'), JSON.stringify({ checkedAt: new Date().toISOString(), missingCount: missing.length, missing }, null, 2));
+  if (missing.length) console.log('::warning title=자료실 이름 표에 없는 자료::' + missing.map((m) => '[' + m.cat + '] ' + m.title).join(', '));
   console.log(`HubSpot 자료실: ${result.map((c) => `${c.ko} ${c.files.length}`).join(', ')} (총 ${total}개)`);
 } catch (e) {
   console.warn('HubSpot 자료실을 불러오지 못해 깃북 표를 그대로 사용:', e.message);

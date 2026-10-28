@@ -1,0 +1,177 @@
+{
+  "_설명": "자료실(HubSpot) 파일 이름에서 [AIDIN ROBOTICS]·확장자·(언어, 날짜)를 뗀 이름 → 사이트에 보일 국문(ko)·영문(en) 자료명. 여기에 없으면 HubSpot 이름이 그대로 보이고, 매일 점검 목록(/download-names-check.json)에 올라감.",
+  "names": {
+    "Catalog AIDIN ROBOTICS": {
+      "ko": "에이딘로보틱스 제품 카탈로그",
+      "en": "AIDIN ROBOTICS Product Catalog"
+    },
+    "Catalog": {
+      "ko": "에이딘로보틱스 제품 카탈로그",
+      "en": "AIDIN ROBOTICS Product Catalog"
+    },
+    "AIRO-One Solution for Surface Finishing": {
+      "ko": "표면가공 솔루션 (AIRO-One)",
+      "en": "Surface Finishing Solution (AIRO-One)"
+    },
+    "AIRO-One Solution for Logistics Leaflet": {
+      "ko": "물류피킹 솔루션 (AIRO-One)",
+      "en": "Logistics Picking Solution (AIRO-One)"
+    },
+    "3-axis FT sensor": {
+      "ko": "3축 힘/토크 센서 (3FT2000)",
+      "en": "3-Axis F/T Sensor (3FT2000)"
+    },
+    "AFT-Mini Flyer": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT20-D15)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT20-D15)"
+    },
+    "AFT200+MINI": {
+      "ko": "6축 힘/토크 센서 (AFT-MINI, AFT200)",
+      "en": "6-Axis F/T Sensor (AFT-MINI, AFT200)"
+    },
+    "AFT MINI+AFT200 leaflet": {
+      "ko": "6축 힘/토크 센서 (AFT-MINI, AFT200)",
+      "en": "6-Axis F/T Sensor (AFT-MINI, AFT200)"
+    },
+    "AIDIN-Hand leaflet": {
+      "ko": "로봇핸드 (AIDIN ROBOTICS Hand Gen1)",
+      "en": "Robot Hand (AIDIN ROBOTICS Hand Gen1)"
+    },
+    "ATSB Series Flyer": {
+      "ko": "초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)",
+      "en": "Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)"
+    },
+    "ATSB leaflet": {
+      "ko": "초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)",
+      "en": "Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)"
+    },
+    "ATS FLYER": {
+      "ko": "초박형 관절 토크 센서 (ATS50, ATS100, ATS200, ATS400)",
+      "en": "Ultra-Thin Joint Torque Sensor (ATS50, ATS100, ATS200, ATS400)"
+    },
+    "6-axis FT Sensor KIT Leaflet 2": {
+      "ko": "6축 힘/토크 센서 키트 (AFT200 Kit)",
+      "en": "6-Axis F/T Sensor Kit (AFT200 Kit)"
+    },
+    "AFT200-Kit": {
+      "ko": "6축 힘/토크 센서 키트 (AFT200 Kit)",
+      "en": "6-Axis F/T Sensor Kit (AFT200 Kit)"
+    },
+    "AFT200-KIT-NRMK leaflet": {
+      "ko": "6축 힘/토크 센서 뉴로메카 키트 (AFT200-KIT-NRMK)",
+      "en": "6-Axis F/T Sensor Neuromeka Kit (AFT200-KIT-NRMK)"
+    },
+    "AFT200-KIT-RB leaflet": {
+      "ko": "6축 힘/토크 센서 레인보우로보틱스 키트 (AFT200-KIT-RB)",
+      "en": "6-Axis F/T Sensor Rainbow Robotics Kit (AFT200-KIT-RB)"
+    },
+    "Tactile Sensor Leaflet": {
+      "ko": "택타일 센서 (ATT)",
+      "en": "Tactile Sensor (ATT)"
+    },
+    "6-axis Force torque sensor(Wrist)": {
+      "ko": "6축 힘/토크 센서 (AFT150-D50)",
+      "en": "6-Axis F/T Sensor (AFT150-D50)"
+    },
+    "치아교정장비 리플렛": {
+      "ko": "치아교정장비 (OrthoForce)",
+      "en": "Orthodontic Device (OrthoForce)"
+    },
+    "ARC Flyer": {
+      "ko": "실시간 로봇 모션 컨트롤러 (ARC6)",
+      "en": "Real-Time Robot Motion Controller (ARC6)"
+    },
+    "Panoradar+Smart Gripper Flyer": {
+      "ko": "스마트 그리퍼 솔루션 (Panoradar, SUSGRIP-FT)",
+      "en": "Smart Gripper Solution (Panoradar, SUSGRIP-FT)"
+    },
+    "AFT200 STEP": {
+      "ko": "6축 힘/토크 센서 (AFT200)",
+      "en": "6-Axis F/T Sensor (AFT200)"
+    },
+    "AFT200-D80": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-EN)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-EN)"
+    },
+    "AFT200-D80-C": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-C)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-C)"
+    },
+    "AFT200-D80-EC": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-EC)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-EC)"
+    },
+    "AFT200 D80 Drawing": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80)",
+      "en": "6-Axis F/T Sensor (AFT200-D80)"
+    },
+    "AFT150-D50-C": {
+      "ko": "6축 힘/토크 센서 (AFT150-D50-C)",
+      "en": "6-Axis F/T Sensor (AFT150-D50-C)"
+    },
+    "Miniature 6-axis FT Sensor(AFT20,50,100) STEP": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT20, AFT50, AFT100)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT20, AFT50, AFT100)"
+    },
+    "AFT20-D15 3D STEP": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT20-D15)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT20-D15)"
+    },
+    "AFT20-D15 Drawing": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT20-D15)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT20-D15)"
+    },
+    "Certificate (AFT20-D15)": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT20-D15)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT20-D15)"
+    },
+    "AFT100-D20-C": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT100-D20-C)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT100-D20-C)"
+    },
+    "AFT100-D20 Drawing": {
+      "ko": "초소형 6축 힘/토크 센서 (AFT100-D20)",
+      "en": "Miniature 6-Axis F/T Sensor (AFT100-D20)"
+    },
+    "AFT200-KIT": {
+      "ko": "6축 힘/토크 센서 키트 (AFT200 Kit)",
+      "en": "6-Axis F/T Sensor Kit (AFT200 Kit)"
+    },
+    "AFT200-D80-C-KIT v2": {
+      "ko": "6축 힘/토크 센서 키트 (AFT200-D80-C-KIT v2)",
+      "en": "6-Axis F/T Sensor Kit (AFT200-D80-C-KIT v2)"
+    },
+    "ATSB SERIES 3D CAD": {
+      "ko": "초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)",
+      "en": "Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)"
+    },
+    "ATSB SERIES 2D Drawings": {
+      "ko": "초박형 관절 토크 센서 (ATSB50, ATSB100, ATSB200, ATSB400)",
+      "en": "Ultra-Thin Joint Torque Sensor (ATSB50, ATSB100, ATSB200, ATSB400)"
+    },
+    "ATSB Design Drawing": {
+      "ko": "초박형 관절 토크 센서 설계 도면 (ATSB)",
+      "en": "Ultra-Thin Joint Torque Sensor Design Drawing (ATSB)"
+    },
+    "Certificate (AFT200-D80-EC)": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-EC)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-EC)"
+    },
+    "Certifcation of AFT200-C (Smart 6-axis FT Sensor)": {
+      "ko": "스마트 6축 힘/토크 센서 (AFT200-C)",
+      "en": "Smart 6-Axis F/T Sensor (AFT200-C)"
+    },
+    "Certificate": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-EN)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-EN)"
+    },
+    "AFT200-D80-EN": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-EN)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-EN)"
+    },
+    "Certificate (AFT200-D80-EN)": {
+      "ko": "6축 힘/토크 센서 (AFT200-D80-EN)",
+      "en": "6-Axis F/T Sensor (AFT200-D80-EN)"
+    }
+  }
+}

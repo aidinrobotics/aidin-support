@@ -25,3 +25,4 @@ yarn-error.log*
 /i18n/en/docusaurus-plugin-content-docs
 /src/data/nav.json
 /src/data/sidebar.json
+/static/download-names-check.json
