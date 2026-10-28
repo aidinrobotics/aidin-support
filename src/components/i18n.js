@@ -63,7 +63,7 @@ const S = {
     ctaAs: 'Contact Sales',
     asButton: 'Get Started',
     asCardTitle: 'Support',
-    asCardDesc: 'Need a repair or inspection? Submit a service request.\nQuestions about products or pricing? Contact sales.',
+    asCardDesc: 'Need a repair or have a question? Our team is here to help.',
     asCardAs: 'Service Request',
     asCardInquiry: 'Contact Sales',
     navInquiry: 'Contact Sales',
