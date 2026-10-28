@@ -113,6 +113,8 @@ let LINK_MAP = {};
 function transform(body, fromFile, locale) {
   let out = body;
   out = linkFlyer(out, path.posix.dirname(fromFile), locale);
+  // 제품 문의하기 첫 문장: 모바일에서만 '궁금하시면 / 아래 양식을…'으로 줄바꿈 (PC는 그대로)
+  if (fromFile === 'support-inquiry.md') out = out.replace('견적이 궁금하시면 아래 양식을', '견적이 궁금하시면 <br class="aidin-mbr" />아래 양식을');
   // 모션 제어기(ARC6) 관련 표 행은 국문·영문 모두 제외
   out = out.replace(/^\|[^\n]*(모션\s*제어기|Motion Controller|ARC6)[^\n]*\|\s*$\n?/gim, '');
   // GitBook 섹션 첫 화면(index-*.md)·전체보기(README.md) 링크를 새 사이트 경로로 바꿈

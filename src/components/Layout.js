@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useNav, useT, SECTION_ORDER } from './i18n';
+import { useNav, useT, SECTION_ORDER, mLines } from './i18n';
 import { Icon } from './Icons';
 
 // 현재 주소에서 언어·baseUrl을 뺀 경로
@@ -173,7 +173,7 @@ export function SupportBand() {
         <span className="aidin-cta__ic"><Icon name="headset" size={26} stroke={1.7} /></span>
         <div className="aidin-cta__text">
           <strong>{t.ctaTitle}</strong>
-          <span>{t.ctaText}</span>
+          <span>{mLines(t.ctaText)}</span>
         </div>
         <div className="aidin-cta__btns">
           <Link to="/faq" className="aidin-btn aidin-btn--line">{t.ctaFaq}</Link>

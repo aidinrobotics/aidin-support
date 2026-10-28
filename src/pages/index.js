@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { useHistory } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useNav, useT, SECTION_ORDER } from '@site/src/components/i18n';
+import { useNav, useT, SECTION_ORDER, mLines } from '@site/src/components/i18n';
 import { Icon } from '@site/src/components/Icons';
 
 // 자주 찾는 제품 (검색창 아래 바로가기)
@@ -43,7 +43,7 @@ function Card({ section, index }) {
         </span>
         <span className="aidin-mcard__title">{isAs ? t.asCardTitle : sec.title}</span>
       </Link>
-      {isAs && <p className="aidin-mcard__desc">{t.asCardDesc}</p>}
+      {isAs && <p className="aidin-mcard__desc">{mLines(t.asCardDesc)}</p>}
       {!isAs && links.length > 0 && (
         <ul className="aidin-mcard__list">
           {links.map((l) => (

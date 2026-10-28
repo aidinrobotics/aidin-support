@@ -19,7 +19,7 @@ const S = {
     filterModel: '모델명으로 찾기',
     allProducts: '전체 제품',
     ctaTitle: '원하시는 답을 찾지 못하셨나요?',
-    ctaText: "자주 묻는 질문을 먼저 살펴보시고, 더 궁금한 점은 '문의하기'를 이용해 주세요.\n담당자가 확인 후 연락드리겠습니다.",
+    ctaText: "자주 묻는 질문을 먼저 살펴보시고, {m}더 궁금한 점은 '문의하기'를 이용해 주세요.\n담당자가 확인 후 연락드리겠습니다.",
     ctaFaq: '자주 묻는 질문',
     ctaAs: '문의하기',
     asButton: '바로가기',
@@ -63,7 +63,7 @@ const S = {
     ctaAs: 'Contact Us',
     asButton: 'Get Started',
     asCardTitle: 'Support',
-    asCardDesc: 'Need a repair or have a question? Our team is here to help.',
+    asCardDesc: 'Need a repair or have a question? {m}Our team is here to help.',
     asCardAs: 'Service Request',
     asCardInquiry: 'Contact Sales',
     navInquiry: 'Contact Sales',
@@ -84,6 +84,11 @@ const S = {
 };
 // 카드 라벨 (홈페이지 카드와 같은 '번호 + 영문' 표기)
 export const CARD_LABEL = { manual: 'PRODUCT MANUAL', install: 'INSTALLATION', downloads: 'DOWNLOADS', faq: 'FAQ', as: 'SUPPORT' };
+
+// 문구 안 {m} 자리에서 모바일(996px 이하)에서만 줄을 바꿈. PC는 한 줄로 이어짐 (.aidin-mbr)
+export function mLines(text) {
+  return String(text).split('{m}').flatMap((p, i) => (i ? [<span key={i} className="aidin-mbr">{'\n'}</span>, p] : [p]));
+}
 
 export function useLocale() {
   const { i18n } = useDocusaurusContext();

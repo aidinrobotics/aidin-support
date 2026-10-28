@@ -977,3 +977,6 @@ html section.aidin-mcards:not(#_), html section.aidin-cta:not(#_) { max-width: 1
 /* ── 푸터 연락처: 대표번호 한 줄, 이메일은 둘째 줄 (PC). 모바일은 원래 한 줄씩이라 그대로 (2026-10) ── */
 .aidin-footer__info dd .aidin-footer__br { flex-basis: 100%; height: 0; }
 @media (max-width: 996px) { .aidin-footer__info dd .aidin-footer__br { display: none; } }
+
+/* ── 모바일(996px 이하)에서만 줄바꿈: 문구 안 {m}·<br class="aidin-mbr"> 자리. PC는 그대로 이어짐 (2026-10) ── */
+@media (min-width: 997px) { .aidin-mbr { display: none; } }
