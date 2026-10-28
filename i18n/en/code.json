@@ -1,4 +1,7 @@
 {
+  "theme.NotFound.title": { "message": "Page Not Found" },
+  "theme.NotFound.p1": { "message": "Sorry, we couldn't find that page." },
+  "theme.NotFound.p2": { "message": "Try searching above, or go back to the Support Center home." },
   "theme.SearchBar.label": { "message": "Search" },
   "theme.SearchBar.noResultsText": { "message": "No results found" },
   "theme.SearchBar.seeAll": { "message": "See all {count} results" },

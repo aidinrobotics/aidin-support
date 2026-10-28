@@ -54,6 +54,8 @@ const FLYER = {
   'manual/aft200-d80-ec': ['AFT-Mini+AFT200 Leaflet', 'AFT MINI+AFT200 Leaflet'],
 };
 const ORG = 'aidinrobotics';
+// 영문 자료실 분류 이름 (HubSpot 폴더 설정의 영문 이름 → 사이트에 보일 이름)
+const EN_DL_LABEL = { Brochure: 'Brochures', 'Product Drawings': 'Drawings', 'Product Certification': 'Certificates' };
 // HubSpot 자료실 (scripts/import-hubspot.mjs 결과). 없으면 깃북 자료실 표를 그대로 씀
 const HUBSPOT = (() => {
   try {
@@ -330,7 +332,8 @@ function buildLocale(locale) {
       sec.tabs = [];
       sec.items = [];
       HUBSPOT.categories.forEach((c, i) => {
-        const label = locale === 'en' ? c.en : c.ko;
+        // 영문 자료실 분류 이름은 푸터와 같은 표기로 (페이지 주소는 그대로)
+        const label = locale === 'en' ? EN_DL_LABEL[c.en] || c.en : c.ko;
         let p = byTitle[label] || byTitle[c.ko] || byTitle[c.en];
         if (!p) {
           // 깃북에 없는 새 자료 종류 → 빈 화면을 만들어 탭이 열리게 함
