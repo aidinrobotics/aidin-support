@@ -46,6 +46,13 @@ const MANUAL_REPOS = {
   en: {},
 };
 const DOCS_REPO = { ko: 'aidin-docs', en: 'aidin-docs-en' };
+// 매뉴얼 'Flyer' 칸 → 자료실(HubSpot) 리플렛. 그 언어 파일이 자료실에 있으면 가장 최근 파일로 연결하고, 없으면 원본 그대로 둠
+const FLYER = {
+  'manual/aft150-d50-c': 'AFT150 Leaflet',
+  'manual/aft200-d80-c': 'AFT MINI+AFT200 Leaflet',
+  'manual/aft200-d80-en': 'AFT MINI+AFT200 Leaflet',
+  'manual/aft200-d80-ec': 'AFT MINI+AFT200 Leaflet',
+};
 const ORG = 'aidinrobotics';
 // HubSpot 자료실 (scripts/import-hubspot.mjs 결과). 없으면 깃북 자료실 표를 그대로 씀
 const HUBSPOT = (() => {
@@ -101,8 +108,9 @@ const tabLabel = (t) => t.replace(/^(6축\s*F\/T\s*센서|6-axis\s*F\/T\s*sensor
 const TITLE_OVERRIDE = { en: { as: 'Service Request' } };
 
 let LINK_MAP = {};
-function transform(body, fromFile) {
+function transform(body, fromFile, locale) {
   let out = body;
+  out = linkFlyer(out, path.posix.dirname(fromFile), locale);
   // 모션 제어기(ARC6) 관련 표 행은 국문·영문 모두 제외
   out = out.replace(/^\|[^\n]*(모션\s*제어기|Motion Controller|ARC6)[^\n]*\|\s*$\n?/gim, '');
   // GitBook 섹션 첫 화면(index-*.md)·전체보기(README.md) 링크를 새 사이트 경로로 바꿈
@@ -130,6 +138,24 @@ function transform(body, fromFile) {
   });
   // GitBook 전용 표 속성(data-view 등)은 HTML 그대로 두어도 무방
   return out;
+}
+
+function linkFlyer(md, dir, locale) {
+  const title = FLYER[dir];
+  if (!title || !locale) return md;
+  const lang = locale === 'ko' ? 'KO' : 'EN';
+  const file = (HUBSPOT?.categories || []).flatMap((c) => c.files)
+    .filter((f) => f.title === title && f.sub.split(' · ').includes(lang) && f.format === 'PDF')
+    .sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)))[0];
+  if (!file) {
+    warn(`[${locale}] 자료실에 ${title} ${lang} 파일이 없어 Flyer 칸을 그대로 둠: ${dir}`);
+    return md;
+  }
+  const name = decodeURIComponent(file.url.split('/').pop());
+  // 'Flyer' 제목 아래부터 다음 제목 전까지를 자료실 링크 한 줄로 바꿈 (이름에 []가 있어 링크 글자는 \[ \]로 씀)
+  const text = name.replace(/[[\]]/g, '\\$&');
+  return md.replace(/(^#{2,4}\s+[\d.]*\s*Flyer\s*\n)[\s\S]*?(?=^#{1,4}\s|(?![\s\S]))/m, (all, head) =>
+    `${head}\n- 📎 [${text}](${file.url})\n\n`);
 }
 
 function yaml(obj) {
@@ -221,7 +247,7 @@ function buildLocale(locale) {
     };
     const dest = path.join(out, node.file);
     fs.mkdirSync(path.dirname(dest), { recursive: true });
-    fs.writeFileSync(dest, yaml(front).replace(/: "null"/g, ': null') + transform(body, node.file));
+    fs.writeFileSync(dest, yaml(front).replace(/: "null"/g, ': null') + transform(body, node.file, locale));
     nav.pages[prefix + slug] = {
       section,
       title: h1 || node.title,
