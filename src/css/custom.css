@@ -973,3 +973,7 @@ html section.aidin-mcards:not(#_), html section.aidin-cta:not(#_) { max-width: 1
 @media (max-width: 996px) {
   html.aidin-scrolling .aidin-quick__box:not(.is-open), html.aidin-scrolling .aidin-quick__top { opacity: 0 !important; pointer-events: none !important; }
 }
+
+/* ── 푸터 연락처: 대표번호 한 줄, 이메일은 둘째 줄 (PC). 모바일은 원래 한 줄씩이라 그대로 (2026-10) ── */
+.aidin-footer__info dd .aidin-footer__br { flex-basis: 100%; height: 0; }
+@media (max-width: 996px) { .aidin-footer__info dd .aidin-footer__br { display: none; } }

@@ -48,6 +48,8 @@ export default function Footer() {
               <dt>{loc === 'en' ? 'CONTACT' : '연락처'}</dt>
               <dd>
                 <span><em>{l.tel}</em>+82-31-360-7926</span>
+                {/* 이메일은 둘째 줄부터 (PC) */}
+                <span className="aidin-footer__br" aria-hidden="true" />
                 <span><em>{l.sales}</em>sales@aidinrobotics.co.kr</span>
                 <span><em>{l.biz}</em>info@aidinrobotics.co.kr</span>
                 <span><em>{l.hr}</em>hr@aidinrobotics.co.kr</span>
