@@ -2,12 +2,12 @@
   "_설명": "자료실(HubSpot) 파일 이름에서 [AIDIN ROBOTICS]·확장자·(언어, 날짜)를 뗀 이름 → 사이트에 보일 국문(ko)·영문(en) 자료명. 여기에 없으면 HubSpot 이름이 그대로 보이고, 매일 점검 목록(/download-names-check.json)에 올라감.",
   "names": {
     "Catalog AIDIN ROBOTICS": {
-      "ko": "에이딘로보틱스 카탈로그",
-      "en": "AIDIN ROBOTICS Catalog"
+      "ko": "에이딘로보틱스 브로슈어",
+      "en": "AIDIN ROBOTICS Brochure"
     },
     "Catalog": {
-      "ko": "에이딘로보틱스 카탈로그",
-      "en": "AIDIN ROBOTICS Catalog"
+      "ko": "에이딘로보틱스 브로슈어",
+      "en": "AIDIN ROBOTICS Brochure"
     },
     "AIRO-One Solution for Surface Finishing": {
       "ko": "AIRO-One 표면가공 솔루션",
