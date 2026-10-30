@@ -220,10 +220,21 @@ function buildLocale(locale) {
     // 섹션 첫 화면 링크(index-downloads.md 등)는 '전체' 페이지로
     if (['install', 'downloads', 'faq'].includes(sec)) LINK_MAP[top.file] = `${sec}-all.md`;
   }
+  // 매뉴얼 과거판(manual/<제품>/archive/*.md): 목차에 없어도 페이지로 만들고, 개정 이력 표의 링크를 연결
+  const archives = (manualFile) => {
+    if (!/\/README\.md$/i.test(manualFile)) return [];
+    const dir = path.posix.join(path.posix.dirname(manualFile), 'archive');
+    if (!fs.existsSync(path.join(src, dir))) return [];
+    return fs.readdirSync(path.join(src, dir)).filter((f) => /\.md$/i.test(f)).sort().map((f) => `${dir}/${f}`);
+  };
+  const manualDir = path.join(src, 'manual');
+  if (fs.existsSync(manualDir)) {
+    for (const d of fs.readdirSync(manualDir)) for (const f of archives(`manual/${d}/README.md`)) LINK_MAP[f] = f;
+  }
   const nav = { sections: {}, pages: {} };
   const sidebar = [];
 
-  const writeDoc = (node, section, { slug, label, position, family, isLanding }) => {
+  const writeDoc = (node, section, { slug, label, position, family, isLanding, titleSuffix, notice }) => {
     const file = path.join(src, node.file);
     if (!fs.existsSync(file)) {
       warn(`[${locale}] 파일 없음, 건너뜀: ${node.file}`);
@@ -232,15 +243,19 @@ function buildLocale(locale) {
     const raw = fs.readFileSync(file, 'utf8');
     const { fm, body } = splitFrontmatter(raw);
     const h1 = (body.match(/^#\s+(.+)$/m) || [])[1];
-    const dir = path.dirname(node.file);
+    // 원고 제목에 이미 날짜가 있으면 덧붙이지 않음 (예: '… — 2026.09.15 판')
+    if (titleSuffix && (h1 || '').includes(titleSuffix.match(/\d{4}\.\d{2}\.\d{2}/)?.[0])) titleSuffix = '';
+    // 과거판(manual/<제품>/archive/*.md)은 제품 폴더 기준으로 원본 저장소를 찾음
+    const isArchive = /\/archive\/[^/]+\.md$/i.test(node.file);
+    const dir = isArchive ? path.posix.dirname(path.posix.dirname(node.file)) : path.posix.dirname(node.file);
     const manualRepo = MANUAL_REPOS[locale][dir];
     const editUrl = manualRepo
-      ? `https://github.com/${ORG}/${manualRepo}/edit/main/README.md`
+      ? `https://github.com/${ORG}/${manualRepo}/edit/main/${isArchive ? `archive/${path.posix.basename(node.file)}` : 'README.md'}`
       : `https://github.com/${ORG}/${DOCS_REPO[locale]}/edit/main/${node.file}`;
     const front = {
       id: undefined,
       slug,
-      title: h1 || node.title,
+      title: (h1 || node.title) + (titleSuffix || ''),
       sidebar_label: label || node.title,
       sidebar_position: position,
       description: fm.description,
@@ -251,10 +266,13 @@ function buildLocale(locale) {
     };
     const dest = path.join(out, node.file);
     fs.mkdirSync(path.dirname(dest), { recursive: true });
-    fs.writeFileSync(dest, yaml(front).replace(/: "null"/g, ': null') + transform(body, node.file, locale));
+    let md = transform(body, node.file, locale);
+    // 안내 문구는 H1 바로 아래에 (H1이 맨 앞이어야 본문 제목 숨김 스타일이 적용됨)
+    if (notice) md = /^#\s+.+$/m.test(md) ? md.replace(/^#\s+.+$/m, (h) => `${h}\n\n${notice}`) : `${notice}\n\n${md}`;
+    fs.writeFileSync(dest, yaml(front).replace(/: "null"/g, ': null') + md);
     nav.pages[prefix + slug] = {
       section,
-      title: h1 || node.title,
+      title: (h1 || node.title) + (titleSuffix || ''),
       label: label || node.title,
       description: fm.description || '',
       family: family || null,
@@ -262,6 +280,23 @@ function buildLocale(locale) {
       pdf: section === 'manual' && /\/README\.md$/i.test(node.file) ? `${prefix}/pdf/${slugPart(node.file)}.pdf` : null,
     };
     return true;
+  };
+
+  // 과거판은 사이드바·메뉴 목록에 넣지 않음 (개정 이력 표의 링크로만 열림)
+  const writeArchives = (manual, manualSlug) => {
+    for (const f of archives(manual.file)) {
+      const name = path.posix.basename(f, '.md');
+      const d = (name.match(/(\d{4})-(\d{2})-(\d{2})$/) || []).slice(1).join('.') || name;
+      const notice = locale === 'en'
+        ? `:::info\n\nThis is the ${d} version of the manual. See the [current manual](../README.md) for the latest information.\n\n:::`
+        : `:::info\n\n이 문서는 ${d} 판 매뉴얼입니다. 최신 내용은 [현재 매뉴얼](../README.md)에서 확인하세요.\n\n:::`;
+      writeDoc({ file: f, title: manual.title }, 'manual', {
+        slug: `${manualSlug}/archive/${name}`,
+        label: `${manual.title} (${d})`,
+        titleSuffix: locale === 'en' ? ` (${d} version)` : ` (${d} 판)`,
+        notice,
+      });
+    }
   };
 
   for (const top of tree) {
@@ -296,6 +331,7 @@ function buildLocale(locale) {
             if (EXCLUDE.some((x) => k.file.includes(x))) continue;
             if (writeDoc(k, section, { slug: `${base}/${slugPart(k.file)}`, label: k.title, family: fam.title })) {
               famItems.push({ type: 'doc', id: docId(k.file), label: k.title });
+              writeArchives(k, `${base}/${slugPart(k.file)}`);
             }
             walkKids(k.children);
           }
@@ -435,6 +471,18 @@ const en = buildLocale('en');
 if (!ko) {
   console.error('국문 원고를 찾지 못했습니다.');
   process.exit(1);
+}
+
+// 영문에만 있는 과거판: Docusaurus는 국문(기본 언어)에 같은 문서가 있어야 영문 페이지를 만들므로 영문 원고를 국문 자리에도 둠
+if (en) {
+  for (const [slug, p] of Object.entries(en.nav.pages)) {
+    if (!/\/archive\//.test(slug) || ko.nav.pages[slug]) continue;
+    const file = slug.replace(/^\/manual\/([^/]+)\/archive\/(.+)$/, 'manual/$1/archive/$2.md');
+    if (!fs.existsSync(path.join(OUT.en, file))) continue;
+    fs.mkdirSync(path.dirname(path.join(OUT.ko, file)), { recursive: true });
+    fs.copyFileSync(path.join(OUT.en, file), path.join(OUT.ko, file));
+    ko.nav.pages[slug] = p;
+  }
 }
 
 // 영문 사이드바 라벨 번역 (같은 파일 경로 기준)
